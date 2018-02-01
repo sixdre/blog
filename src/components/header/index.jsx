@@ -12,7 +12,10 @@ export default class headerTop extends Component {
 					<Link to="/home" className="logo">
 						<img src={logoSrc} alt=""/>
 					</Link>
-					<Nav/>
+					<Nav />
+					<div style={{ float: "right" }}>
+						<Link to="/login">登录</Link>	
+					</div>
 				</div>	
 		    </header>
 		);

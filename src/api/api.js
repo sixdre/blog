@@ -24,7 +24,7 @@ export default {
      * 登录
      */
     login(username, password) {
-        return axios.post('/api/admin_login', { username: username, password: password });
+        return axios.post('/api/login', { username: username, password: password });
     },
     //获取登录用户信息
     getUserInfo() {
@@ -39,12 +39,12 @@ export default {
          return axios.get('/api/articles/'+id);
     },
     //获取分类列表
-    getCategoryList() {
-        return axios.get('/api/categories');
+    getCategoryList(params) {
+        return axios.get('/api/categories',{params:params});
     },
     //获取标签列表
-    getTagList() {
-        return axios.get('/api/tags');
+    getTagList(params) {
+        return axios.get('/api/tags',{params:params});
     },
     //创建用户
     createUser(data) {
