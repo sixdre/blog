@@ -21,6 +21,7 @@ export default class Login extends Component {
         Api.login(username, password).then(res => {
             if (res.data.code == 1) {
                 alert('登录成功')
+                localStorage.setItem('token', res.data.token);
                 this.props.history.push('/')
             } else {
                 alert(res.data.message)

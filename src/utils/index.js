@@ -5,6 +5,6 @@
 import moment from 'moment';
 moment.locale('zh-cn');
 
-export const time = (value) => {
-    return moment(value).format('YYYY-MM-DD');
+export const time = (value,format='YYYY-MM-DD') => {
+    return moment(value).format(format);
 };

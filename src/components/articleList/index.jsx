@@ -5,7 +5,7 @@ import { time } from '../../utils'
 export default class ArticleList extends Component {
 
     componentDidMount(){
-        console.log()
+        console.log(this.props.data)
     }
     transClassName(item) {
         let name = '';

@@ -1,9 +1,22 @@
 import axios from 'axios'
 axios.defaults.timeout = 30000
-axios.defaults.baseURL = 'http://localhost:7893';
+
+let baseURL;
+
+if (process.env.NODE_ENV==='production'){
+    baseURL = 'http://47.93.52.132:7893'
+} else {
+    baseURL = 'http://localhost:7893';
+}
+
+axios.defaults.baseURL = baseURL;
 // http request 拦截器
 axios.interceptors.request.use(
-	config => {
+    config => {
+        let token = localStorage.getItem('token');
+		if (token) {
+			config.headers['x-access-token'] = token
+		}
 		return config
 	},
 	err => {
@@ -34,13 +47,21 @@ export default {
     getArticleList(params) {
          return axios.get('/api/articles',{params});
     },
-     //获取文章列表
+     //获取文章详情
     getArticleDetail(id) {
-         return axios.get('/api/articles/'+id);
+         return axios.get('/api/articles/'+id,{params:{pv:1}});
     },
     //获取分类列表
     getCategoryList(params) {
         return axios.get('/api/categories',{params:params});
+    },
+    //发表评论
+    submitComment(article_id,data) {
+         return axios.post('/api/articles/'+article_id+'/comments',data);
+    },
+    //获取评论
+    getComments(article_id) {
+         return axios.get('/api/articles/'+article_id+'/comments');
     },
     //获取标签列表
     getTagList(params) {
