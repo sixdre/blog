@@ -9,9 +9,9 @@ export default class CommentItem extends Component {
         var id = this.props.did;
         this.props.handleReply(item,id,event)
     }
-    // handleLike = (item, event){
-
-    // }
+    handleLike = (item, event)=>{
+        this.props.handleLike(item)
+    }
     render() {
         let item = this.props.data;
         return (
@@ -46,7 +46,7 @@ export default class CommentItem extends Component {
                     </div>
                     <div className="comment-footer clearfix">
                         <em>
-                            <span href="javascript:;" className="zan">
+                            <span className="zan" onClick={(event) => this.handleLike(item,event)}>
                                 顶<span className="nums">{item.likes.length}</span>
                             </span>
                             <span className="pipe">|</span>
@@ -65,6 +65,7 @@ export default class CommentItem extends Component {
                                         did={item._id}
                                         status={'reply'}
                                         handleReply={(event) => this.handleReply(rep, event)}
+                                        handleLike={(event) => this.handleLike(rep, event)}
                                     />
                                 )
                             })

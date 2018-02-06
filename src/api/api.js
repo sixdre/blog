@@ -27,7 +27,22 @@ axios.interceptors.response.use(
 	response => {
 		return response
 	},
-	error => {
+    error => {
+        if (error.response) {
+			switch (error.response.status) {
+				case 401:
+					// 401 清除token信息并跳转到登录页面
+					localStorage.removeItem('token');
+					alert('请重新登录');
+					break;
+				case 403:
+					alert('抱歉，您没有权限访问,请与系统管理员联系!')
+					break;
+				default:
+					alert('请求失败，服务器错误!')
+					break;
+			}
+		}
 		return Promise.reject(error)
 	}
 )
@@ -62,6 +77,10 @@ export default {
     //获取评论
     getComments(article_id) {
          return axios.get('/api/articles/'+article_id+'/comments');
+    },
+    //评论点赞
+    addCommentLike(cId) {
+         return axios.post('/api/comments/'+cId+'/like');
     },
     //获取标签列表
     getTagList(params) {

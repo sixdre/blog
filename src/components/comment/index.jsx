@@ -6,6 +6,7 @@ import API from '../../api/api';
 import { time } from '../../utils'
 import CommentItem from './item'
 let fcontnet;
+
 export default class Comment extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +17,10 @@ export default class Comment extends Component {
         }
         this.handleReply = this.handleReply.bind(this)
     }
+    componentDidMount() {
+        this.getComments()
+    }
+
     //获取评论列表
     getComments() {
         let id = this.props.articleId;
@@ -27,9 +32,7 @@ export default class Comment extends Component {
             }
         })
     }
-    componentDidMount() {
-        this.getComments()
-    }
+
     //评论回复
     handleReply = (item, cId,event) => {
         fcontnet = this.refs.content.value = '回复@' + item.from.username + ' ';
@@ -66,6 +69,20 @@ export default class Comment extends Component {
         })
     }
 
+    //点赞
+    handleLike = (item) => {
+        let id = item._id;
+        API.addCommentLike(id).then(res => {
+            if (res.data.code === 1) {
+                alert(res.data.message)
+                this.getComments();
+            } else {
+                alert(res.data.message)
+            }
+        })
+    }
+
+    //取消回复
     cancleReply = () => {
         this.refs.content.value =' ';
         this.setState({
@@ -101,7 +118,7 @@ export default class Comment extends Component {
                         </div>
                         <div className="form-toolbars clearfix">
                             <div className="form-action">
-                               {<ToggleBtn />}
+                               <ToggleBtn />
                             </div>
                         </div>
                     </div>
@@ -116,6 +133,7 @@ export default class Comment extends Component {
                                         did={item._id}
                                         key={index}
                                         handleReply={this.handleReply}
+                                        handleLike={this.handleLike}
                                     />
                                 )
                             })
