@@ -54,6 +54,10 @@ export default {
     login(username, password) {
         return axios.post('/api/login', { username: username, password: password });
     },
+    //注册
+    regist(username, email,password) {
+        return axios.post('/api/regist', { username: username,email:email, password: password });
+    },
     //获取登录用户信息
     getUserInfo() {
         return axios.get('/api/userInfo');
@@ -75,8 +79,8 @@ export default {
          return axios.post('/api/articles/'+article_id+'/comments',data);
     },
     //获取评论
-    getComments(article_id) {
-         return axios.get('/api/articles/'+article_id+'/comments');
+    getComments(article_id,params) {
+         return axios.get('/api/articles/'+article_id+'/comments',{params:params});
     },
     //评论点赞
     addCommentLike(cId) {

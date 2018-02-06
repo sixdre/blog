@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import './index.less';
 import { time } from '../../utils'
 export default class ArticleList extends Component {
-
     componentDidMount(){
-        console.log(this.props.data)
+
     }
     transClassName(item) {
         let name = '';
@@ -23,7 +22,6 @@ export default class ArticleList extends Component {
                     <img src={item.img} alt=""/>    
                 </div>
             )
-           
         }
     }
     render() {

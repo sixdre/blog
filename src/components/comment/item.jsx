@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDom from 'react-dom';
 import { time } from '../../utils'
 export default class CommentItem extends Component {
     constructor(props) {
@@ -47,7 +46,7 @@ export default class CommentItem extends Component {
                     <div className="comment-footer clearfix">
                         <em>
                             <span className="zan" onClick={(event) => this.handleLike(item,event)}>
-                                顶<span className="nums">{item.likes.length}</span>
+                                赞 {item.likes.length===0?'':( <span className="nums">{item.likes.length}</span>)}
                             </span>
                             <span className="pipe">|</span>
                             <span className="reply_a" onClick={(event) => this.handleReply(item,event)}>回复

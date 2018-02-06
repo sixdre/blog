@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import ReactDom from 'react-dom';
 import './index.css'
 import API from '../../api/api';
-import { time } from '../../utils'
 import CommentItem from './item'
 let fcontnet;
 
@@ -15,7 +12,6 @@ export default class Comment extends Component {
             cId: '',
             toId: ''
         }
-        this.handleReply = this.handleReply.bind(this)
     }
     componentDidMount() {
         this.getComments()
@@ -24,7 +20,7 @@ export default class Comment extends Component {
     //获取评论列表
     getComments() {
         let id = this.props.articleId;
-        API.getComments(id).then(res => {
+        API.getComments(id,{order_by:'timeRev'}).then(res => {
             if (res.data.code === 1) {
                 this.setState({
                     dataList: res.data.data
@@ -34,7 +30,7 @@ export default class Comment extends Component {
     }
 
     //评论回复
-    handleReply = (item, cId,event) => {
+    handleReply = (item, cId) => {
         fcontnet = this.refs.content.value = '回复@' + item.from.username + ' ';
         this.setState({
             cId: cId,
