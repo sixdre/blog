@@ -57,7 +57,9 @@
     font-size: 14px;
     vertical-align: -7px;
 }
-
+.comment_form .form-textarea{
+    position: relative;
+}
 .comment_form .form-textarea textarea {
     box-sizing: border-box;
     padding: 10px 15px;
@@ -72,7 +74,6 @@
     vertical-align: top;
     outline-style: none;
 }
-
 .comment_form .form-toolbars {
     margin-top: 0;
     position: relative;
@@ -107,6 +108,7 @@
     border: none;
     box-shadow: none;
     color: #fff;
+    margin-left: 10px;
 }
 
 .comment_form .form-toolbars .form-action .cancel {
@@ -183,10 +185,16 @@
 }
 
 .comment-item {
-    padding: 10px 0 5px;
+    padding: 15px 0 5px;
     border-bottom: 1px solid #f0f0f0;
 }
-
+ul li.comment-item:last-child{
+      border-bottom: 0;
+}
+.reply_list{
+    padding-left: 20px;
+    /* border-left: 2px solid #d9d9d9; */
+}
 .comment-item .avatar {
     float: left;
     width: 50px;
@@ -205,11 +213,13 @@
 .comment-item .comment-main {
     padding-left: 56px;
 }
-
+.comment-header span{
+color: #3194d0;
+}
 .comment-header .username {
     font-size: 14px;
-    font-weight: 700;
-    color: #01a384;
+    /* font-weight: 700; */
+    color: #3194d0;
 }
 
 .comment-header .comment-time {
@@ -221,7 +231,7 @@
 }
 
 .comment-body {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .comment-body .comment-content {

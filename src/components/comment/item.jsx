@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import ReactDom from 'react-dom';
 import { time } from '../../utils'
 export default class CommentItem extends Component {
-    handleReply=(item)=> {
-        this.props.handleReply(item)
+    constructor(props) {
+        super(props);
     }
+    handleReply = (item, event) => {
+        var id = this.props.did;
+        this.props.handleReply(item,id,event)
+    }
+    // handleLike = (item, event){
+
+    // }
     render() {
         let item = this.props.data;
         return (
@@ -12,12 +20,25 @@ export default class CommentItem extends Component {
                     <img src="/images/noavatar_default.png" alt="" />
                 </div>
                 <div className="comment-main">
-                    <div className="comment-header">
-                        <span className="username">{item.from.username}</span>
-                        <div className="comment-time">
-                            发表于<em>{time(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
-                        </div>
-                    </div>
+                    {
+                        this.props.status === 'reply' ? (
+                            <div className="comment-header">
+                                <span className="username">{item.from.username}</span>
+                                <span>@</span>
+                                <span className="username">{item.to.username}</span> 
+                                <div className="comment-time">
+                                   <em>{time(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
+                                </div>
+                            </div> 
+                        ) : (
+                            <div className="comment-header">
+                                <span className="username">{item.from.username}</span>
+                                <div className="comment-time">
+                                    <em>{time(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
+                                </div>
+                            </div>
+                        )
+                    }
                     <div className="comment-body">
                         <div className="comment-content">
                             {item.content}
@@ -29,15 +50,22 @@ export default class CommentItem extends Component {
                                 顶<span className="nums">{item.likes.length}</span>
                             </span>
                             <span className="pipe">|</span>
-                            <span className="reply_a" onClick={this.handleReply.bind(this,item)}>回复
+                            <span className="reply_a" onClick={(event) => this.handleReply(item,event)}>回复
                             </span>
                         </em>
                     </div>
-                    <ul>
+                    <ul className="reply_list">
                         {
-                            (item.reply&&item.reply.length > 0) ? item.reply.map((rep, i) => {
+                            (item.reply && item.reply.length > 0) ? item.reply.map((rep, i) => {
+                                var index =  'r'+i ;
                                 return (
-                                    <CommentItem data={rep} key={i} handleReply={this.handleReply.bind(this,item)}/>
+                                    <CommentItem
+                                        data={rep}
+                                        key={i}
+                                        did={item._id}
+                                        status={'reply'}
+                                        handleReply={(event) => this.handleReply(rep, event)}
+                                    />
                                 )
                             })
                             :''    
