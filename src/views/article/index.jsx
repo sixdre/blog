@@ -40,7 +40,7 @@ export default class Article extends Component {
                         <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.state.article.tagcontent }} />
                     </div>
                 </article>
-                <Comment articleId={this.props.match.params.id} />
+                {this.state.article.allow_comment===true?<Comment articleId={this.props.match.params.id} />:null}
             </div>
         );
     }

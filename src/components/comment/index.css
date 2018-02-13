@@ -246,6 +246,7 @@ ul li.comment-item:last-child {
     font-size: 14px;
     color: #323433;
     word-wrap: break-word;
+    line-height: 1.8;
 }
 
 .comment-footer {
