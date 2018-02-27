@@ -40,7 +40,6 @@ export default class ArticleList extends Component {
                                     <div className="post_info">
                                         {time(item.create_time)} - 阅 <span>{item.nums.pv }</span>
                                     </div>
-                                    <p className="post_summary">{item.abstract}</p>
                                 </div>
                             </li>
                         )
