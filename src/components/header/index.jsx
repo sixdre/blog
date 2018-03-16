@@ -13,9 +13,12 @@ export default class headerTop extends Component {
 						<img  alt=""/>
 					</Link>
 					<Nav />
-					<div style={{ float: "right" }}>
+					<div className="header_right">
 						<Link to="/regist">注册</Link>		
 						<Link to="/login">登录</Link>	
+						<Link to="/login">
+							<img className="avatar" width="25" height="25" src="https://sfault-avatar.b0.upaiyun.com/161/227/1612276764-55f6bdd353b39_big64" alt=""/>
+						</Link>	
 					</div>
 				</div>	
 		    </header>

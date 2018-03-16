@@ -28,8 +28,8 @@ class App extends Component {
     });
   }
   componentDidMount() {
-    this.getCategoryList();
-    this.getTagList()
+    // this.getCategoryList();
+    // this.getTagList()
   }
   
   render() {
@@ -37,33 +37,10 @@ class App extends Component {
       <div className="App">
         <Header />
         <div className="container-page">
-          <div className="main_left">
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path="/app/article/:id" component={Article} />
-            </Switch>
-          </div>
-          <div className="main_right">
-            <div className="tagcloud">
-              {
-                  this.state.categories.map((item,index) => {
-                      return (
-                        <div key={index}>{item.name} ({item.count})</div>
-                      )
-                  })
-                }  
-            </div>
-            <hr/>
-             <div className="tagcloud">
-              {
-                  this.state.tags.map((item,index) => {
-                      return (
-                        <div key={index}>{item.name} ({item.count})</div>
-                      )
-                  })
-                }  
-            </div>
-          </div>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path="/app/article/:id" component={Article} />
+          </Switch>
         </div>
 
       </div>

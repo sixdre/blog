@@ -34,7 +34,7 @@ export default class Article extends Component {
                 <article className="article">
                     <div className="article_head">
                         <h1 className="title">{this.state.article.title}</h1>
-                        <p>{time(this.state.article.create_time)} By {this.state.article.author}</p>
+                        <p>{time(this.state.article.create_time)} By {this.state.article.author?this.state.article.author.username:''}</p>
                     </div>
                     <div className="ql-snow article_body">
                         <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.state.article.tagcontent }} />

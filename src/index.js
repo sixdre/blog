@@ -13,17 +13,27 @@ import Regist from './views/auth/regist';
 import NoFound from './views/auth/404';
 import registerServiceWorker from './registerServiceWorker';
 
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducer from './reducers'
+
+
+const store = createStore(reducer);
+// console.log(store.getState().user.username)
+
 ReactDOM.render(
-    <BrowserRouter>
-        <Switch>
-            <Route exact path='/' component={App} />    
-            <Route path='/app' component={App} />
-            <Route path='/regist' component={Regist} />
-            <Route path='/login' component={Login} />
-            <Route path='/404' component={NoFound} />
-            <Redirect from='*' to='/404' />
-        </Switch>
-    </BrowserRouter>
+    <Provider store={store}>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path='/' component={App} />    
+                <Route path='/app' component={App} />
+                <Route path='/regist' component={Regist} />
+                <Route path='/login' component={Login} />
+                <Route path='/404' component={NoFound} />
+                <Redirect from='*' to='/404' />
+            </Switch>
+        </BrowserRouter>
+    </Provider>
     , document.getElementById('root'));
 registerServiceWorker();
 // <Route exact path='/' component={App} /> 

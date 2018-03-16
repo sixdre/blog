@@ -20,12 +20,7 @@ export default class Home extends Component {
     }
     render() {
         return (
-            <div>
-                <section className="banner_container">
-                    <img width="100%" src="" alt="" />
-                </section>
-                <ArticleList data={this.state.articles} />
-            </div>
+            <ArticleList data={this.state.articles} />
         );
     }
 }

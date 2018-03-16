@@ -16,7 +16,7 @@ export default class CommentItem extends Component {
         return (
             <li className="clearfix comment-item">
                 <div className="avatar">
-                    <img src="/images/noavatar_default.png" alt="" />
+                    <img src={item.from.avatar} alt="" />
                 </div>
                 <div className="comment-main">
                     {

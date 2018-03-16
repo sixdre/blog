@@ -1,52 +1,40 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import './index.less';
-import { time } from '../../utils'
+import { time,fromNow } from '../../utils'
 export default class ArticleList extends Component {
     componentDidMount(){
 
     }
-    transClassName(item) {
-        let name = '';
-        if (!item.img){
-            name = 'noimg';
-        }
-        return 'post_item ' + name;
-    }
-    checkShowImg(item) {
-        if (!item.img) {
-            return '';
-        } else {
-            return (
-                <div className="post_img">
-                    <img src={item.img} alt=""/>    
-                </div>
-            )
-        }
-    }
     render() {
-		return(
-            <ul className="post_list">
-                {
-                    this.props.data.map((item,index) => {
-                        return (
-                            <li className={this.transClassName(item)} key={index}>
-                                
-                               {this.checkShowImg(item)}
-                                <div className="post_body">
-                                    <h3 className="post_title">
-                                        <Link to={'/app/article/' + item._id}>{item.title}</Link>
-                                    </h3>    
-                                    <div className="post_info">
-                                        {time(item.create_time)} - 阅 <span>{item.nums.pv }</span>
-                                    </div>
+        return (
+            <div className="post_list">
+            {
+                this.props.data.map((item, index) => {
+                    return (
+                        <div className="post_item" key={index}>
+                            <div className="post_header">
+                                <Link to={'/app/article/'+ item._id}>
+                                    <h1 className="topic_title">{item.title}</h1>
+                                </Link>
+                                <div className="topic_info">
+                                    <img className="avatar" width="25" height="25" src={item.author.avatar} />
+                                    <span> 发布于：{fromNow(item.create_time)}</span>
+                                    <span> 分类：{item.category ? item.category.name : ''} </span>
+                                    <span> 浏览：{item.nums.pv}</span>
+                                    <span> 评论：{item.nums.cmtNum }</span>
                                 </div>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+                            </div>
+                            <div className="post_body">
+                                <p className="post_summary">
+                                    {item.content}
+                                </p>
+                            </div>
+                        </div>
+                    )
+                })
+            }    
+            </div>
 		);
 	}
 }
-
