@@ -18,7 +18,7 @@ export default class ArticleList extends Component {
                                     <h1 className="topic_title">{item.title}</h1>
                                 </Link>
                                 <div className="topic_info">
-                                    <img className="avatar" width="25" height="25" src={item.author.avatar} />
+                                    <img className="avatar" width="25" height="25" src={item.author.avatar} title={item.author.username}/>
                                     <span> 发布于：{fromNow(item.create_time)}</span>
                                     <span> 分类：{item.category ? item.category.name : ''} </span>
                                     <span> 浏览：{item.nums.pv}</span>
@@ -27,7 +27,7 @@ export default class ArticleList extends Component {
                             </div>
                             <div className="post_body">
                                 <p className="post_summary">
-                                    {item.content}
+                                    {item.abstract}
                                 </p>
                             </div>
                         </div>

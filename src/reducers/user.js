@@ -1,6 +1,7 @@
 
 // action types
-const SET_USERNAME='SET_USERNAME';
+const SET_USERNAME = 'SET_USERNAME';
+const GET_USERNAME = 'GET_USERNAME';
 const SET_AVATAR='SET_AVATAR';
 
 //初始数据也
@@ -16,7 +17,7 @@ const user = (state = initialState, action) => {
         ...state,
         username: action.username
       }
-    case SET_USERNAME:
+    case GET_USERNAME:
       return  action.username
     default:
       return state
