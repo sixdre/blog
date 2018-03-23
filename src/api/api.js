@@ -70,6 +70,14 @@ export default {
     getArticleDetail(id) {
          return axios.get('/api/articles/'+id,{params:{pv:1}});
     },
+    //文章点赞
+    toggleLike(id) {
+        return axios.put('/api/articles/'+id+'/likes');
+    },
+    //文章收藏
+    toggleCollect(id) {
+        return axios.put('/api/articles/'+id+'/collect');
+    },
     //获取分类列表
     getCategoryList(params) {
         return axios.get('/api/categories',{params:params});

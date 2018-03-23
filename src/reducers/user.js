@@ -1,22 +1,23 @@
-
+import {
+    LOGIN,
+    LOGOUT,
+    SET_USERNAME,
+    GET_USERNAME
+} from '../actions/userActions'
 // action types
-const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT';
-const SET_USERNAME = 'SET_USERNAME';
-const GET_USERNAME = 'GET_USERNAME';
-const SET_AVATAR='SET_AVATAR';
-
-//初始数据也
+//初始数据
 const initialState = {
-  username: '',
-  token:'',
-  avatar: ''
+  username: localStorage.getItem('username')||'',
+  token:localStorage.getItem('token')||'',
+  avatar: localStorage.getItem('token')||''
 }
 
 const user = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
       localStorage.setItem('token', action.token); 
+      localStorage.setItem('username', action.username); 
+      localStorage.setItem('avatar', action.avatar); 
       return {
         ...state,
         username: action.username,
@@ -25,6 +26,8 @@ const user = (state = initialState, action) => {
       }
     case LOGOUT:
       localStorage.removeItem('token'); 
+      localStorage.removeItem('username'); 
+      localStorage.removeItem('avatar'); 
       return {
         ...state,
         username: '',
