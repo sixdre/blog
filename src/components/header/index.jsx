@@ -3,8 +3,25 @@ import { Link } from 'react-router-dom';
 import Nav from '../nav/';
 import './index.less';
 // import logoSrc from "../../images/logo.png"
+import { connect } from 'react-redux'
 
+function mapStateToProps (state) {
+	return {
+		username:state.user.username,
+        avatar: state.user.avatar
+    }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    user_logout: () => dispatch({ type: 'LOGOUT'})
+  }
+}
+@connect(mapStateToProps,mapDispatchToProps)
 export default class headerTop extends Component {
+
+	logout=()=>{
+		this.props.user_logout()
+	}
 	render() {
 		return(
 			<header className="PageHeader">
@@ -14,11 +31,23 @@ export default class headerTop extends Component {
 					</Link>
 					<Nav />
 					<div className="header_right">
-						<Link to="/regist">注册</Link>		
-						<Link to="/login">登录</Link>	
-						<Link to="/login">
-							<img className="avatar" width="25" height="25" src="https://sfault-avatar.b0.upaiyun.com/161/227/1612276764-55f6bdd353b39_big64" alt=""/>
-						</Link>	
+						{
+							this.props.username ? (
+								<div>
+									<Link to="/login">
+										<img className="avatar" width="25" height="25" src={this.props.avatar} alt="" />
+										{this.props.username}
+									</Link>	
+									<span onClick={this.logout}>退出</span>		
+								</div>	
+							
+							) : (
+								<div>
+									<Link to="/regist">注册</Link>		
+									<Link to="/login">登录</Link>	
+								</div>	
+							)
+						}	
 					</div>
 				</div>	
 		    </header>
