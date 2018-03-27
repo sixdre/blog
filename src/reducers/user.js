@@ -4,20 +4,25 @@ import {
     SET_USERNAME,
     GET_USERNAME
 } from '../actions/userActions'
+
+import $storage from '../services/storage'
+import Auth from '../services/auth'
 // action types
 //初始数据
 const initialState = {
-  username: localStorage.getItem('username')||'',
-  token:localStorage.getItem('token')||'',
-  avatar: localStorage.getItem('token')||''
+  username: $storage.user.getUserName()||'',
+  token:$storage.user.getToken()||'',
+  avatar: $storage.user.getAvatar()||''
 }
 
 const user = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      localStorage.setItem('token', action.token); 
-      localStorage.setItem('username', action.username); 
-      localStorage.setItem('avatar', action.avatar); 
+      Auth.login({
+        username: action.username,
+        avatar:action.avatar,
+        token:action.token
+      })  
       return {
         ...state,
         username: action.username,
@@ -25,9 +30,7 @@ const user = (state = initialState, action) => {
         avatar:action.avatar
       }
     case LOGOUT:
-      localStorage.removeItem('token'); 
-      localStorage.removeItem('username'); 
-      localStorage.removeItem('avatar'); 
+      Auth.logout();
       return {
         ...state,
         username: '',

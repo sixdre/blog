@@ -56,7 +56,6 @@ export default class CommentItem extends Component {
                     <ul className="reply_list">
                         {
                             (item.reply && item.reply.length > 0) ? item.reply.map((rep, i) => {
-                                var index =  'r'+i ;
                                 return (
                                     <CommentItem
                                         data={rep}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import './index.less';
-import { time,fromNow } from '../../utils'
+import { fromNow } from '../../utils'
 export default class ArticleList extends Component {
     componentDidMount(){
 
@@ -14,11 +14,11 @@ export default class ArticleList extends Component {
                     return (
                         <div className="post_item" key={index}>
                             <div className="post_header">
-                                <Link to={'/app/article/'+ item._id}>
+                                <Link to={'/article/'+ item._id}>
                                     <h1 className="topic_title">{item.title}</h1>
                                 </Link>
                                 <div className="topic_info">
-                                    <img className="avatar" width="25" height="25" src={item.author.avatar} title={item.author.username}/>
+                                    <img className="avatar" width="25" height="25" src={item.author.avatar} alt={item.author.username}/>
                                     <span> 发布于：{fromNow(item.create_time)}</span>
                                     <span> 分类：{item.category ? item.category.name : ''} </span>
                                     <span> 浏览：{item.nums.pv}</span>

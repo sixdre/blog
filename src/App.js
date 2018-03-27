@@ -1,51 +1,35 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Header from './components/header';
+import { Route, BrowserRouter , Switch, Redirect } from 'react-router-dom';
+import './styles/reset.css';
+import './styles/base.less';
+import 'quill/dist/quill.snow.css';  
+import 'quill/dist/quill.core.css';  
+import 'quill/dist/quill.bubble.css';  
+
 import Home from './views/home';
 import Article from './views/article';
-import Api from './api/api'
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: [],
-      tags:[]
-    };
-  }
+import Login from './views/auth/login';
+import Regist from './views/auth/regist';
+import NoFound from './views/auth/404';
 
-  getCategoryList() {
-    Api.getCategoryList({ type: 'group' }).then(res => {
-        this.setState({
-            categories: res.data.data
-        })
-    });
-  }
-  getTagList() {
-    Api.getTagList({ type: 'group' }).then(res => {
-        this.setState({
-            tags: res.data.data
-        })
-    });
-  }
-  componentDidMount() {
-    // this.getCategoryList();
-    // this.getTagList()
-  }
-  
+class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <Header />
-        <div className="container-page">
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path="/app/article/:id" component={Article} />
-          </Switch>
-        </div>
-
-      </div>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path='/' component={Home} />    
+                <Route path='/article/:id' component={Article} />
+                <Route path='/regist' component={Regist} />
+                <Route path='/login' component={Login} />
+                <Route path='/404' component={NoFound} />
+                <Redirect from='*' to='/404' />
+            </Switch>
+        </BrowserRouter>
     );
   }
 }
-
+// <Route exact path='/' component={App} /> 
+//  <Route path='/404' component={NoFound} />
+//                 <Redirect from='*' to='/404' />
 export default App;

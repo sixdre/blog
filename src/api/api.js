@@ -1,4 +1,6 @@
 import axios from 'axios'
+import $storage from '../services/storage'
+import Auth from '../services/auth'
 axios.defaults.timeout = 30000
 
 let baseURL;
@@ -13,7 +15,7 @@ axios.defaults.baseURL = baseURL;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        let token = localStorage.getItem('token');
+        let token = $storage.user.getToken();
 		if (token) {
 			config.headers['x-access-token'] = token
 		}
@@ -32,7 +34,7 @@ axios.interceptors.response.use(
 			switch (error.response.status) {
 				case 401:
 					// 401 清除token信息并跳转到登录页面
-					localStorage.removeItem('token');
+					Auth.logout()
 					alert('请重新登录');
 					break;
 				case 403:

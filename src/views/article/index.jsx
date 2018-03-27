@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Api from '../../api/api'
 import './index.less';
 import Comment from '../../components/comment';
+import Layout from '../../components/layout';
 import { time } from '../../utils'
 
 export default class Article extends Component {
@@ -54,7 +55,7 @@ export default class Article extends Component {
     }
     render() {
         return (
-            <div>
+            <Layout>
                 <article className="article">
                     <div className="article_head">
                         <h1 className="title">{this.state.article.title}</h1>
@@ -69,7 +70,7 @@ export default class Article extends Component {
                     </div>
                 </article>
                 {this.state.article.allow_comment===true?<Comment articleId={this.props.match.params.id} />:null}
-            </div>
+            </Layout>
         );
     }
 }
