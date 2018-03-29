@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter , Switch, Redirect } from 'react-router-dom';
+import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
+import 'antd/dist/antd.less';
 import './styles/reset.css';
 import './styles/base.less';
 import 'quill/dist/quill.snow.css';  
