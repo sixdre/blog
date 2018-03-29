@@ -60,25 +60,25 @@ export default class Article extends Component {
     render() {
         return (
             <Layout>
-               
-                <article className="article">
-                    <div className="article_head">
-                        <h1 className="title">{this.state.article.title}</h1>
-                        <p>
-                            {time(this.state.article.create_time)} By
-                            {this.state.article.author.username}
-                        </p>
-                    </div>
-                    <div className="ql-snow article_body">
-                        <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.state.article.tagcontent }} />
-                    </div>
-                    <div>
-                        <a onClick={this.toggleLike}>点赞 {this.state.article.nums.likeNum}</a>  
-                        <a onClick={this.toggleCollect}>收藏 {this.state.article.nums.collectNum}</a>
-                    </div>
-                </article>
-                {this.state.article.allow_comment === true ? <Comment articleId={this.props.match.params.id} /> : null}
-               
+                <div className="article_wrapper">
+                    <article className="article">
+                        <div className="article_head">
+                            <h1 className="title">{this.state.article.title}</h1>
+                            <p>
+                                {time(this.state.article.create_time)} <span> 作者 </span>
+                                {this.state.article.author.username}
+                            </p>
+                        </div>
+                        <div className="ql-snow article_body">
+                            <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.state.article.tagcontent }} />
+                        </div>
+                        <div>
+                            <a onClick={this.toggleLike}>点赞 {this.state.article.nums.likeNum}</a>  
+                            <a onClick={this.toggleCollect}>收藏 {this.state.article.nums.collectNum}</a>
+                        </div>
+                    </article>
+                    {this.state.article.allow_comment === true ? <Comment articleId={this.props.match.params.id} /> : null}
+                </div>    
             </Layout>
         );
     }

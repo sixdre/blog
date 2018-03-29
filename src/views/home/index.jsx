@@ -39,7 +39,7 @@ export default class Home extends Component {
         if (timer) {
             clearTimeout(timer)
         }
-        Api.getArticleList({ limit: 20, page }).then(res => {
+        Api.getArticleList({ limit: 6, page }).then(res => {
             if (res.data.code == 1) {
                 if (res.data.data.length > 0) {
                     let articles = res.data.data;
@@ -78,7 +78,15 @@ export default class Home extends Component {
            
         });
     }
+    componentWillMount() {
+        window.onbeforeunload = function(){
+            //刷新后页面自动回到顶部
+            document.documentElement.scrollTop = 0;  //ie下
+            document.body.scrollTop = 0;  //非ie
+        }
+    }
     componentDidMount() {
+      
         let page = this.props.page;
         if (!this.props.articles.length){
              this.getArticles();
@@ -93,7 +101,7 @@ export default class Home extends Component {
     render() {
         return (
             <Layout>
-                <div className="post_wrapper">
+                <div className="home">
                     <ArticleList data={this.props.articles} />
                     <div style={{textAlign: 'center',height:'30px' }}><Spin spinning={this.state.loading}/></div>
                     <p className="nomore">{this.state.nomore?'没有更多数据了':''}</p>
