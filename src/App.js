@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import 'antd/dist/antd.less';
 import './styles/reset.css';
+import './styles/markdown.css';
 import './styles/base.less';
-import 'quill/dist/quill.snow.css';  
-import 'quill/dist/quill.core.css';  
-import 'quill/dist/quill.bubble.css';  
+
 
 import Home from './views/home';
 import Article from './views/article';

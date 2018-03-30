@@ -69,8 +69,8 @@ export default class Article extends Component {
                                 {this.state.article.author.username}
                             </p>
                         </div>
-                        <div className="ql-snow article_body">
-                            <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.state.article.tagcontent }} />
+                        <div className="article_body">
+                            <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} />
                         </div>
                         <div>
                             <a onClick={this.toggleLike}>点赞 {this.state.article.nums.likeNum}</a>  
