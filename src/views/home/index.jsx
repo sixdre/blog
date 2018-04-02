@@ -78,6 +78,16 @@ export default class Home extends Component {
            
         });
     }
+
+    loadMore=()=> {
+        let page = this.props.page;
+        if (!this.state.nomore&&!this.state.loading) {
+            loadMore(()=> {
+                page++;
+                this.getArticles(page)
+            })
+        }
+    }
     componentWillMount() {
         window.onbeforeunload = function(){
             //刷新后页面自动回到顶部
@@ -85,18 +95,16 @@ export default class Home extends Component {
             document.body.scrollTop = 0;  //非ie
         }
     }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.loadMore)
+        document.documentElement.scrollTop = 0;  //ie下
+        document.body.scrollTop = 0;  //非ie
+    }
     componentDidMount() {
-      
-        let page = this.props.page;
         if (!this.props.articles.length){
              this.getArticles();
         }
-        loadMore(() => {
-            if (!this.state.nomore&&!this.state.loading) {
-                page++;
-                this.getArticles(page)
-            }
-        })
+        window.addEventListener('scroll', this.loadMore);
     }
     render() {
         return (

@@ -15,7 +15,10 @@ export default class ArticleList extends Component {
                         <div className="post_item" key={index}>
                             <div className="post_header">
                                 <Link to={'/article/'+ item._id}>
-                                    <h1 className="topic_title">{item.title}</h1>
+                                    <h1 className="topic_title">
+                                        {item.title}
+                                        {item.good ? <i className="post_badges">精华</i>:''} 
+                                    </h1>
                                 </Link>
                                 <div className="topic_info">
                                     <img className="avatar" width="25" height="25" src={item.author.avatar} title={item.author.username} alt={item.author.username}/>

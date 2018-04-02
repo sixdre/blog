@@ -28,7 +28,7 @@ export default {
             }
         },
         getAvatar() {
-            return localStorage.getItem('sswg')
+            return localStorage.getItem('avatar')
         },
     }
    

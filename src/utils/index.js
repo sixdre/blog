@@ -34,11 +34,9 @@ export const fromNow = (time, formatString,onlyDate) => {
  * 页面到达底部，加载更多
  */
 export const loadMore = (callback) => {
-	window.onscroll = () => {
-		if (getScrollTop() + getClientHeight() + 50 > getScrollHeight()) { 
-			callback()
-		} 
-	}
+	if (getScrollTop() + getClientHeight() + 50 > getScrollHeight()) { 
+		callback()
+	} 
 	//获取滚动条当前的位置 
 	function getScrollTop() {
 		var scrollTop = 0;

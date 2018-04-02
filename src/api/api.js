@@ -70,7 +70,7 @@ export default {
     },
      //获取文章详情
     getArticleDetail(id) {
-         return axios.get('/api/articles/'+id+'/getFrontArticle');
+         return axios.get('/api/articles/'+id+'/front');
     },
     //文章点赞
     toggleLike(id) {
