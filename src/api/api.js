@@ -6,7 +6,7 @@ axios.defaults.timeout = 30000
 let baseURL;
 
 if (process.env.NODE_ENV==='production'){
-    baseURL = 'http://47.93.52.132:7893'
+    baseURL = 'http://47.94.206.86:7893'
 } else {
     baseURL = 'http://localhost:7893';
 }
