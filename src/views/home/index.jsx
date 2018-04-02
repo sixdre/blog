@@ -39,7 +39,7 @@ export default class Home extends Component {
         if (timer) {
             clearTimeout(timer)
         }
-        Api.getArticleList({ limit: 6, page }).then(res => {
+        Api.getArticleList({ limit: 10, page }).then(res => {
             if (res.data.code == 1) {
                 if (res.data.data.length > 0) {
                     let articles = res.data.data;
@@ -112,7 +112,7 @@ export default class Home extends Component {
                 <div className="home">
                     <ArticleList data={this.props.articles} />
                     <div style={{textAlign: 'center',height:'30px' }}><Spin spinning={this.state.loading}/></div>
-                    <p className="nomore">{this.state.nomore?'没有更多数据了':''}</p>
+                    <p className="nomore">{this.state.nomore?'小站没有很多文章了^_^':''}</p>
                 </div>    
             </Layout>
         );
