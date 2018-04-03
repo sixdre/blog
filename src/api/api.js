@@ -64,6 +64,10 @@ export default {
     getUserInfo() {
         return axios.get('/api/userInfo');
     },
+    //发表文章
+    createArticle(data) {
+        return axios.post('/api/articles', { article: data });
+    },
     //获取文章列表
     getArticleList(params) {
          return axios.get('/api/articles',{params});
