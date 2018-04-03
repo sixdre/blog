@@ -2,9 +2,27 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import './index.less';
 import { fromNow } from '../../utils'
+import { connect } from 'react-redux'
+
+
+function mapStateToProps (state) {
+    return {
+        
+    }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+      updatePv: (id) => dispatch({ type: 'UPDATE_PV',id }),
+  }
+}
+
+@connect(mapStateToProps,mapDispatchToProps)
 export default class ArticleList extends Component {
     componentDidMount(){
 
+    }
+    updatePv=(id)=> {
+        this.props.updatePv(id)
     }
     render() {
         return (
@@ -14,7 +32,7 @@ export default class ArticleList extends Component {
                     return (
                         <div className="post_item" key={index}>
                             <div className="post_header">
-                                <Link to={'/article/'+ item._id}>
+                                <Link to={'/article/' + item._id} onClick={() => { this.updatePv(item._id) }}>
                                     <h1 className="topic_title">
                                         {item.title}
                                         {item.good ? <i className="post_badges">精华</i>:''} 

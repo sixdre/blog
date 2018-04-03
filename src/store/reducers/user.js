@@ -5,8 +5,8 @@ import {
     GET_USERNAME
 } from '../actions/userActions'
 
-import $storage from '../services/storage'
-import Auth from '../services/auth'
+import $storage from '../../services/storage'
+import Auth from '../../services/auth'
 // action types
 //初始数据
 const initialState = {
@@ -42,8 +42,6 @@ const user = (state = initialState, action) => {
         ...state,
         username: action.username
       }
-    case GET_USERNAME:
-      return  action.username
     default:
       return state
   }

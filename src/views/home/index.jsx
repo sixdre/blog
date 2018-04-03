@@ -17,8 +17,7 @@ function mapStateToProps (state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-      storeArticles: (data) => dispatch({ type: 'STORE_ARTICLES',data }),
-
+      storeArticles: (data) => dispatch({ type: 'STORE_ARTICLES',data })
   }
 }
 
@@ -106,13 +105,14 @@ export default class Home extends Component {
         }
         window.addEventListener('scroll', this.loadMore);
     }
+
     render() {
         return (
             <Layout>
                 <div className="home">
                     <ArticleList data={this.props.articles} />
                     <div style={{textAlign: 'center',height:'30px' }}><Spin spinning={this.state.loading}/></div>
-                    <p className="nomore">{this.state.nomore?'小站没有很多文章了^_^':''}</p>
+                    <p className="nomore" >{this.state.nomore?'小站没有很多文章了^_^':''}</p>
                 </div>    
             </Layout>
         );

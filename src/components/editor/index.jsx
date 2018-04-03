@@ -5,6 +5,7 @@ export default class XEditor extends Component {
 
     componentDidMount() {
         this.ready()
+        console.log(this.props.content)
     }
 
     ready() {
@@ -17,7 +18,7 @@ export default class XEditor extends Component {
             helpBtn.handler = function () {
                 return ;
             };
-
+            mditor.value = ctx.props.content;
             var isMac = function() { return /macintosh|mac os x/i.test(navigator.userAgent); }();
             mditor.toolbar.items.splice(0,0,{
                 name: 'mail-reply',

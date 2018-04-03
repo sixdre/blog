@@ -25,7 +25,7 @@ class WriteComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            content:''
         }
 
     }
@@ -40,7 +40,13 @@ class WriteComponent extends Component {
                     message.error('亲，您忘记输入内容了呢^_^');
                     return;
                 }
-                //let res = await Api.createArticle(values);
+                let res = await Api.createArticle(values);
+                if (res.data.code == 1) {
+                    message.success('发布成功');
+                    this.props.form.resetFields()
+                } else {
+                     message.error('发布失败');
+                }
             }
         });
     }
@@ -104,7 +110,7 @@ class WriteComponent extends Component {
                             )}
                          </FormItem>
                         <div className="editor">
-                            <XEditor ref="editor"/>
+                            <XEditor ref="editor" content={this.state.content}/>
                         </div>
                         <FormItem {...formItemLayout} label="允许评论">
                            {getFieldDecorator('allow_comment',{ initialValue: true })(
