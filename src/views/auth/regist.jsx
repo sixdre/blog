@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Api from '../../api/api';
+import {regist} from '../../api/api';
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +17,7 @@ export default class Login extends Component {
     }
     regist=() =>{
         var { username, email , password } = this.state;
-        Api.regist(username,email, password).then(res => {
+        regist(username,email, password).then(res => {
             if (res.data.code === 1) {
                 alert('注册成功')
                 this.props.history.push('/login')

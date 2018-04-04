@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Spin } from 'antd';
 import './index.less';
 import ArticleList from '../../components/articleList';
-import Api from '../../api/api'
+import * as API from '../../api/api'
 import Layout from '../../components/layout';
 import { loadMore } from '../../utils/';
 
@@ -38,7 +38,7 @@ export default class Home extends Component {
         if (timer) {
             clearTimeout(timer)
         }
-        Api.getArticleList({ limit: 10, page }).then(res => {
+        API.getArticleList({ limit: 10, page }).then(res => {
             if (res.data.code == 1) {
                 if (res.data.data.length > 0) {
                     let articles = res.data.data;

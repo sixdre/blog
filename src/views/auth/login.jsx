@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Api from '../../api/api';
+import {login} from '../../api/api';
 import { connect } from 'react-redux'
 
 function mapStateToProps (state) {
@@ -14,7 +14,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 @connect(mapStateToProps,mapDispatchToProps)
-export default class Login extends Component {
+export default class LoginComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +31,7 @@ export default class Login extends Component {
     }
     login() {
         var { username, password } = this.state;
-        Api.login(username, password).then(res => {
+        login(username, password).then(res => {
             if (res.data.code === 1) {
                 alert('登录成功')
                 this.props.user_login(username, res.data.token, res.data.userInfo.avatar);

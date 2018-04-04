@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.css'
-import API from '../../api/api';
+import * as API from '../../api/api';
 import CommentItem from './item'
 let fcontnet;
 

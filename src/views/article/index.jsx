@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Spin } from 'antd';
-import Api from '../../api/api'
+import * as API from '../../api/api'
 import './index.less';
 import Comment from '../../components/comment';
 import Layout from '../../components/layout';
@@ -22,7 +22,7 @@ export default class Article extends Component {
     }
     getData() {
         let id = this.props.match.params.id;
-        Api.getArticleDetail(id).then(res => {
+        API.getArticleDetail(id).then(res => {
             if (res.data.code === 1) {
                 this.setState({
                     article: res.data.data,
@@ -35,7 +35,7 @@ export default class Article extends Component {
     }
     toggleLike = () => {
         let id = this.props.match.params.id;
-        Api.toggleLike(id).then(res => {
+        API.toggleLike(id).then(res => {
             if (res.data.code === 1) {
                 var d = this.state.article;
                 d.nums.likeNum = res.data.count;
@@ -47,7 +47,7 @@ export default class Article extends Component {
     }
     toggleCollect = () => {
         let id = this.props.match.params.id;
-        Api.toggleLike(id).then(res => {
+        API.toggleLike(id).then(res => {
             if (res.data.code === 1) {
                 var d = this.state.article;
                 d.nums.collectNum = res.data.count;
