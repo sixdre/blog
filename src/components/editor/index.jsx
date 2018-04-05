@@ -5,7 +5,6 @@ export default class XEditor extends Component {
 
     componentDidMount() {
         this.ready()
-        console.log(this.props.content)
     }
 
     ready() {
@@ -13,12 +12,13 @@ export default class XEditor extends Component {
         let e = this.refs['markDown_editor'];
         var mditor = this.mditor = window.Mditor.fromTextarea(e);
         mditor.on('ready',()=>{
-            mditor.height = '550px';
+            mditor.height = '500px';
+            mditor.split = false;
             var helpBtn = mditor.toolbar.getItem("help");	//帮助按钮点击
             helpBtn.handler = function () {
                 return ;
             };
-          
+            console.log(ctx.props.content)
             mditor.value = ctx.props.content;
             var isMac = function() { return /macintosh|mac os x/i.test(navigator.userAgent); }();
             mditor.toolbar.items.splice(0,0,{
@@ -38,8 +38,18 @@ export default class XEditor extends Component {
                 title: '恢复',
                 key: isMac ? 'command+shift+z' : 'ctrl+y',
             });
+            mditor.toolbar.items.push({
+                name: 'home',
+                icon: 'home',
+                handler: function () {
+                    ctx.props.onPublish() //发布
+                },
+                control: true,
+                title: '发布',
+                key: ''
+            })
             mditor.on('changed', function(){
-                  ctx.props.change(mditor.value)
+                  ctx.props.onEditorValueChange(mditor.value)
             });
             mditor.editor.on('drop',function(event){
                 console.log('drop',event);

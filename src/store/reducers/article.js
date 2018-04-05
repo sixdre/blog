@@ -11,7 +11,7 @@ const initialState = {
     articles: [],
     page: 1,
     categories: [],
-    tags:[]
+    tags: []
 }
 
 const Article = (state = initialState, action) => {
@@ -26,25 +26,25 @@ const Article = (state = initialState, action) => {
             return {
                 ...state,
                 categories: [...action.categories],
-            }    
-         case SAVE_TAGS:
+            }
+        case SAVE_TAGS:
             return {
                 ...state,
                 tags: [...action.tags],
-            }    
+            }
         case UPDATE_PV:
             return {
                 ...state,
                 articles: state.articles.map(item => {
                     if (item._id === action.id) {
-                        item.nums.pv+=1
+                        item.pv_num += 1
                     }
                     return item;
                 }),
-            }    
-    default:
-      return state
-  }
+            }
+        default:
+            return state
+    }
 }
 
 

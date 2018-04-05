@@ -11,8 +11,7 @@ export default class Article extends Component {
         super(props);
         this.state = {
             article: {
-                author: {},
-                nums:{}
+
             }
         }
 
@@ -38,7 +37,7 @@ export default class Article extends Component {
         API.toggleLike(id).then(res => {
             if (res.data.code === 1) {
                 var d = this.state.article;
-                d.nums.likeNum = res.data.count;
+                d.like_num = res.data.count;
                 this.setState( Object.assign({},this.state.article, d) )
             } else {
                
@@ -47,10 +46,10 @@ export default class Article extends Component {
     }
     toggleCollect = () => {
         let id = this.props.match.params.id;
-        API.toggleLike(id).then(res => {
+        API.toggleCollect(id).then(res => {
             if (res.data.code === 1) {
                 var d = this.state.article;
-                d.nums.collectNum = res.data.count;
+                d.collect_num = res.data.count;
                 this.setState( Object.assign({},this.state.article, d) )
             } else {
                
@@ -66,15 +65,15 @@ export default class Article extends Component {
                             <h1 className="title">{this.state.article.title}</h1>
                             <p>
                                 {time(this.state.article.create_time)} <span> 作者 </span>
-                                {this.state.article.author.username}
+                                {this.state.article.author_name}
                             </p>
                         </div>
                         <div className="article_body">
                             <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} />
                         </div>
-                        <div>
-                            <a onClick={this.toggleLike}>点赞 {this.state.article.nums.likeNum}</a>  
-                            <a onClick={this.toggleCollect}>收藏 {this.state.article.nums.collectNum}</a>
+                        <div className="like_collect">
+                            <a onClick={this.toggleLike}>点赞 {this.state.article.like_num}</a>  
+                            <a onClick={this.toggleCollect}>收藏 {this.state.article.collect_num}</a>
                         </div>
                     </article>
                     {this.state.article.allow_comment === true ? <Comment articleId={this.props.match.params.id} /> : null}

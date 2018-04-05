@@ -41,9 +41,9 @@ export default class ArticleList extends Component {
                                 <div className="topic_info">
                                     <img className="avatar" width="25" height="25" src={item.author.avatar} title={item.author.username} alt={item.author.username}/>
                                     <span> 发布于：{fromNow(item.create_time)}</span>
-                                    <span> 分类：{item.category ? item.category.name : ''} </span>
-                                    <span> 浏览：{item.nums.pv}</span>
-                                    <span> 评论：{item.nums.cmtNum }</span>
+                                    <span> 分类：{item.category_name} </span>
+                                    <span> 浏览：{item.pv_num}</span>
+                                    <span> 评论：{item.cmt_um }</span>
                                 </div>
                             </div>
                             <div className="post_body">

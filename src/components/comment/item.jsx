@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { time } from '../../utils'
 export default class CommentItem extends Component {
-    constructor(props) {
-        super(props);
-    }
     handleReply = (item, event) => {
         var id = this.props.did;
         this.props.handleReply(item,id,event)
@@ -46,7 +43,7 @@ export default class CommentItem extends Component {
                     <div className="comment-footer clearfix">
                         <em>
                             <span className="zan" onClick={(event) => this.handleLike(item,event)}>
-                                赞 {item.likes.length===0?'':( <span className="nums">{item.likes.length}</span>)}
+                                赞 {item.like_num===0?'':( <span className="nums">{item.like_num}</span>)}
                             </span>
                             <span className="pipe">|</span>
                             <span className="reply_a" onClick={(event) => this.handleReply(item,event)}>回复

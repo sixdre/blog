@@ -39,10 +39,10 @@ export default class Home extends Component {
             clearTimeout(timer)
         }
         API.getArticleList({ limit: 10, page }).then(res => {
-            if (res.data.code == 1) {
+            if (res.data.code === 1) {
                 if (res.data.data.length > 0) {
                     let articles = res.data.data;
-                    if (page == 1) {
+                    if (page === 1) {
                         this.props.storeArticles({
                             articles,
                             page
