@@ -34,7 +34,7 @@ export default class headerTop extends Component {
 						{
 							this.props.username ? (
 								<div>
-									<Link to="/login">
+									<Link to="/">
 										<img className="avatar" width="25" height="25" src={this.props.avatar} alt="" />
 										{this.props.username}
 									</Link>	
