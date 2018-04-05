@@ -43,7 +43,7 @@ export default class ArticleList extends Component {
                                     <span> 发布于：{fromNow(item.create_time)}</span>
                                     <span> 分类：{item.category_name} </span>
                                     <span> 浏览：{item.pv_num}</span>
-                                    <span> 评论：{item.cmt_um }</span>
+                                    <span> 评论：{item.cmt_num }</span>
                                 </div>
                             </div>
                             <div className="post_body">
