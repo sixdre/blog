@@ -69,7 +69,8 @@ export const getDraft = () => { return axios.get('/api/me/drafts') }
 export const getArticleList = (params) => { return axios.get('/api/articles', { params }) }
     //获取我的文章
 export const getMeArticleList = (params) => { return axios.get('/api/me/articles', { params }) }
-
+    //删除文章
+export const removeMeArticle = (ids) => { return axios.delete('/api/articles/' + ids) }
 
 //获取文章详情
 export const getArticleDetail = (id) => { return axios.get('/api/articles/' + id + '/front') }

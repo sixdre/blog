@@ -4,7 +4,7 @@ import ArticleList from '../../../components/articleList';
 
 import {getMeArticleList} from '../.././../api/api'
 
-export default class CollectComponent extends Component {
+export default class OwnerComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ export default class CollectComponent extends Component {
         this.getArticles()
     }
     getArticles(page = 1) {
-        getMeArticleList({ limit: 10, page, type:"collect" }).then(res => {
+        getMeArticleList({ limit: 10, page}).then(res => {
             if (res.data.code === 1) {
                 if (res.data.data.length > 0) {
                     let articles = res.data.data;
@@ -33,7 +33,10 @@ export default class CollectComponent extends Component {
         return (
             <section>
                 {
-                    this.state.articles.length>0?<ArticleList data={this.state.articles} />:'您还没有收藏过文章'
+                    this.state.articles.length>0?(<ArticleList data={this.state.articles} />)
+                    :(
+                        <div>您还没有发布过文章 <Link to="/personal/write">去写文章</Link></div>
+                    )
                 }
             </section>
         );

@@ -38,6 +38,17 @@ export default class ArticleList extends Component {
                                         {item.good ? <i className="post_badges">精华</i>:''} 
                                     </h1>
                                 </Link>
+                               
+                            </div>
+                            {
+                                item.abstract?(
+                                    <div className="post_body">
+                                        <p className="post_summary">
+                                            {item.abstract}
+                                        </p>
+                                    </div>):''
+                            }
+                            <div className="post_footer">
                                 <div className="topic_info">
                                     <img className="avatar" width="25" height="25" src={item.author.avatar} title={item.author.username} alt={item.author.username}/>
                                     <span> 发布于：{fromNow(item.create_time)}</span>
@@ -45,11 +56,6 @@ export default class ArticleList extends Component {
                                     <span> 浏览：{item.pv_num}</span>
                                     <span> 评论：{item.cmt_num }</span>
                                 </div>
-                            </div>
-                            <div className="post_body">
-                                <p className="post_summary">
-                                    {item.abstract}
-                                </p>
                             </div>
                         </div>
                     )

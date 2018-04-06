@@ -29,6 +29,7 @@ class WriteComponent extends Component {
             content: '',
             articleId: '',
             title:'',
+            has_draft:false
         }
 
     }
@@ -54,6 +55,7 @@ class WriteComponent extends Component {
                         articleId: data._id,
                         title: data.title,
                         content:data.content,
+                        has_draft:res.data.has_draft
                     })
                     notification['warning']({
                         // title:'警告',
@@ -76,6 +78,7 @@ class WriteComponent extends Component {
                 if (res.data.code === 1) {
                     this.setState({
                         articleId:res.data.id,
+                        has_draft:res.data.has_draft
                     })
                     notification['success']({
                         message: '保存成功',
@@ -151,6 +154,20 @@ class WriteComponent extends Component {
             }
         }
     }
+
+    onCancel=()=>{
+        alert('确定放弃编辑此草稿吗');
+        API.removeMeArticle(this.state.articleId).then(res=>{
+            if(res.data.code===1){
+                message.success('删除成功');
+                window.location.reload();
+            }else{
+                message.error('删除失败');
+            }
+        })
+    }
+
+
     render() {
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -163,14 +180,25 @@ class WriteComponent extends Component {
         };
         return (
             <Form onSubmit={this.handleSubmit}>    
-                <FormItem style={{marginBottom:'10px'}}>
-                    {getFieldDecorator('title', {
-                        initialValue: this.state.title,
-                        rules: [{ required: true, message: '请输入文章标题!' }],
-                    })(
-                        <Input placeholder="标题(必填)" onChange={this.watchDraftChange}/>
-                    )}
-                </FormItem>
+                <Row>
+                    <Col span={24}> 
+                        <FormItem style={{marginBottom:'10px'}}>
+                            {getFieldDecorator('title', {
+                                initialValue: this.state.title,
+                                rules: [{ required: true, message: '请输入文章标题!' }],
+                            })(
+                                <Input placeholder="标题(必填)" onChange={this.watchDraftChange}/>
+                            )}
+                        </FormItem>
+                    </Col>
+                    <Col span={24}> 
+                        <FormItem style={{marginBottom:'10px'}}>
+                            {getFieldDecorator('abstract', )(
+                                <Input placeholder="文章简介"/>
+                            )}
+                        </FormItem>
+                    </Col>
+                </Row>
                 <Row>
                     <Col span={6}> 
                         <FormItem style={{marginBottom:'10px'}}>
@@ -189,7 +217,7 @@ class WriteComponent extends Component {
                             )}
                         </FormItem>
                     </Col>
-                    <Col span={10}>
+                    <Col span={8}>
                         <FormItem style={{marginBottom:'10px'}}>
                             {getFieldDecorator('tagNames')(
                                 <Select style={{ width: 350 }} placeholder="选择文章的标签" mode="tags" onChange={this.selectTag} >
@@ -211,12 +239,23 @@ class WriteComponent extends Component {
                             )}
                         </FormItem>   
                     </Col>
-                    <Col span={2}>
-                        <FormItem>
-                            <Button type="primary" htmlType="submit" className="login-form-button">
-                                发表
-                            </Button>
-                        </FormItem>   
+                    <Col span={4}>
+                        <Col span={12}>
+                            {this.state.has_draft?(
+                                <FormItem>
+                                    <Button type="primary" htmlType="button" onClick={this.onCancel} className="login-form-button">
+                                        舍弃
+                                    </Button>
+                                </FormItem>   
+                            ):''}
+                        </Col>
+                        <Col span={12}>
+                            <FormItem>
+                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                    发表
+                                </Button>
+                            </FormItem>   
+                        </Col>
                     </Col>
                 </Row>
                 

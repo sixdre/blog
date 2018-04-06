@@ -32,7 +32,9 @@ export default class CmtComponent extends Component {
     render() {
         return (
             <section>
-                <ArticleList data={this.state.articles} />
+                {
+                    this.state.articles.length>0?<ArticleList data={this.state.articles} />:'您还没有评论过的文章'
+                }
             </section>
         );
     }
