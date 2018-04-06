@@ -38,7 +38,7 @@ export default class headerTop extends Component {
 										<img className="avatar" width="25" height="25" src={this.props.avatar} alt="" />
 										{this.props.username}
 									</Link>	
-									<Link to="/write">
+									<Link to="/personal/write">
 										发表文章
 									</Link>	
 									<span onClick={this.logout}>退出</span>		

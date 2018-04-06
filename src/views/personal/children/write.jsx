@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {notification , message,Form, Input, Select, Switch , Button,Row, Col} from 'antd';
-import './index.less';
-import XEditor from '../../components/editor'
+import XEditor from '../../../components/editor'
 import { connect } from 'react-redux'
-import * as API from '../../api/api'
+import * as API from '../../../api/api'
 const FormItem = Form.Item;
 const Option = Select.Option;
 var timer;
@@ -56,6 +55,11 @@ class WriteComponent extends Component {
                         title: data.title,
                         content:data.content,
                     })
+                    notification['warning']({
+                        // title:'警告',
+                        message: '您上次还有未编辑的文章',
+                        duration:2.5
+                    });
                 }
             }
         })
@@ -158,77 +162,68 @@ class WriteComponent extends Component {
             },
         };
         return (
-            <section className="write_control">
-                <div className="left_aside">
-                    <Link to="/">
-                       回首页
-                    </Link>	
-                </div>    
-                <div className="write_main">
-                    <Form onSubmit={this.handleSubmit}>    
+            <Form onSubmit={this.handleSubmit}>    
+                <FormItem style={{marginBottom:'10px'}}>
+                    {getFieldDecorator('title', {
+                        initialValue: this.state.title,
+                        rules: [{ required: true, message: '请输入文章标题!' }],
+                    })(
+                        <Input placeholder="标题(必填)" onChange={this.watchDraftChange}/>
+                    )}
+                </FormItem>
+                <Row>
+                    <Col span={6}> 
                         <FormItem style={{marginBottom:'10px'}}>
-                            {getFieldDecorator('title', {
-                                initialValue: this.state.title,
-                                rules: [{ required: true, message: '请输入文章标题!' }],
+                            {getFieldDecorator('categoryName', {
+                                rules: [{ required: true, message: '请选择文章类型!' }],
                             })(
-                                <Input placeholder="标题(必填)" onChange={this.watchDraftChange}/>
+                            <Select style={{ width: 220 }} placeholder="选择文章的分类(必填)">
+                                {
+                                    this.props.categories.map((item, index) => {
+                                        return (
+                                            <Option key={item.name}>{item.name}</Option>
+                                        )
+                                    })
+                                }
+                            </Select>
                             )}
                         </FormItem>
-                        <Row>
-                            <Col span={6}> 
-                                <FormItem style={{marginBottom:'10px'}}>
-                                    {getFieldDecorator('categoryName', {
-                                        rules: [{ required: true, message: '请选择文章类型!' }],
-                                    })(
-                                    <Select style={{ width: 220 }} placeholder="选择文章的分类(必填)">
-                                        {
-                                            this.props.categories.map((item, index) => {
-                                                return (
-                                                    <Option key={item.name}>{item.name}</Option>
-                                                )
-                                            })
-                                        }
-                                    </Select>
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={10}>
-                                <FormItem style={{marginBottom:'10px'}}>
-                                    {getFieldDecorator('tagNames')(
-                                        <Select style={{ width: 350 }} placeholder="选择文章的标签" mode="tags" onChange={this.selectTag} >
-                                            {
-                                                this.props.tags.map((item, index) => {
-                                                    return (
-                                                        <Option key={item.name}>{item.name}</Option>
-                                                    )
-                                                })
-                                            }
-                                        </Select>
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={6}>
-                                <FormItem {...formItemLayout} label="允许评论">
-                                {getFieldDecorator('allow_comment',{ initialValue: true })(
-                                        <Switch defaultChecked />
-                                    )}
-                                </FormItem>   
-                            </Col>
-                            <Col span={2}>
-                                <FormItem>
-                                    <Button type="primary" htmlType="submit" className="login-form-button">
-                                        发表
-                                    </Button>
-                                </FormItem>   
-                            </Col>
-                        </Row>
-                       
-                        <div className="editor">
-                            <XEditor ref="editor" onPublish={this.handlePublish} onEditorValueChange={this.watchDraftChange} content={this.state.content}/>
-                        </div>
-                    </Form>    
+                    </Col>
+                    <Col span={10}>
+                        <FormItem style={{marginBottom:'10px'}}>
+                            {getFieldDecorator('tagNames')(
+                                <Select style={{ width: 350 }} placeholder="选择文章的标签" mode="tags" onChange={this.selectTag} >
+                                    {
+                                        this.props.tags.map((item, index) => {
+                                            return (
+                                                <Option key={item.name}>{item.name}</Option>
+                                            )
+                                        })
+                                    }
+                                </Select>
+                            )}
+                        </FormItem>
+                    </Col>
+                    <Col span={6}>
+                        <FormItem {...formItemLayout} label="允许评论">
+                        {getFieldDecorator('allow_comment',{ initialValue: true })(
+                                <Switch defaultChecked />
+                            )}
+                        </FormItem>   
+                    </Col>
+                    <Col span={2}>
+                        <FormItem>
+                            <Button type="primary" htmlType="submit" className="login-form-button">
+                                发表
+                            </Button>
+                        </FormItem>   
+                    </Col>
+                </Row>
+                
+                <div className="editor">
+                    <XEditor ref="editor" onPublish={this.handlePublish} onEditorValueChange={this.watchDraftChange} content={this.state.content}/>
                 </div>
-            </section>
+            </Form>    
         );
     }
 }

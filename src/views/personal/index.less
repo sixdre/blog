@@ -1,0 +1,41 @@
+.personal_control{
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 100%;
+    .left_aside{
+        width: 16.66666667%;
+        background-color: #404040;
+        &>ul{
+            li{
+                margin-top: 20px;
+                &>a{
+                    display: block;
+                    height: 45px;
+                    line-height: 45px;
+                    padding-left: 30px;
+                    color: #fff;
+                    &.active, &:hover{
+                        background-color: rgb(34, 32, 32);
+                    }
+                }
+            }
+        }
+    }
+    .personal_right{
+        width: 83.33333333%;
+        position: relative;
+        height: 100%;
+        padding: 0 20px;
+        .editor{
+            min-height: 500px;
+        }
+    }
+}

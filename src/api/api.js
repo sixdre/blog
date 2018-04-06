@@ -67,7 +67,11 @@ export const createDraft = (data) => { return axios.post('/api/draft', { article
 export const getDraft = () => { return axios.get('/api/me/drafts') }
     //获取文章列表
 export const getArticleList = (params) => { return axios.get('/api/articles', { params }) }
-    //获取文章详情
+    //获取我的文章
+export const getMeArticleList = (params) => { return axios.get('/api/me/articles', { params }) }
+
+
+//获取文章详情
 export const getArticleDetail = (id) => { return axios.get('/api/articles/' + id + '/front') }
     //文章点赞
 export const toggleLike = (id) => { return axios.put('/api/articles/' + id + '/likes') }
