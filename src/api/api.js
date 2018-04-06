@@ -84,3 +84,26 @@ export const submitComment = (article_id, data) => { return axios.post('/api/art
 export const getComments = (article_id, params) => { return axios.get('/api/articles/' + article_id + '/comments', { params: params }) }
     //评论点赞
 export const addCommentLike = (cId) => { return axios.put('/api/comments/' + cId + '/like') }
+
+
+//上传文件
+export const upload = (formData, callback) => {
+    let config = {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }
+    return axios({
+        method: 'post',
+        url: '/sys/upload/addFile',
+        data: formData,
+        config,
+        onUploadProgress: function(progressEvent) {
+            if (progressEvent.lengthComputable) {
+                if (callback && typeof callback == 'function') {
+                    callback(progressEvent)
+                }
+            }
+        }
+    });
+}

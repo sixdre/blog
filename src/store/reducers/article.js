@@ -2,7 +2,8 @@ import {
     STORE_ARTICLES,
     UPDATE_PV,
     SAVE_CATEGORIES,
-    SAVE_TAGS
+    SAVE_TAGS,
+    UPDATE_CMTNUM
 } from '../actions/articleActions'
 // action types
 //初始数据
@@ -32,12 +33,22 @@ const Article = (state = initialState, action) => {
                 ...state,
                 tags: [...action.tags],
             }
-        case UPDATE_PV:
+        case UPDATE_PV: //更新pv
             return {
                 ...state,
                 articles: state.articles.map(item => {
                     if (item._id === action.id) {
                         item.pv_num += 1
+                    }
+                    return item;
+                }),
+            }
+        case UPDATE_CMTNUM: //更新评论数量
+            return {
+                ...state,
+                articles: state.articles.map(item => {
+                    if (item._id === action.id) {
+                        item.cmt_num += 1
                     }
                     return item;
                 }),

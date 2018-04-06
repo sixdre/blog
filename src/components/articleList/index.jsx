@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import { Spin } from 'antd';
 import './index.less';
 import { fromNow } from '../../utils'
 import { connect } from 'react-redux'
@@ -25,9 +26,15 @@ export default class ArticleList extends Component {
         this.props.updatePv(id)
     }
     render() {
-        return (
-            <div className="post_list">
-            {
+        let loading = this.props.loading?this.props.loading:false;
+        let PostList = ()=>{
+            if(!loading){
+                if(!this.props.data.length||!this.props.data){
+                    return <p>{this.props.empty?this.props.empty:'暂无数据'}</p>
+                }
+            }
+            return <div className="post_list">
+                {
                 this.props.data.map((item, index) => {
                     return (
                         <div className="post_item" key={index}>
@@ -38,7 +45,6 @@ export default class ArticleList extends Component {
                                         {item.good ? <i className="post_badges">精华</i>:''} 
                                     </h1>
                                 </Link>
-                               
                             </div>
                             {
                                 item.abstract?(
@@ -60,8 +66,14 @@ export default class ArticleList extends Component {
                         </div>
                     )
                 })
-            }    
+            }
             </div>
+        }
+
+        return (
+            <Spin spinning={loading}>
+                <PostList />
+            </Spin>
 		);
 	}
 }

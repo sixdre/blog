@@ -167,6 +167,32 @@ class WriteComponent extends Component {
         })
     }
 
+    //上传图片
+    uploadImg(file,callback) {
+        if (file == null) {
+            return;
+        }
+        var name = file.name || 'screenshot.png';
+        name = name.replace(/\.(?:jpg|gif|png)$/i, ''); // clear ext
+        name = name.replace(/\W+/g, '_'); // clear unvalid chars
+        var formData = new FormData();
+        formData.append('file',file,name);
+        API.upload(formData).then(res=>{
+            if(res.data.code==1){
+                if(callback&&typeof callback === 'function'){
+                    callback(res.data.url)
+                }
+               
+                message.success(res.data.message);
+            }else{
+                message.error(res.data.message);
+            }
+        })
+    }
+
+
+
+
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -260,7 +286,7 @@ class WriteComponent extends Component {
                 </Row>
                 
                 <div className="editor">
-                    <XEditor ref="editor" onPublish={this.handlePublish} onEditorValueChange={this.watchDraftChange} content={this.state.content}/>
+                    <XEditor ref="editor" uploadImg={this.uploadImg} onPublish={this.handlePublish} onEditorValueChange={this.watchDraftChange} content={this.state.content}/>
                 </div>
             </Form>    
         );

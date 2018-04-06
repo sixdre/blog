@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import { Spin } from 'antd';
 import './index.css'
 import * as API from '../../api/api';
 import CommentItem from './item'
+import { connect } from 'react-redux'
 let fcontnet;
+function mapStateToProps (state) {
+    return {
+        
+    }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+      updateCmtNum: (id) => dispatch({ type: 'UPDATE_CMTNUM',id }),
+  }
+}
 
+@connect(mapStateToProps,mapDispatchToProps)
 export default class Comment extends Component {
     constructor(props) {
         super(props);
@@ -19,11 +32,15 @@ export default class Comment extends Component {
 
     //获取评论列表
     getComments() {
+        this.setState({
+            loading:true
+        })
         let id = this.props.articleId;
         API.getComments(id,{order_by:'timeRev'}).then(res => {
             if (res.data.code === 1) {
                 this.setState({
-                    dataList: res.data.data
+                    dataList: res.data.data,
+                    loading:false
                 })
             }
         })
@@ -59,6 +76,7 @@ export default class Comment extends Component {
                     cId: '',
                     toId: ''
                 })
+                this.props.updateCmtNum(id);
             } else {
                 alert(res.data.message);
             }
@@ -102,41 +120,45 @@ export default class Comment extends Component {
                 )     
             }
         }
+        let loading = this.state.loading?this.state.loading:false;
         return (
             <div className="comment-wrapper">
-                <form id="comment_form" className="comment_form">
-                    <div className="form-ceil form-user-avatar">
-                        <img src="/images/noavatar_default.png" alt="" />
-                    </div>
-                    <div className="form-ceil form-content">
-                        <div className="form-textarea">
-                            <textarea ref="content" name="content" placeholder="说您想说"></textarea>
+                    <form id="comment_form" className="comment_form">
+                        <div className="form-ceil form-user-avatar">
+                            <img src="/images/noavatar_default.png" alt="" />
                         </div>
-                        <div className="form-toolbars clearfix">
-                            <div className="form-action">
-                               <ToggleBtn />
+                        <div className="form-ceil form-content">
+                            <div className="form-textarea">
+                                <textarea ref="content" name="content" placeholder="说您想说"></textarea>
+                            </div>
+                            <div className="form-toolbars clearfix">
+                                <div className="form-action">
+                                <ToggleBtn />
+                                </div>
                             </div>
                         </div>
+                    </form>
+                <Spin spinning={loading}>
+                    <div className="comment-area">
+                        <ul className="list-unstyled">
+                            {
+                                this.state.dataList.map((item, index) => {
+                                    return (
+                                        <CommentItem
+                                            data={item}
+                                            did={item._id}
+                                            key={index}
+                                            handleReply={this.handleReply}
+                                            handleLike={this.handleLike}
+                                        />
+                                    )
+                                })
+                            }    
+                        </ul>    
                     </div>
-                </form>
-                <div className="comment-area">
-                    <ul className="list-unstyled">
-                        {
-                            this.state.dataList.map((item, index) => {
-                                return (
-                                    <CommentItem
-                                        data={item}
-                                        did={item._id}
-                                        key={index}
-                                        handleReply={this.handleReply}
-                                        handleLike={this.handleLike}
-                                    />
-                                )
-                            })
-                        }    
-                    </ul>    
-                </div>
-            </div>
+                </Spin>
+             </div>
+           
         );
     }
 }

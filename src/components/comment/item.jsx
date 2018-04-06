@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { time } from '../../utils'
+import { fromNow} from '../../utils'
 export default class CommentItem extends Component {
     handleReply = (item, event) => {
         var id = this.props.did;
@@ -23,14 +23,14 @@ export default class CommentItem extends Component {
                                 <span>@</span>
                                 <span className="username">{item.to.username}</span> 
                                 <div className="comment-time">
-                                   <em>{time(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
+                                   <em>{fromNow(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
                                 </div>
                             </div> 
                         ) : (
                             <div className="comment-header">
                                 <span className="username">{item.from.username}</span>
                                 <div className="comment-time">
-                                    <em>{time(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
+                                    <em>{fromNow(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
                                 </div>
                             </div>
                         )

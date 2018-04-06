@@ -76,7 +76,7 @@ export default class Article extends Component {
                             <a onClick={this.toggleCollect}>收藏 {this.state.article.collect_num}</a>
                         </div>
                     </article>
-                    {this.state.article.allow_comment === true ? <Comment articleId={this.props.match.params.id} /> : null}
+                    {this.state.article.allow_comment === true ? <Comment  articleId={this.props.match.params.id} /> : null}
                 </div>    
             </Layout>
         );

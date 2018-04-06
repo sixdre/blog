@@ -4,14 +4,11 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
     box-sizing: border-box;
     min-width: 0;
     min-height: 100%;
     .left_aside{
-        width: 16.66666667%;
+        width: 200px;
         background-color: #404040;
         &>ul{
             li{
@@ -30,9 +27,8 @@
         }
     }
     .personal_right{
-        width: 83.33333333%;
+        flex: auto;
         position: relative;
-        height: 100%;
         padding: 0 20px;
         .editor{
             min-height: 500px;

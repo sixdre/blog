@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-
+import {message} from 'antd';
+import {upload} from '../../api/api';
 
 export default class XEditor extends Component {
 
     componentDidMount() {
         this.ready()
+        console.log(this.props.uploadImgUrl)
     }
 
     ready() {
@@ -15,8 +17,25 @@ export default class XEditor extends Component {
             mditor.height = '500px';
             mditor.split = false;
             var helpBtn = mditor.toolbar.getItem("help");	//帮助按钮点击
+            var imgBtn = mditor.toolbar.getItem('image');   //图片按钮点击
             helpBtn.handler = function () {
                 return ;
+            };
+            imgBtn.handler = function () {
+                var accept = {
+                    image: 'image/png, image/gif, image/jpg, image/jpeg',
+                };
+                var $file = window.document.createElement('input')
+                    $file.setAttribute('type','file')
+                    $file.setAttribute('accept',accept.image)
+                    $file.click();
+                    $file.onchange = function(){
+                        var file = this.files[0];
+                        var name = file.name || 'screenshot.png';
+                        ctx.props.uploadImg(file,function(url){
+                            ctx.mditor.editor.insertBeforeText('![' + name + '](' + url + ")\n");
+                        });
+                    }
             };
             console.log(ctx.props.content)
             mditor.value = ctx.props.content;
