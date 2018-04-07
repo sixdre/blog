@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { fromNow} from '../../utils'
-import { Badge} from 'antd';
+import { Badge,Icon,Tooltip} from 'antd';
 export default class CommentItem extends Component {
     handleReply = (item, event) => {
         var id = this.props.did;
@@ -44,7 +44,9 @@ export default class CommentItem extends Component {
                     <div className="comment-footer clearfix">
                         <em>
                             <Badge count={item.like_num}>
-                                <a onClick={(event) => this.handleLike(item,event)}>{item.isLike?"已点赞":"赞"}</a>  
+                                <a onClick={(event) => this.handleLike(item,event)}>
+                                {item.isLike?<Tooltip title="您已点赞"><Icon type="like" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Icon type="like-o" style={{fontSize: 20,color:'red'}}/>}
+                            </a>  
                             </Badge>
                             <span className="pipe">|</span>
                             <a className="reply_a" onClick={(event) => this.handleReply(item,event)}>回复

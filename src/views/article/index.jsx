@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin ,message,Tag,Badge} from 'antd';
+import { Spin ,message,Tag,Badge,Icon,Tooltip} from 'antd';
 import * as API from '../../api/api'
 import './index.less';
 import Comment from '../../components/comment';
@@ -104,7 +104,7 @@ export default class Article extends Component {
                                     <span>{time(this.state.article.create_time)}</span> 
                                     <span> 作者 </span>
                                     <span>{this.state.article.author_name}</span>
-                                    <span>{this.state.isFollow?(<Tag onClick={this.toggleFollow}>已关注</Tag>):(<Tag onClick={this.toggleFollow} color="red">关注</Tag>)}</span>
+                                    <span>{this.state.isFollow?(<Tag onClick={this.toggleFollow}>已关注</Tag>):(<Tooltip title="关注作者可以查看更多的文章"><Tag onClick={this.toggleFollow} color="red">关注</Tag></Tooltip>)}</span>
                                 </div>
                             </div>
                             <div className="article_body">
@@ -112,10 +112,10 @@ export default class Article extends Component {
                             </div>
                             <div className="like_collect">
                                 <Badge count={this.state.article.like_num}>
-                                    <a onClick={this.toggleLike}>{this.state.isLike?'已点赞':'赞'}</a>  
+                                    <a onClick={this.toggleLike}>{this.state.isLike? <Tooltip title="已赞"><Icon type="heart" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Tooltip title="喜欢就点赞把"><Icon type="heart-o" style={{fontSize: 20,color:'red'}}/></Tooltip>}</a>  
                                 </Badge>
                                 <Badge count={this.state.article.collect_num}>
-                                    <a onClick={this.toggleCollect}>{this.state.isCollect?'已收藏':'收藏'}</a>  
+                                    <a onClick={this.toggleCollect}>{this.state.isCollect?<Tooltip title="已收藏"><Icon type="star" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Tooltip title="点击收藏"><Icon type="star-o" style={{fontSize: 20,color:'red'}}/></Tooltip>}</a>  
                                 </Badge>
                             </div>
                         </article>
