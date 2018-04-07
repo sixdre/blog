@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Spin } from 'antd';
+import { Spin ,message} from 'antd';
 import * as API from '../../api/api'
 import './index.less';
 import Comment from '../../components/comment';
-import Layout from '../../components/layout';
+import XLayout from '../../components/layout';
 import { time } from '../../utils'
 
 export default class Article extends Component {
@@ -12,7 +12,8 @@ export default class Article extends Component {
         this.state = {
             article: {
 
-            }
+            },
+            isLikeAuthor:false
         }
 
     }
@@ -25,6 +26,7 @@ export default class Article extends Component {
             if (res.data.code === 1) {
                 this.setState({
                     article: res.data.data,
+                    isLikeAuthor: res.data.isLikeAuthor
                 })
                 document.title = res.data.data.title
             } else {
@@ -56,29 +58,55 @@ export default class Article extends Component {
             }
         })
     }
+    toggleLikeUser=()=>{
+        let userId = this.state.article.author._id;
+        API.toggleLikeUser(userId).then(res => {
+            if (res.data.code === 1) {
+                if(res.data.isLike){
+                    message.success('已关注');
+                    this.setState({
+                        isLikeAuthor: true
+                    })
+                }else{
+                    message.warning('取消关注');
+                    this.setState({
+                        isLikeAuthor: false
+                    })
+                }
+            } else {
+                message.error(res.data.message);
+            }
+        })
+    }
+
+
+
     render() {
         return (
-            <Layout>
-                <div className="article_wrapper">
-                    <article className="article">
-                        <div className="article_head">
-                            <h1 className="title">{this.state.article.title}</h1>
-                            <p>
-                                {time(this.state.article.create_time)} <span> 作者 </span>
-                                {this.state.article.author_name}
-                            </p>
-                        </div>
-                        <div className="article_body">
-                            <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} />
-                        </div>
-                        <div className="like_collect">
-                            <a onClick={this.toggleLike}>点赞 {this.state.article.like_num}</a>  
-                            <a onClick={this.toggleCollect}>收藏 {this.state.article.collect_num}</a>
-                        </div>
-                    </article>
-                    {this.state.article.allow_comment === true ? <Comment  articleId={this.props.match.params.id} /> : null}
-                </div>    
-            </Layout>
+            <XLayout>
+                <div className="container">
+                    <div className="article_wrapper">
+                        <article className="article">
+                            <div className="article_head">
+                                <h1 className="title">{this.state.article.title}</h1>
+                                <p>
+                                    {time(this.state.article.create_time)} <span> 作者 </span>
+                                    {this.state.article.author_name}
+                                    <span onClick={this.toggleLikeUser}> {this.state.isLikeAuthor?'已关注':'关注'}</span>
+                                </p>
+                            </div>
+                            <div className="article_body">
+                                <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} />
+                            </div>
+                            <div className="like_collect">
+                                <a onClick={this.toggleLike}>点赞 {this.state.article.like_num}</a>  
+                                <a onClick={this.toggleCollect}>收藏 {this.state.article.collect_num}</a>
+                            </div>
+                        </article>
+                        {this.state.article.allow_comment === true ? <Comment  articleId={this.props.match.params.id} /> : null}
+                    </div>    
+                </div>
+            </XLayout>
         );
     }
 }

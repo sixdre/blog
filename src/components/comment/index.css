@@ -239,7 +239,7 @@ ul li.comment-item:last-child {
 }
 
 .comment-body {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .comment-body .comment-content {
@@ -250,7 +250,6 @@ ul li.comment-item:last-child {
 }
 
 .comment-footer {
-    margin-bottom: 10px;
     line-height: 20px;
 }
 

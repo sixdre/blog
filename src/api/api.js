@@ -85,6 +85,21 @@ export const getComments = (article_id, params) => { return axios.get('/api/arti
     //评论点赞
 export const addCommentLike = (cId) => { return axios.put('/api/comments/' + cId + '/like') }
 
+//用户关注
+export const toggleLikeUser = (uid) => { return axios.put('/api/users/' + uid + '/like') }
+
+//获取我的关注
+export const getMeLikeUsers = (params) => { return axios.get('/api/me/likeusers', { params }) }
+
+//获取我的粉丝
+export const getMeFans = (params) => { return axios.get('/api/me/fans', { params }) }
+
+
+
+
+
+
+
 
 //上传文件
 export const upload = (formData, callback) => {
@@ -95,7 +110,7 @@ export const upload = (formData, callback) => {
     }
     return axios({
         method: 'post',
-        url: '/sys/upload/addFile',
+        url: '/sys/upload',
         data: formData,
         config,
         onUploadProgress: function(progressEvent) {

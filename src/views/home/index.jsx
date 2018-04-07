@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import './index.less';
 import ArticleList from '../../components/articleList';
 import * as API from '../../api/api'
-import Layout from '../../components/layout';
+import XLayout from '../../components/layout';
 import { loadMore } from '../../utils/';
 
 
@@ -108,13 +108,15 @@ export default class Home extends Component {
 
     render() {
         return (
-            <Layout>
-                <div className="home">
-                    <ArticleList data={this.props.articles} />
-                    <div style={{textAlign: 'center',height:'30px' }}><Spin spinning={this.state.loading}/></div>
-                    <p className="nomore" >{this.state.nomore?'小站没有很多文章了^_^':''}</p>
-                </div>    
-            </Layout>
+            <XLayout>
+                <div className="container">
+                    <div className="home">
+                        <ArticleList data={this.props.articles} />
+                        <div style={{textAlign: 'center',height:'30px' }}><Spin spinning={this.state.loading}/></div>
+                        <p className="nomore" >{this.state.nomore?'小站没有很多文章了^_^':''}</p>
+                    </div>    
+                </div>
+            </XLayout>
         );
     }
 }
