@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin } from 'antd';
+import { Spin,Pagination,message } from 'antd';
 import './index.css'
 import * as API from '../../api/api';
 import CommentItem from './item'
@@ -23,7 +23,11 @@ export default class Comment extends Component {
         this.state = {
             dataList: [],
             cId: '',
-            toId: ''
+            toId: '',
+            page:1,
+            limit:8,
+            total:0,
+            order_by:'timeRev'
         }
     }
     componentDidMount() {
@@ -36,16 +40,28 @@ export default class Comment extends Component {
             loading:true
         })
         let id = this.props.articleId;
-        API.getComments(id,{order_by:'timeRev'}).then(res => {
+        let params = {
+            limit:this.state.limit,
+            page:this.state.page,
+            order_by:this.state.order_by,
+        }
+        API.getComments(id,params).then(res => {
             if (res.data.code === 1) {
                 this.setState({
                     dataList: res.data.data,
-                    loading:false
+                    loading:false,
+                    total:res.data.total
                 })
             }
         })
     }
-
+    onPageChange=(val)=>{
+        this.setState({     //setState 可以被认为异步，
+            page:val
+        },()=>{
+            this.getComments()
+        })
+    }
     //评论回复
     handleReply = (item, cId) => {
         fcontnet = this.refs.content.value = '回复@' + item.from.username + ' ';
@@ -69,7 +85,7 @@ export default class Comment extends Component {
         }
         API.submitComment(id, data).then(res => {
             if (res.data.code === 1) {
-                alert('发表成功');
+                message.success('发表成功');
                 this.getComments();
                 this.refs.content.value = '';
                 this.setState({
@@ -78,7 +94,7 @@ export default class Comment extends Component {
                 })
                 this.props.updateCmtNum(id);
             } else {
-                alert(res.data.message);
+                message.error(res.data.message);
             }
         })
     }
@@ -88,10 +104,22 @@ export default class Comment extends Component {
         let id = item._id;
         API.addCommentLike(id).then(res => {
             if (res.data.code === 1) {
-                alert(res.data.message)
-                this.getComments();
+                if(res.data.isLike){
+                    message.success('成功点赞');
+                }else{
+                    message.success('您已取消点赞');
+                }
+                var d = this.state.dataList.map((item)=>{
+                    if(item._id === id){
+                        item.like_num = res.data.count
+                    }
+                    return item;
+                })
+                this.setState({
+                    dataList:d
+                })
             } else {
-                alert(res.data.message)
+                message.error(res.data.message);
             }
         })
     }
@@ -157,6 +185,9 @@ export default class Comment extends Component {
                         </ul>    
                     </div>
                 </Spin>
+                <div className="pagination">
+                    <Pagination current={this.state.page} size="small" onChange={this.onPageChange} pageSize={this.state.limit} total={this.state.total}></Pagination>
+                </div>
              </div>
            
         );

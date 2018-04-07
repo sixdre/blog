@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { fromNow} from '../../utils'
+import { Badge} from 'antd';
 export default class CommentItem extends Component {
     handleReply = (item, event) => {
         var id = this.props.did;
@@ -42,12 +43,12 @@ export default class CommentItem extends Component {
                     </div>
                     <div className="comment-footer clearfix">
                         <em>
-                            <span className="zan" onClick={(event) => this.handleLike(item,event)}>
-                                赞 {item.like_num===0?'':( <span className="nums">{item.like_num}</span>)}
-                            </span>
+                            <Badge count={item.like_num}>
+                                <a onClick={(event) => this.handleLike(item,event)}>点赞</a>  
+                            </Badge>
                             <span className="pipe">|</span>
-                            <span className="reply_a" onClick={(event) => this.handleReply(item,event)}>回复
-                            </span>
+                            <a className="reply_a" onClick={(event) => this.handleReply(item,event)}>回复
+                            </a>
                         </em>
                     </div>
                     <ul className="reply_list">

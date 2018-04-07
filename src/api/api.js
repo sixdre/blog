@@ -89,7 +89,7 @@ export const addCommentLike = (cId) => { return axios.put('/api/comments/' + cId
 export const toggleLikeUser = (uid) => { return axios.put('/api/users/' + uid + '/like') }
 
 //获取我的关注
-export const getMeLikeUsers = (params) => { return axios.get('/api/me/likeusers', { params }) }
+export const getMeFollows = (params) => { return axios.get('/api/me/follows', { params }) }
 
 //获取我的粉丝
 export const getMeFans = (params) => { return axios.get('/api/me/fans', { params }) }

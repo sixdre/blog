@@ -2,6 +2,12 @@
     margin-top: 30px;
 }
 
+.comment-wrapper .pagination {
+    margin-top: 30px;
+    padding-bottom: 50px;
+    text-align: right;
+}
+
 .comment_form {
     /*display: table;*/
     width: 100%;
@@ -261,7 +267,11 @@ ul li.comment-item:last-child {
 }
 
 .comment-footer em a {
-    padding: 0 5px 0 17px;
+    padding-right: 10px;
+}
+
+.comment-footer .ant-badge {
+    padding-right: 10px;
 }
 
 .comment-footer .zan {
@@ -270,7 +280,7 @@ ul li.comment-item:last-child {
 }
 
 .comment-footer .pipe {
-    margin: 0 5px;
+    margin: 0 10px 0 0;
     color: #CCC;
 }
 

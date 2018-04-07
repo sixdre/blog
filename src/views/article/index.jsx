@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin ,message,Tag} from 'antd';
+import { Spin ,message,Tag,Badge} from 'antd';
 import * as API from '../../api/api'
 import './index.less';
 import Comment from '../../components/comment';
@@ -101,8 +101,12 @@ export default class Article extends Component {
                                 <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} />
                             </div>
                             <div className="like_collect">
-                                <a onClick={this.toggleLike}>点赞 {this.state.article.like_num}</a>  
-                                <a onClick={this.toggleCollect}>收藏 {this.state.article.collect_num}</a>
+                                <Badge count={this.state.article.like_num}>
+                                    <a onClick={this.toggleLike}>点赞</a>  
+                                </Badge>
+                                <Badge count={this.state.article.collect_num}>
+                                    <a onClick={this.toggleCollect}>收藏</a>  
+                                </Badge>
                             </div>
                         </article>
                         {this.state.article.allow_comment === true ? <Comment  articleId={this.props.match.params.id} /> : null}
