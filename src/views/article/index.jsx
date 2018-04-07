@@ -13,7 +13,9 @@ export default class Article extends Component {
             article: {
 
             },
-            isLikeAuthor:false
+            isFollow:false,
+            isLike:false,
+            isCollect:false
         }
 
     }
@@ -26,7 +28,9 @@ export default class Article extends Component {
             if (res.data.code === 1) {
                 this.setState({
                     article: res.data.data,
-                    isLikeAuthor: res.data.isLikeAuthor
+                    isFollow: res.data.isFollow,
+                    isLike: res.data.isLike,
+                    isCollect: res.data.isCollect
                 })
                 document.title = res.data.data.title
             } else {
@@ -38,6 +42,9 @@ export default class Article extends Component {
         let id = this.props.match.params.id;
         API.toggleLike(id).then(res => {
             if (res.data.code === 1) {
+                this.setState({
+                    isLike:res.data.isLike
+                })
                 var d = this.state.article;
                 d.like_num = res.data.count;
                 this.setState( Object.assign({},this.state.article, d) )
@@ -50,6 +57,9 @@ export default class Article extends Component {
         let id = this.props.match.params.id;
         API.toggleCollect(id).then(res => {
             if (res.data.code === 1) {
+                this.setState({
+                    isCollect:res.data.isCollect
+                })
                 var d = this.state.article;
                 d.collect_num = res.data.count;
                 this.setState( Object.assign({},this.state.article, d) )
@@ -58,19 +68,19 @@ export default class Article extends Component {
             }
         })
     }
-    toggleLikeUser=()=>{
+    toggleFollow=()=>{
         let userId = this.state.article.author._id;
-        API.toggleLikeUser(userId).then(res => {
+        API.toggleFollow(userId).then(res => {
             if (res.data.code === 1) {
-                if(res.data.isLike){
+                if(res.data.isFollow){
                     message.success('已关注');
                     this.setState({
-                        isLikeAuthor: true
+                        isFollow: true
                     })
                 }else{
                     message.warning('取消关注');
                     this.setState({
-                        isLikeAuthor: false
+                        isFollow: false
                     })
                 }
             } else {
@@ -94,7 +104,7 @@ export default class Article extends Component {
                                     <span>{time(this.state.article.create_time)}</span> 
                                     <span> 作者 </span>
                                     <span>{this.state.article.author_name}</span>
-                                    <span>{this.state.isLikeAuthor?(<Tag onClick={this.toggleLikeUser}>已关注</Tag>):(<Tag onClick={this.toggleLikeUser} color="red">关注</Tag>)}</span>
+                                    <span>{this.state.isFollow?(<Tag onClick={this.toggleFollow}>已关注</Tag>):(<Tag onClick={this.toggleFollow} color="red">关注</Tag>)}</span>
                                 </div>
                             </div>
                             <div className="article_body">
@@ -102,10 +112,10 @@ export default class Article extends Component {
                             </div>
                             <div className="like_collect">
                                 <Badge count={this.state.article.like_num}>
-                                    <a onClick={this.toggleLike}>点赞</a>  
+                                    <a onClick={this.toggleLike}>{this.state.isLike?'已点赞':'赞'}</a>  
                                 </Badge>
                                 <Badge count={this.state.article.collect_num}>
-                                    <a onClick={this.toggleCollect}>收藏</a>  
+                                    <a onClick={this.toggleCollect}>{this.state.isCollect?'已收藏':'收藏'}</a>  
                                 </Badge>
                             </div>
                         </article>

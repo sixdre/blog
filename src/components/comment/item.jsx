@@ -44,7 +44,7 @@ export default class CommentItem extends Component {
                     <div className="comment-footer clearfix">
                         <em>
                             <Badge count={item.like_num}>
-                                <a onClick={(event) => this.handleLike(item,event)}>点赞</a>  
+                                <a onClick={(event) => this.handleLike(item,event)}>赞</a>  
                             </Badge>
                             <span className="pipe">|</span>
                             <a className="reply_a" onClick={(event) => this.handleReply(item,event)}>回复
