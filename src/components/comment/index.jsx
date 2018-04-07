@@ -112,6 +112,7 @@ export default class Comment extends Component {
                 var d = this.state.dataList.map((item)=>{
                     if(item._id === id){
                         item.like_num = res.data.count
+                        item.isLike = res.data.isLike;
                     }
                     return item;
                 })
