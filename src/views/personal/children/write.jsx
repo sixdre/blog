@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {notification , message,Form, Input, Select, Switch , Button,Row, Col} from 'antd';
+import {notification , message,Modal,Form, Input, Select, Switch , Button,Row, Col} from 'antd';
 import XEditor from '../../../components/editor'
 import { connect } from 'react-redux'
 import * as API from '../../../api/api'
 const FormItem = Form.Item;
 const Option = Select.Option;
+const confirm = Modal.confirm;
 var timer;
 
 function mapStateToProps (state) {
@@ -156,15 +157,24 @@ class WriteComponent extends Component {
     }
 
     onCancel=()=>{
-        alert('确定放弃编辑此草稿吗');
-        API.removeMeArticle(this.state.articleId).then(res=>{
-            if(res.data.code===1){
-                message.success('删除成功');
-                window.location.reload();
-            }else{
-                message.error('删除失败');
-            }
+        var articleId = this.state.articleId;
+        confirm({
+            title:'确定放弃编辑此草稿吗',
+            okText:'确定',
+            cancelText:'取消',
+            onOk(){
+                API.removeMeArticle(articleId).then(res=>{
+                    if(res.data.code===1){
+                        message.success('删除成功');
+                        window.location.reload();
+                    }else{
+                        message.error('删除失败');
+                    }
+                })
+            },
+            onCancel(){}
         })
+       
     }
 
     //上传图片

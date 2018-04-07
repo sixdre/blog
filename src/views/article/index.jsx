@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin ,message} from 'antd';
+import { Spin ,message,Tag} from 'antd';
 import * as API from '../../api/api'
 import './index.less';
 import Comment from '../../components/comment';
@@ -82,6 +82,7 @@ export default class Article extends Component {
 
 
     render() {
+        
         return (
             <XLayout>
                 <div className="container">
@@ -89,11 +90,12 @@ export default class Article extends Component {
                         <article className="article">
                             <div className="article_head">
                                 <h1 className="title">{this.state.article.title}</h1>
-                                <p>
-                                    {time(this.state.article.create_time)} <span> 作者 </span>
-                                    {this.state.article.author_name}
-                                    <span onClick={this.toggleLikeUser}> {this.state.isLikeAuthor?'已关注':'关注'}</span>
-                                </p>
+                                <div className="article_info">
+                                    <span>{time(this.state.article.create_time)}</span> 
+                                    <span> 作者 </span>
+                                    <span>{this.state.article.author_name}</span>
+                                    <span>{this.state.isLikeAuthor?(<Tag onClick={this.toggleLikeUser}>已关注</Tag>):(<Tag onClick={this.toggleLikeUser} color="red">关注</Tag>)}</span>
+                                </div>
                             </div>
                             <div className="article_body">
                                 <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} />
