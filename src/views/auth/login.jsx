@@ -10,7 +10,7 @@ function mapStateToProps (state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    user_login: (username,token,avatar) => dispatch({ type: 'LOGIN',username,token,avatar })
+    user_login: (arg) => dispatch({ type: 'LOGIN',...arg })
   }
 }
 @connect(mapStateToProps,mapDispatchToProps)
@@ -34,7 +34,12 @@ export default class LoginComponent extends Component {
         login(username, password).then(res => {
             if (res.data.code === 1) {
                 alert('登录成功')
-                this.props.user_login(username, res.data.token, res.data.userInfo.avatar);
+                this.props.user_login({
+                    username,
+                    token:res.data.token, 
+                    avatar:res.data.userInfo.avatar,
+                    userId:res.data.userInfo._id
+                });
                 this.props.history.push('/')
             } else {
                 alert(res.data.message)

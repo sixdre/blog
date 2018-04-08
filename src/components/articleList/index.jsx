@@ -94,7 +94,7 @@ export default class ArticleList extends Component {
                             }
                             <div className="post_footer">
                                 <div className="topic_info">
-                                    <img className="avatar" width="25" height="25" src={item.author.avatar} title={item.author.username} alt={item.author.username}/>
+                                    <Link to={'/users/'+item.author._id+'/info'}><img className="avatar" width="25" height="25" src={item.author.avatar} title={item.author.username} alt={item.author.username}/></Link>    
                                     <span> 发布于：{fromNow(item.create_time)}</span>
                                     <span> 分类：{item.category_name} </span>
                                     <span> 浏览：{item.pv_num}</span>

@@ -34,10 +34,11 @@ export default class PersonalComponent extends Component {
     }
 
     getArticles(page = 1) {
+        let userId = this.props.match.params.id;
         this.setState({
             loading:true,
         })
-        API.getMeArticleList({ limit: ARTICLE_LIMIT, page}).then(res => {
+        API.getMeArticleList(userId,{ limit: ARTICLE_LIMIT, page}).then(res => {
             if (res.data.code === 1) {
                 let articles = res.data.data;
                 this.setState({
@@ -50,10 +51,11 @@ export default class PersonalComponent extends Component {
     }
 
     getFollows(page = 1) {
+        let userId = this.props.match.params.id;
         this.setState({
             loading:true,
         })
-        API.getMeFollows({ limit:FOLLOW_LIMIT, page}).then(res => {
+        API.getMeFollows(userId,{ limit:FOLLOW_LIMIT, page}).then(res => {
             if (res.data.code === 1) {
                 let follows = res.data.data;
                 this.setState({
@@ -65,10 +67,11 @@ export default class PersonalComponent extends Component {
     }
 
     getFans(page = 1) {
+        let userId = this.props.match.params.id;
         this.setState({
             loading:true,
         })
-        API.getMeFans({ limit: FANS_LIMIT, page}).then(res => {
+        API.getMeFans(userId,{ limit: FANS_LIMIT, page}).then(res => {
             if (res.data.code === 1) {
                 let fans = res.data.data;
                 this.setState({

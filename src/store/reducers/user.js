@@ -10,6 +10,7 @@ import Auth from '../../services/auth'
 //初始数据
 const initialState = {
     username: $storage.user.getUserName() || '',
+    userId: $storage.user.getUserId() || '',
     token: $storage.user.getToken() || '',
     avatar: $storage.user.getAvatar() || ''
 }
@@ -20,13 +21,15 @@ const user = (state = initialState, action) => {
             Auth.login({
                 username: action.username,
                 avatar: action.avatar,
-                token: action.token
+                token: action.token,
+                userId: action.userId
             })
             return {
                 ...state,
                 username: action.username,
                 token: action.token,
-                avatar: action.avatar
+                avatar: action.avatar,
+                userId: action.userId
             }
         case LOGOUT:
             Auth.logout();
@@ -34,7 +37,8 @@ const user = (state = initialState, action) => {
                 ...state,
                 username: '',
                 token: '',
-                avatar: ''
+                avatar: '',
+                userId: ''
             }
         case SET_USERNAME:
             return {

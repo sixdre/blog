@@ -23,7 +23,7 @@ class App extends Component {
                 <Route exact path='/' component={Home} />    
                 <Route path='/article/:id' component={Article} />
 				<Route path='/write' component={Write} />
-				<Route path='/personal' component={Personal} />
+				<Route path='/users/:id' component={Personal} />
                 <Route path='/regist' component={Regist} />
                 <Route path='/login' component={Login} />
                 <Route path='/404' component={NoFound} />

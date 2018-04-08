@@ -23,6 +23,7 @@ export default class PersonalComponent extends Component {
     }
 
     getArticles() {
+        let userId = this.props.match.params.id;
         this.setState({
             loading:true,
         })
@@ -31,7 +32,7 @@ export default class PersonalComponent extends Component {
             page:this.state.article_page,
             type:this.state.type
         }
-        API.getMeArticleList(params).then(res => {
+        API.getMeArticleList(userId,params).then(res => {
             if (res.data.code === 1) {
                 let articles = res.data.data;
                 this.setState({

@@ -67,9 +67,8 @@ export const createDraft = (data) => { return axios.post('/api/draft', { article
 export const getDraft = () => { return axios.get('/api/me/drafts') }
     //获取文章列表
 export const getArticleList = (params) => { return axios.get('/api/articles', { params }) }
-    //获取我的文章
-export const getMeArticleList = (params) => { return axios.get('/api/me/articles', { params }) }
-    //删除文章
+
+//删除文章
 export const removeMeArticle = (ids) => { return axios.delete('/api/articles/' + ids) }
 
 //获取文章详情
@@ -88,14 +87,19 @@ export const addCommentLike = (cId) => { return axios.put('/api/comments/' + cId
 //用户关注
 export const toggleFollow = (uid) => { return axios.put('/api/users/' + uid + '/follow') }
 
+
+
+//获取我的文章
+export const getMeArticleList = (id, params) => { return axios.get('/api/users/' + id + '/articles', { params }) }
+
 //获取我的关注
-export const getMeFollows = (params) => { return axios.get('/api/me/follows', { params }) }
+export const getMeFollows = (id, params) => { return axios.get('/api/users/' + id + '/follows', { params }) }
 
 //获取我的粉丝
-export const getMeFans = (params) => { return axios.get('/api/me/fans', { params }) }
+export const getMeFans = (id, params) => { return axios.get('/api/users/' + id + '/fans', { params }) }
 
 //获取我的信息
-export const getMeInfo = () => { return axios.get('/api/me/info') }
+export const getMeInfo = (id) => { return axios.get('/api/users/' + id + '/info') }
 
 
 

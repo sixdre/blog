@@ -1,5 +1,15 @@
 export default {
     user: {
+        setUserId(data) {
+            if (data) {
+                localStorage.setItem('uid', data);
+            } else {
+                localStorage.removeItem('uid')
+            }
+        },
+        getUserId() {
+            return localStorage.getItem('uid')
+        },
         setToken(data) {
             if (data) {
                 localStorage.setItem('token', data);
@@ -14,7 +24,7 @@ export default {
             if (data) {
                 localStorage.setItem('username', data)
             } else {
-                 localStorage.removeItem('username')
+                localStorage.removeItem('username')
             }
         },
         getUserName() {
@@ -31,5 +41,5 @@ export default {
             return localStorage.getItem('avatar')
         },
     }
-   
+
 }

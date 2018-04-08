@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 function mapStateToProps (state) {
 	return {
 		username:state.user.username,
-        avatar: state.user.avatar
+		avatar: state.user.avatar,
+		userId: state.user.userId,
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -23,6 +24,7 @@ export default class headerTop extends Component {
 		this.props.user_logout()
 	}
 	render() {
+		const userId = this.props.userId;
 		return(
 			<header className="PageHeader">
 				<div className="container">
@@ -34,7 +36,7 @@ export default class headerTop extends Component {
 						{
 							this.props.username ? (
 								<div>
-									<Link to="/personal/info">
+									<Link to={'/users/'+userId+'/info'}>
 										<img className="avatar" width="25" height="25" src={this.props.avatar} alt={this.props.username} />
 									</Link>	
 									<Link to="/write">

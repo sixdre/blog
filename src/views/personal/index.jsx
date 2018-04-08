@@ -32,7 +32,8 @@ export default class PersonalComponent extends Component {
 
      //获取信息
     getInfo() {
-        API.getMeInfo().then(res=>{
+        let userId = this.props.match.params.id;
+        API.getMeInfo(userId).then(res=>{
             if (res.data.code === 1) {
                 this.setState({ ...res.data.data }); 
             }else {
@@ -43,6 +44,7 @@ export default class PersonalComponent extends Component {
   
     
     render() {
+        const userId = this.props.match.params.id;
         let { username, avatar } = this.state.userInfo;
         let {following_num,fans_num,article_num,like_num} = this.state;
         return (
@@ -51,11 +53,11 @@ export default class PersonalComponent extends Component {
                     <Row>
                         <Col span={16} className="personal_left">
                             <div className="personal_top">
-                                <Link className="avatar" to="/personal/info">
+                                <Link className="avatar" to={'/users/'+userId+'/info'}>
                                     <img src={avatar} alt={username}/>
                                 </Link>
                                 <div className="title">
-                                    <Link className="username" to="/personal/info">{username}</Link>
+                                    <Link className="username" to={'/users/'+userId+'/info'}>{username}</Link>
                                 </div>
                                 <div className="info">
                                     <ul>
@@ -95,14 +97,14 @@ export default class PersonalComponent extends Component {
                                 </div>
                             </div>
                             <Switch>
-                                <Route path='/personal/info' component={infoPage} />    
-                                <Route path='/personal/collect' component={collectPage} />  
-                                <Redirect exact from="/personal" to="/personal/info"/>  
+                                <Route path='/users/:id/info' component={infoPage} />    
+                                <Route path='/users/:id/collect' component={collectPage} />  
+                                <Redirect exact from="/users/:id/" to="/users/:id/info"/>  
                             </Switch>    
                         </Col>
                         <Col span={8} className="personal_right">
                             <div>
-                                <Link to="/personal/collect" className="my_collect">
+                                <Link to={'/users/'+userId+'/collect'} className="my_collect">
                                     <img src={my_collect_png} alt=""/>    
                                 </Link>
                             </div>    
