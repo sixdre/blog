@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {message,Tabs ,Pagination,Modal} from 'antd';
 import * as API from '../../../api/api'
 import ArticleList from '../../../components/articleList';
-
+import XLoding from '../../../components/loading'
 const confirm = Modal.confirm;
 const TabPane = Tabs.TabPane;
 const ARTICLE_LIMIT = 5;
@@ -123,8 +123,12 @@ export default class PersonalComponent extends Component {
                     </TabPane>
                     <TabPane tab="喜欢的文章" key="like">
                     </TabPane>
+                    <TabPane tab="评论的文章" key="comment">
+                    </TabPane>
                 </Tabs>
-                <ArticleList showCollect={this.state.type==='collect'} collectFunc={this.toggleCollect} likeFunc={this.toggleLike} showLike={this.state.type==='like'} data={this.state.articles} loading={this.state.loading} empty="没有更多的数据"/>
+                <XLoding type="post" loading={this.state.loading}>
+                    <ArticleList showCollect={this.state.type==='collect'} collectFunc={this.toggleCollect} likeFunc={this.toggleLike} showLike={this.state.type==='like'} data={this.state.articles} empty="没有更多的数据"/>
+                </XLoding>
                 <div className="pagination">
                     <Pagination current={this.state.article_page} onChange={ this.onPageChange } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>
                 </div>

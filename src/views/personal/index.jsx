@@ -51,11 +51,11 @@ export default class PersonalComponent extends Component {
                     <Row>
                         <Col span={16} className="personal_left">
                             <div className="personal_top">
-                                <Link className="avatar" to="/">
+                                <Link className="avatar" to="/personal/info">
                                     <img src={avatar} alt={username}/>
                                 </Link>
                                 <div className="title">
-                                    <Link className="username" to="/">{username}</Link>
+                                    <Link className="username" to="/personal/info">{username}</Link>
                                 </div>
                                 <div className="info">
                                     <ul>

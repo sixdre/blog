@@ -1,0 +1,99 @@
+.post_placeholder{
+    position: relative;
+    padding: 0 2px 0 0;
+    margin-bottom: 50px;
+    .title{
+        height: 26px;
+        width: 50%;
+        background-color: #eaeaea;
+        vertical-align: middle;
+        -webkit-animation: loading 1s ease-in-out infinite;
+        animation: loading 1s ease-in-out infinite;
+        margin-bottom: 10px;
+    }
+    .info{
+        .avatar{
+            cursor: default!important;
+            width: 34px;
+            height: 34px;
+            margin: 0 5px 0 0;
+            border-radius: 50%;
+            background-color: #eaeaea;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        span{
+            height: 16px;
+            width: 50px;
+            display: inline-block;
+            vertical-align: middle;
+            background-color: #eaeaea;
+        }
+    }
+}
+.users_placeholder{
+    padding-bottom: 20px;
+    .avatar{
+        position: absolute;
+        cursor: default!important;
+        margin-top: 5px;
+        width: 52px;
+        height: 52px;
+        margin-right: 8px;
+        vertical-align: middle;
+        display: inline-block;
+        background-color: #eaeaea;
+        border-radius: 50%;
+    }
+    .wrap {
+        padding: 3px 0 16px 65px!important;
+        border-bottom: 1px solid #f0f0f0;
+        .name{
+            width: 30px;
+            height: 15px;
+            background-color: #eaeaea;
+        }
+        .text{
+            margin: 7px 0;
+            width: 40%;
+            height: 12px;
+            background-color: #eaeaea;
+            -webkit-animation: shortLoading 1s ease-in-out -.5s infinite;
+            animation: shortLoading 1s ease-in-out -.5s infinite;
+        }
+        .short-text {
+            width: 40%;
+            -webkit-animation: shortLoading 1s ease-in-out infinite;
+            animation: shortLoading 1s ease-in-out infinite;
+        }
+        .btn {
+            cursor: default!important;
+            margin-top: 5px;
+            float: right;
+            width: 100px;
+            height: 39px;
+            background-color: #eaeaea;
+            border-radius: 20px;
+        }
+    }
+}
+@-webkit-keyframes loading{
+    0%{width:60%}
+    50%{width:100%}
+    to{width:60%}
+}
+@keyframes loading{
+    0%{width:60%}
+    50%{width:100%}
+    to{width:60%}
+}
+@-webkit-keyframes shortLoading{
+    0%{width:20%}
+    50%{width:40%}
+    to{width:20%}
+}
+@keyframes shortLoading{
+    0%{width:20%}
+    50%{width:40%}
+    to{width:20%}
+}

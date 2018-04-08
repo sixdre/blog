@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Link, } from 'react-router-dom';
 import {message,Tabs,Spin,Button ,Pagination,Modal} from 'antd';
 import * as API from '../../../api/api'
-
 import ArticleList from '../../../components/articleList';
+
+import XLoding from '../../../components/loading'
 
 const confirm = Modal.confirm;
 const TabPane = Tabs.TabPane;
 
 const ARTICLE_LIMIT = 5;
-const FOLLOW_LIMIT = 5;
-const FANS_LIMIT = 5;
+const FOLLOW_LIMIT = 20;
+const FANS_LIMIT = 20;
 
 export default class PersonalComponent extends Component {
     constructor(props) {
@@ -154,13 +155,17 @@ export default class PersonalComponent extends Component {
             <div>
                 <Tabs defaultActiveKey="article" size="small" onChange={this.onTabChange}>
                     <TabPane tab="文章" key="article">
-                        <ArticleList showDel delFunc={this.handleDel} data={this.state.articles} loading={this.state.loading} empty={ArticleEmpty} />
-                        {this.state.article_total>0?(<div className="pagination">
-                            <Pagination current={this.state.article_page} onChange={(val) => { this.onPageChange(val, 'article') } } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>
-                        </div>):null}
+                        <XLoding type="post" loading={this.state.loading}>
+                            <div>
+                                <ArticleList showDel delFunc={this.handleDel} data={this.state.articles} empty={ArticleEmpty} />
+                                {this.state.article_total>0?(<div className="pagination">
+                                    <Pagination current={this.state.article_page} onChange={(val) => { this.onPageChange(val, 'article') } } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>
+                                </div>):null}
+                            </div>
+                        </XLoding>
                     </TabPane>
                     <TabPane tab="我的关注" key="following">
-                        <Spin spinning={this.state.loading}>  
+                        <XLoding type="user" loading={this.state.loading}>
                             <div className="user_list">
                                 <ul>
                                     {
@@ -187,11 +192,10 @@ export default class PersonalComponent extends Component {
                                     }    
                                 </ul>
                             </div>
-                        </Spin>
-                        
+                        </XLoding>
                     </TabPane>
                     <TabPane tab="我的粉丝" key="fans">
-                        <Spin spinning={this.state.loading}>    
+                        <XLoding type="user" loading={this.state.loading}>
                             <div className="user_list">
                                 <ul>
                                     {
@@ -209,8 +213,8 @@ export default class PersonalComponent extends Component {
                                     }    
                                 </ul>
                             </div>
-                        </Spin>
-                    </TabPane>
+                        </XLoding>            
+                    </TabPane> 
                 </Tabs>
             </div>    
         );
