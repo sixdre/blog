@@ -34,9 +34,11 @@ export default class headerTop extends Component {
 						{
 							this.props.username ? (
 								<div>
-									<Link to="/personal">
-										<img className="avatar" width="25" height="25" src={this.props.avatar} alt="" />
-										{this.props.username}
+									<Link to="/personal/info">
+										<img className="avatar" width="25" height="25" src={this.props.avatar} alt={this.props.username} />
+									</Link>	
+									<Link to="/write">
+										写文章
 									</Link>	
 									<span onClick={this.logout}>退出</span>		
 								</div>	

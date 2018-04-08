@@ -8,6 +8,7 @@ import './styles/base.less';
 import Home from './views/home';
 import Article from './views/article';
 import Personal from './views/personal';
+import Write from './views/write/write';
 import Login from './views/auth/login';
 import Regist from './views/auth/regist';
 import NoFound from './views/auth/404';
@@ -21,6 +22,7 @@ class App extends Component {
             <Switch>
                 <Route exact path='/' component={Home} />    
                 <Route path='/article/:id' component={Article} />
+				<Route path='/write' component={Write} />
 				<Route path='/personal' component={Personal} />
                 <Route path='/regist' component={Regist} />
                 <Route path='/login' component={Login} />

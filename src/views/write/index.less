@@ -1,0 +1,37 @@
+.write_control{
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 100%;
+    .left_aside{
+        width: 200px;
+        background-color: #404040;
+        &>ul{
+            li{
+                margin-top: 20px;
+                &>a{
+                    display: block;
+                    height: 45px;
+                    line-height: 45px;
+                    padding-left: 30px;
+                    color: #fff;
+                    &.active, &:hover{
+                        background-color: rgb(34, 32, 32);
+                    }
+                }
+            }
+        }
+    }
+    .write_right{
+        flex: auto;
+        position: relative;
+        padding: 0 20px;
+        .editor{
+            min-height: 500px;
+        }
+    }
+}
