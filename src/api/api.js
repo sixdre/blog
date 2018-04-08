@@ -90,16 +90,16 @@ export const toggleFollow = (uid) => { return axios.put('/api/users/' + uid + '/
 
 
 //获取我的文章
-export const getMeArticleList = (id, params) => { return axios.get('/api/users/' + id + '/articles', { params }) }
+export const getArticlesByUserId = (id, params) => { return axios.get('/api/users/' + id + '/articles', { params }) }
 
 //获取我的关注
-export const getMeFollows = (id, params) => { return axios.get('/api/users/' + id + '/follows', { params }) }
+export const getFollowsByUserId = (id, params) => { return axios.get('/api/users/' + id + '/follows', { params }) }
 
 //获取我的粉丝
-export const getMeFans = (id, params) => { return axios.get('/api/users/' + id + '/fans', { params }) }
+export const getFansByUserId = (id, params) => { return axios.get('/api/users/' + id + '/fans', { params }) }
 
 //获取我的信息
-export const getMeInfo = (id) => { return axios.get('/api/users/' + id + '/info') }
+export const getInfoByUserId = (id) => { return axios.get('/api/users/' + id + '/info') }
 
 
 

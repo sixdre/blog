@@ -38,7 +38,7 @@ export default class PersonalComponent extends Component {
         this.setState({
             loading:true,
         })
-        API.getMeArticleList(userId,{ limit: ARTICLE_LIMIT, page}).then(res => {
+        API.getArticlesByUserId(userId,{ limit: ARTICLE_LIMIT, page}).then(res => {
             if (res.data.code === 1) {
                 let articles = res.data.data;
                 this.setState({
@@ -55,7 +55,7 @@ export default class PersonalComponent extends Component {
         this.setState({
             loading:true,
         })
-        API.getMeFollows(userId,{ limit:FOLLOW_LIMIT, page}).then(res => {
+        API.getFollowsByUserId(userId,{ limit:FOLLOW_LIMIT, page}).then(res => {
             if (res.data.code === 1) {
                 let follows = res.data.data;
                 this.setState({
@@ -71,7 +71,7 @@ export default class PersonalComponent extends Component {
         this.setState({
             loading:true,
         })
-        API.getMeFans(userId,{ limit: FANS_LIMIT, page}).then(res => {
+        API.getFansByUserId(userId,{ limit: FANS_LIMIT, page}).then(res => {
             if (res.data.code === 1) {
                 let fans = res.data.data;
                 this.setState({

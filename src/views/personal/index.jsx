@@ -33,7 +33,7 @@ export default class PersonalComponent extends Component {
      //获取信息
     getInfo() {
         let userId = this.props.match.params.id;
-        API.getMeInfo(userId).then(res=>{
+        API.getInfoByUserId(userId).then(res=>{
             if (res.data.code === 1) {
                 this.setState({ ...res.data.data }); 
             }else {
