@@ -4,7 +4,7 @@ import { Spin } from 'antd';
 import './index.less';
 import { fromNow } from '../../utils'
 import { connect } from 'react-redux'
-
+import PropTypes from 'prop-types'
 
 function mapStateToProps (state) {
     return {
@@ -19,6 +19,10 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps,mapDispatchToProps)
 export default class ArticleList extends Component {
+
+    static propTypes = {
+        data: PropTypes.array
+    }
     componentDidMount(){
 
     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {message} from 'antd';
 import {upload} from '../../api/api';
+import PropTypes from 'prop-types'
 
 export default class XEditor extends Component {
 
@@ -8,7 +9,11 @@ export default class XEditor extends Component {
         this.ready()
         console.log(this.props.uploadImgUrl)
     }
-
+    static propTypes = {
+        content: PropTypes.string,
+        onEditorValueChange: PropTypes.func,
+        onPublish:PropTypes.func
+    }
     ready() {
         var ctx = this;		
         let e = this.refs['markDown_editor'];
@@ -58,8 +63,8 @@ export default class XEditor extends Component {
                 key: isMac ? 'command+shift+z' : 'ctrl+y',
             });
             mditor.toolbar.items.push({
-                name: 'home',
-                icon: 'home',
+                name: 'publish',
+                icon: 'paper-plane',
                 handler: function () {
                     ctx.props.onPublish() //发布
                 },

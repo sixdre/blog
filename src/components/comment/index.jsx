@@ -4,6 +4,7 @@ import './index.css'
 import * as API from '../../api/api';
 import CommentItem from './item'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 let fcontnet;
 function mapStateToProps (state) {
     return {
@@ -29,6 +30,9 @@ export default class Comment extends Component {
             total:0,
             order_by:'timeRev'
         }
+    }
+    static propTypes = {
+        articleId: PropTypes.string.isRequired
     }
     componentDidMount() {
         this.getComments()

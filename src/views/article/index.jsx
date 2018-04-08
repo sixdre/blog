@@ -119,7 +119,7 @@ export default class Article extends Component {
                                 </Badge>
                             </div>
                         </article>
-                        {this.state.article.allow_comment === true ? <Comment  articleId={this.props.match.params.id} /> : null}
+                        {this.state.article.allow_comment === true ? <Comment  articleId={this.props.match.params.id} /> : <div className="not_allow_cmt">该文章暂时无法评论</div>}
                     </div>    
                 </div>
             </XLayout>
