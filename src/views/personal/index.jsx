@@ -7,6 +7,9 @@ import './index.less';
 import infoPage from './children/info';
 import collectPage from './children/collect';
 
+import my_collect_png from '../../images/my_collect.png'
+
+
 export default class PersonalComponent extends Component {
     constructor(props) {
         super(props);
@@ -97,7 +100,13 @@ export default class PersonalComponent extends Component {
                                 <Redirect exact from="/personal" to="/personal/info"/>  
                             </Switch>    
                         </Col>
-                        <Col span={8}>8</Col>
+                        <Col span={8} className="personal_right">
+                            <div>
+                                <Link to="/personal/collect" className="my_collect">
+                                    <img src={my_collect_png} alt=""/>    
+                                </Link>
+                            </div>    
+                        </Col>
                     </Row>    
                 </div>
             </XLayout>
