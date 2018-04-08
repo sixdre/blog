@@ -94,7 +94,8 @@ export const getMeFollows = (params) => { return axios.get('/api/me/follows', { 
 //获取我的粉丝
 export const getMeFans = (params) => { return axios.get('/api/me/fans', { params }) }
 
-
+//获取我的信息
+export const getMeInfo = () => { return axios.get('/api/me/info') }
 
 
 
