@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Link, NavLink, Switch, Route, Redirect } from 'react-router-dom';
-import {Row, Col,message,Tabs,Spin,Button ,Pagination} from 'antd';
-import XLayout from '../../../components/layout';
+import {message,Tabs ,Pagination,Modal} from 'antd';
 import * as API from '../../../api/api'
-
 import ArticleList from '../../../components/articleList';
 
+const confirm = Modal.confirm;
 const TabPane = Tabs.TabPane;
 const ARTICLE_LIMIT = 5;
 
@@ -67,6 +65,56 @@ export default class PersonalComponent extends Component {
         document.body.scrollTop = 0;  //非ie
     }
 
+    toggleCollect=(item)=> {
+        let id = item._id;
+        var ctx = this;
+        if (!id) {
+            return;
+        }
+        confirm({
+            title:'确定取消收藏吗',
+            okText:'确定',
+            cancelText:'取消',
+            onOk(){
+                API.toggleCollect(id).then(res => {
+                    if (res.data.code === 1) {
+                        ctx.getArticles()
+                        message.success('已取消收藏');
+                    } else {
+                        message.success('取消收藏失败');
+                    }
+                })
+            },
+            onCancel(){}
+        })
+        
+    }
+
+    toggleLike=(item)=> {
+        let id = item._id;
+        var ctx = this;
+        if (!id) {
+            return;
+        }
+        confirm({
+            title:'确定删除?',
+            okText:'确定',
+            cancelText:'取消',
+            onOk(){
+                API.toggleLike(id).then(res => {
+                    if (res.data.code === 1) {
+                        ctx.getArticles()
+                        message.success('操作成功');
+                    } else {
+                        message.success('失败');
+                    }
+                })
+            },
+            onCancel(){}
+        })
+        
+    }
+
     render() {
         return (
             <div>
@@ -76,7 +124,7 @@ export default class PersonalComponent extends Component {
                     <TabPane tab="喜欢的文章" key="like">
                     </TabPane>
                 </Tabs>
-                <ArticleList data={this.state.articles} loading={this.state.loading} empty="没有更多的数据"/>
+                <ArticleList showCollect={this.state.type==='collect'} collectFunc={this.toggleCollect} likeFunc={this.toggleLike} showLike={this.state.type==='like'} data={this.state.articles} loading={this.state.loading} empty="没有更多的数据"/>
                 <div className="pagination">
                     <Pagination current={this.state.article_page} onChange={ this.onPageChange } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>
                 </div>

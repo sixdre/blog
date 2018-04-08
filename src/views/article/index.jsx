@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin ,message,Tag,Badge,Icon,Tooltip} from 'antd';
+import { message,Tag,Badge,Icon,Tooltip} from 'antd';
 import * as API from '../../api/api'
 import './index.less';
 import Comment from '../../components/comment';

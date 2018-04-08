@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import {message} from 'antd';
-import {upload} from '../../api/api';
 import PropTypes from 'prop-types'
 
 export default class XEditor extends Component {
 
     componentDidMount() {
         this.ready()
-        console.log(this.props.uploadImgUrl)
+
     }
     static propTypes = {
         content: PropTypes.string,

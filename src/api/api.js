@@ -116,7 +116,7 @@ export const upload = (formData, callback) => {
         config,
         onUploadProgress: function(progressEvent) {
             if (progressEvent.lengthComputable) {
-                if (callback && typeof callback == 'function') {
+                if (callback && typeof callback === 'function') {
                     callback(progressEvent)
                 }
             }

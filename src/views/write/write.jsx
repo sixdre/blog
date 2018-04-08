@@ -189,7 +189,7 @@ class WriteComponent extends Component {
         var formData = new FormData();
         formData.append('file',file,name);
         API.upload(formData).then(res=>{
-            if(res.data.code==1){
+            if(res.data.code===1){
                 if(callback&&typeof callback === 'function'){
                     callback(res.data.url)
                 }

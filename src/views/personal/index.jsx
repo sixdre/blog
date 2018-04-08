@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link, NavLink, Switch, Route, Redirect } from 'react-router-dom';
-import {Row, Col,message,Tabs,Spin,Button ,Pagination} from 'antd';
+import { Link, Switch, Route, Redirect } from 'react-router-dom';
+import {Row, Col,message } from 'antd';
 import XLayout from '../../components/layout';
 import * as API from '../../api/api'
 import './index.less';

@@ -21,7 +21,41 @@ function mapDispatchToProps(dispatch) {
 export default class ArticleList extends Component {
 
     static propTypes = {
-        data: PropTypes.array
+        data: PropTypes.array,
+        showLike:PropTypes.bool,
+        showCollect:PropTypes.bool,
+        showEdit:PropTypes.bool,
+        showDel: PropTypes.bool,
+        likeFunc: PropTypes.func,
+        collectFunc: PropTypes.func,
+        editFunc: PropTypes.func,
+        delFunc:PropTypes.func
+    }
+    static defaultProps = {
+        showLike:false,
+        showCollect: false,
+        showEdit: false,
+        showDel:false
+    }
+
+    handleFunc=(type,item)=>{
+        if (type === 'collect') {
+            if (this.props.collectFunc) {
+                this.props.collectFunc(item)
+            }
+        } else if (type === 'like') {
+            if (this.props.likeFunc) {
+                this.props.likeFunc(item)
+            }
+        } else if (type === 'edit') {
+            if (this.props.editFunc) {
+                this.props.editFunc(item)
+            }
+        } else if (type === 'del') {
+            if (this.props.delFunc) {
+                this.props.delFunc(item)
+            }
+        }
     }
     componentDidMount(){
 
@@ -34,7 +68,7 @@ export default class ArticleList extends Component {
         let PostList = ()=>{
             if(!loading){
                 if(!this.props.data.length||!this.props.data){
-                    return <p>{this.props.empty?this.props.empty:'暂无数据'}</p>
+                    return <div>{this.props.empty?this.props.empty:'暂无数据'}</div>
                 }
             }
             return <div className="post_list">
@@ -65,6 +99,10 @@ export default class ArticleList extends Component {
                                     <span> 分类：{item.category_name} </span>
                                     <span> 浏览：{item.pv_num}</span>
                                     <span> 评论：{item.cmt_num}</span>
+                                    {this.props.showLike ? <span className="handle_span" onClick={() => { this.handleFunc('like',item) }}>取消喜欢</span> : null}
+                                    {this.props.showCollect ? <span className="handle_span" onClick={() => { this.handleFunc('collect',item) }}>取消收藏</span> : null}
+                                    {this.props.showEdit ? <span className="handle_span" onClick={() => { this.handleFunc('edit',item) }}>编辑</span> : null}
+                                    {this.props.showDel ? <span className="handle_span" onClick={() => { this.handleFunc('del',item) }}>删除</span>:null}
                                 </div>
                             </div>
                         </div>
