@@ -93,7 +93,8 @@ export const addCommentLike = (cId) => { return axios.put('/api/comments/' + cId
 export const toggleFollow = (uid) => { return axios.put('/api/users/' + uid + '/follow') }
 
 
-
+//删除我的评论
+export const removeMeComment = (id) => { return axios.delete('/api/me/comments/'+id) }
 //获取我的文章
 export const getArticlesByUserId = (id, params) => { return axios.get('/api/users/' + id + '/articles', { params }) }
 

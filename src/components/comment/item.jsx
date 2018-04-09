@@ -9,8 +9,12 @@ export default class CommentItem extends Component {
     handleLike = (item, event)=>{
         this.props.handleLike(item)
     }
+    handleRemove = (id) => {
+        this.props.handleRemove(id)
+    }
     render() {
         let item = this.props.data;
+        let current_userId = this.props.current_userId;
         return (
             <li className="clearfix comment-item">
                 <div className="avatar">
@@ -43,6 +47,7 @@ export default class CommentItem extends Component {
                     </div>
                     <div className="comment-footer clearfix">
                         <em>
+                            {current_userId === item.from._id ? (<a className="del" onClick={(e) => { this.handleRemove(item._id) }}>删除</a>):null}    
                             <Badge count={item.like_num}>
                                 <a onClick={(event) => this.handleLike(item,event)}>
                                 {item.isLike?<Tooltip title="您已点赞"><Icon type="like" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Icon type="like-o" style={{fontSize: 20,color:'red'}}/>}
@@ -64,6 +69,7 @@ export default class CommentItem extends Component {
                                         status={'reply'}
                                         handleReply={(event) => this.handleReply(rep, event)}
                                         handleLike={(event) => this.handleLike(rep, event)}
+                                        handleRemove={(event) => this.handleRemove(rep, event)}
                                     />
                                 )
                             })

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin,Row,Col } from 'antd';
+import { Spin,Row,Col,Icon } from 'antd';
 import './index.less';
 import ArticleList from '../../components/articleList';
 import * as API from '../../api/api'
@@ -107,14 +107,15 @@ export default class Home extends Component {
     }
 
     render() {
+        const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
         return (
             <XLayout>
                 <div className="container">
                     <div className="home">
                         <Row>
                             <Col span={16}>
-                                <ArticleList data={this.props.articles} />
-                                <div style={{textAlign: 'center',height:'30px' }}><Spin spinning={this.state.loading}/></div>
+                                <ArticleList data={this.props.articles} empty=' '/>
+                                <div style={{textAlign: 'center',height:'30px',marginTop:'30px' }}><Spin indicator={antIcon} tip="卖力的加载中..." spinning={this.state.loading} size="large"/></div>
                                 <p className="nomore" >{this.state.nomore?'小站没有很多文章了^_^':''}</p>
                             </Col>
                             <Col span={7} offset={1}>aside</Col>
