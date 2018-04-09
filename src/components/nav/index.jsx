@@ -11,9 +11,6 @@ export default class Nav extends Component {
 						<li>
 							<Link to="/">首页</Link>
 						</li>
-						<li>
-							<Link to="/">标签</Link>
-						</li>
 					</ul>
 				</div>
 			</nav>

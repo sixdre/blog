@@ -188,7 +188,7 @@ export default class PersonalComponent extends Component {
                                         this.state.follows.map((item, index) => { 
                                             return (
                                                 <li key={index}>
-                                                    <a className="avatar"><img src={item.avatar} alt={item.username} /></a>
+                                                    <Link to={'/users/'+item._id+'/info'} className="avatar"><img src={item.avatar} alt={item.username} /></Link>
                                                     <div className="info">
                                                         <a className="username">{item.username}</a>
                                                         <p className="signature">{item.email}</p>
@@ -220,7 +220,7 @@ export default class PersonalComponent extends Component {
                                         this.state.fans.map((item, index) => { 
                                             return (
                                                 <li key={index}>
-                                                    <a className="avatar"><img src={item.avatar} alt={item.username} /></a>
+                                                    <Link to={'/users/'+item._id+'/info'} className="avatar"><img src={item.avatar} alt={item.username} /></Link>
                                                     <div className="info">
                                                         <a className="username">{item.username}</a>
                                                         <p className="signature">{item.email}</p>

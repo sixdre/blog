@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin } from 'antd';
+import { Spin,Row,Col } from 'antd';
 import './index.less';
 import ArticleList from '../../components/articleList';
 import * as API from '../../api/api'
@@ -111,9 +111,14 @@ export default class Home extends Component {
             <XLayout>
                 <div className="container">
                     <div className="home">
-                        <ArticleList data={this.props.articles} />
-                        <div style={{textAlign: 'center',height:'30px' }}><Spin spinning={this.state.loading}/></div>
-                        <p className="nomore" >{this.state.nomore?'小站没有很多文章了^_^':''}</p>
+                        <Row>
+                            <Col span={16}>
+                                <ArticleList data={this.props.articles} />
+                                <div style={{textAlign: 'center',height:'30px' }}><Spin spinning={this.state.loading}/></div>
+                                <p className="nomore" >{this.state.nomore?'小站没有很多文章了^_^':''}</p>
+                            </Col>
+                            <Col span={7} offset={1}>aside</Col>
+                        </Row>    
                     </div>    
                 </div>
             </XLayout>

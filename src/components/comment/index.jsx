@@ -162,7 +162,7 @@ export default class Comment extends Component {
                         </div>
                         <div className="form-ceil form-content">
                             <div className="form-textarea">
-                                <textarea ref="content" name="content" placeholder="说您想说"></textarea>
+                                <textarea ref="content" name="content" placeholder="来发表一下你的看法吧"></textarea>
                             </div>
                             <div className="form-toolbars clearfix">
                                 <div className="form-action">
