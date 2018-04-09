@@ -33,9 +33,7 @@ export default class Article extends Component {
                     isCollect: res.data.isCollect
                 })
                 document.title = res.data.data.title
-            } else {
-               this.props.history.push('/404')
-            }
+            } 
         })
     }
     toggleLike = () => {

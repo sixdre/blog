@@ -1,6 +1,7 @@
 import axios from 'axios'
 import $storage from '../services/storage'
 import Auth from '../services/auth'
+import history from '../history'
 axios.defaults.timeout = 30000
 
 let baseURL;
@@ -32,10 +33,14 @@ axios.interceptors.response.use(
     error => {
         if (error.response) {
             switch (error.response.status) {
+                case 404:
+                    history.push('/404');
+                    break;
                 case 401:
                     // 401 清除token信息并跳转到登录页面
-                    Auth.logout()
                     alert('请重新登录');
+                    Auth.logout()
+                    history.push('/login');
                     break;
                 case 403:
                     alert('抱歉，您没有权限访问,请与系统管理员联系!')

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
+import { Router, Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
+import history from './history';
 import 'antd/dist/antd.less';
 import './styles/reset.css';
 import './styles/base.less';
@@ -18,7 +19,7 @@ class App extends Component {
 
   render() {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <Switch>
                 <Route exact path='/' component={Home} />    
                 <Route path='/article/:id' component={Article} />
@@ -29,7 +30,7 @@ class App extends Component {
                 <Route path='/404' component={NoFound} />
                 <Redirect from='*' to='/404' />
             </Switch>
-        </BrowserRouter>
+        </Router>
     );
   }
 }
