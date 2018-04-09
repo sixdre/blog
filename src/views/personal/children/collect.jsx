@@ -11,19 +11,30 @@ export default class PersonalComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: this.props.match.params.id,
+            isMe:false,
             articles: [],
             article_page: 1,
             article_total: 0,
             type:'collect'
         }
     }
-
+     componentWillReceiveProps(nextProps){
+        const userId = nextProps.match.params.id;
+        if (userId !==this.state.userId){
+            this.setState({
+                userId
+            },()=>{
+                this.getArticles();
+            });
+        }
+    }
     componentDidMount() {
         this.getArticles()
     }
 
     getArticles() {
-        let userId = this.props.match.params.id;
+        let userId = this.state.userId;
         this.setState({
             loading:true,
         })
@@ -36,6 +47,7 @@ export default class PersonalComponent extends Component {
             if (res.data.code === 1) {
                 let articles = res.data.data;
                 this.setState({
+                    isMe:res.data.isMe,
                     loading:false,
                     articles,
                     article_total:res.data.total
@@ -117,6 +129,7 @@ export default class PersonalComponent extends Component {
     }
 
     render() {
+        let isMe = this.state.isMe;
         return (
             <div>
                 <Tabs defaultActiveKey={this.state.type} size="small" onChange={this.onTabChange}>
@@ -128,7 +141,7 @@ export default class PersonalComponent extends Component {
                     </TabPane>
                 </Tabs>
                 <XLoding type="post" loading={this.state.loading}>
-                    <ArticleList showCollect={this.state.type==='collect'} collectFunc={this.toggleCollect} likeFunc={this.toggleLike} showLike={this.state.type==='like'} data={this.state.articles} empty="没有更多的数据"/>
+                    <ArticleList showLike={this.state.type==='like'&isMe}  showCollect={this.state.type==='collect'&isMe} collectFunc={this.toggleCollect} likeFunc={this.toggleLike} data={this.state.articles} empty="没有更多的数据"/>
                 </XLoding>
                 <div className="pagination">
                     <Pagination current={this.state.article_page} onChange={ this.onPageChange } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>

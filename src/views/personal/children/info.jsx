@@ -17,6 +17,8 @@ export default class PersonalComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: this.props.match.params.id,
+            isMe:false,   //判断是否这个访问的用户是否为我自己
             articles: [],
             follows: [],
             fans:[],
@@ -28,13 +30,22 @@ export default class PersonalComponent extends Component {
         }
 
     }
-
+    componentWillReceiveProps(nextProps){
+        const userId = nextProps.match.params.id;
+        if (userId !==this.state.userId){
+            this.setState({
+                userId
+            },()=>{
+                this.getArticles();
+            });
+        }
+    }
     componentDidMount() {
         this.getArticles()
     }
 
     getArticles(page = 1) {
-        let userId = this.props.match.params.id;
+        let userId = this.state.userId;
         this.setState({
             loading:true,
         })
@@ -42,6 +53,7 @@ export default class PersonalComponent extends Component {
             if (res.data.code === 1) {
                 let articles = res.data.data;
                 this.setState({
+                    isMe:res.data.isMe,
                     loading:false,
                     articles,
                     article_total:res.data.total
@@ -51,7 +63,7 @@ export default class PersonalComponent extends Component {
     }
 
     getFollows(page = 1) {
-        let userId = this.props.match.params.id;
+        let userId = this.state.userId;
         this.setState({
             loading:true,
         })
@@ -67,7 +79,7 @@ export default class PersonalComponent extends Component {
     }
 
     getFans(page = 1) {
-        let userId = this.props.match.params.id;
+        let userId = this.state.userId;
         this.setState({
             loading:true,
         })
@@ -151,6 +163,7 @@ export default class PersonalComponent extends Component {
 
 
     render() {
+        let isMe = this.state.isMe;
         const ArticleEmpty = (
             <div>您还没有发布文章 <Link to="/write">去发布</Link></div>
         )
@@ -160,14 +173,14 @@ export default class PersonalComponent extends Component {
                     <TabPane tab="文章" key="article">
                         <XLoding type="post" loading={this.state.loading}>
                             <div>
-                                <ArticleList showDel delFunc={this.handleDel} data={this.state.articles} empty={ArticleEmpty} />
+                                <ArticleList showDel={isMe} delFunc={this.handleDel} data={this.state.articles} empty={ArticleEmpty} />
                                 {this.state.article_total>0?(<div className="pagination">
                                     <Pagination current={this.state.article_page} onChange={(val) => { this.onPageChange(val, 'article') } } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>
                                 </div>):null}
                             </div>
                         </XLoding>
                     </TabPane>
-                    <TabPane tab="我的关注" key="following">
+                    <TabPane tab={isMe?'我的关注':'他的关注'} key="following">
                         <XLoding type="user" loading={this.state.loading}>
                             <div className="user_list">
                                 <ul>
@@ -180,15 +193,17 @@ export default class PersonalComponent extends Component {
                                                         <a className="username">{item.username}</a>
                                                         <p className="signature">{item.email}</p>
                                                     </div>
-                                                    <div className="following">
-                                                        {
-                                                            item.isFollow===false?(<Button className="not_following" icon="plus" onClick={(e) => { this.onToggleFollow(item._id) }}>
-                                                                关注
-                                                            </Button>):(<Button onClick={(e) => { this.onToggleFollow(item._id) }}>
-                                                                已关注
-                                                            </Button>)
-                                                        }
-                                                    </div>
+                                                    {
+                                                        isMe?( <div className="following">
+                                                            {
+                                                                item.isFollow===false?(<Button className="not_following" icon="plus" onClick={(e) => { this.onToggleFollow(item._id) }}>
+                                                                    关注
+                                                                </Button>):(<Button onClick={(e) => { this.onToggleFollow(item._id) }}>
+                                                                    已关注
+                                                                </Button>)
+                                                            }
+                                                        </div>):(null)
+                                                    }
                                                 </li>
                                             )
                                         })
@@ -197,7 +212,7 @@ export default class PersonalComponent extends Component {
                             </div>
                         </XLoding>
                     </TabPane>
-                    <TabPane tab="我的粉丝" key="fans">
+                    <TabPane tab={isMe?'我的粉丝':'他的粉丝'} key="fans">
                         <XLoding type="user" loading={this.state.loading}>
                             <div className="user_list">
                                 <ul>

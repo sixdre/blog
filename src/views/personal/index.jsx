@@ -14,6 +14,7 @@ export default class PersonalComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: this.props.match.params.id,
             userInfo: {},
             fans_num:0,			//粉丝数量
             following_num:0,		//关注数量
@@ -26,13 +27,24 @@ export default class PersonalComponent extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps){
+        const userId = nextProps.match.params.id;
+        if (userId !==this.state.userId){
+            this.setState({
+                userId
+            },()=>{
+                this.getInfo();
+            });
+        }
+    }
+
     componentDidMount() {
         this.getInfo()
     }
 
      //获取信息
     getInfo() {
-        let userId = this.props.match.params.id;
+        let userId = this.state.userId;
         API.getInfoByUserId(userId).then(res=>{
             if (res.data.code === 1) {
                 this.setState({ ...res.data.data }); 
@@ -44,7 +56,7 @@ export default class PersonalComponent extends Component {
   
     
     render() {
-        const userId = this.props.match.params.id;
+        const userId = this.state.userId;
         let { username, avatar } = this.state.userInfo;
         let {following_num,fans_num,article_num,like_num} = this.state;
         return (
