@@ -30,6 +30,7 @@ export default class Comment extends Component {
             page:1,
             limit:8,
             total:0,
+            cmt_all_num:0,
             order_by: 'timeRev',
             showControl: false,      //是否显示评论框
             current_userId:null   //当前用户的id
@@ -56,6 +57,7 @@ export default class Comment extends Component {
         API.getComments(id,params).then(res => {
             if (res.data.code === 1) {
                 this.setState({
+                    cmt_all_num:res.data.cmt_all_num,
                     dataList: res.data.data,
                     user_num:res.data.user_num,
                     loading:false,
@@ -138,6 +140,14 @@ export default class Comment extends Component {
                     if(item._id === id){
                         item.like_num = res.data.count
                         item.isLike = res.data.isLike;
+                    }else if(item.reply.length){
+                        for(let i=0;i<item.reply.length;i++){
+                            if(item.reply[i]._id===id){
+                                item.reply[i].like_num = res.data.count
+                                item.reply[i].isLike = res.data.isLike;
+                                break;
+                            }
+                        }
                     }
                     return item;
                 })
@@ -203,7 +213,7 @@ export default class Comment extends Component {
         }
         let loading = this.state.loading ? this.state.loading : false;
         const pv = this.props.pv||0;
-        const cmt_num = this.state.total;
+        const cmt_all_num = this.state.cmt_all_num;
         const user_num = this.state.user_num;
 
         return (
@@ -215,7 +225,7 @@ export default class Comment extends Component {
                             <h5>浏览</h5>
                         </li>
                         <li>
-                            <span>{cmt_num}</span>
+                            <span>{cmt_all_num}</span>
                             <h5>回复</h5>
                         </li>
                         <li>
