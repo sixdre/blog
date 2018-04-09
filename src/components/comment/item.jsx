@@ -67,6 +67,7 @@ export default class CommentItem extends Component {
                                         key={i}
                                         did={item._id}
                                         status={'reply'}
+                                        current_userId={current_userId}
                                         handleReply={(event) => this.handleReply(rep, event)}
                                         handleLike={(event) => this.handleLike(rep, event)}
                                         handleRemove={(event) => this.handleRemove(rep, event)}

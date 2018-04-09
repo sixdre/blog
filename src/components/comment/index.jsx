@@ -72,7 +72,7 @@ export default class Comment extends Component {
             this.getComments()
         })
     }
-    openControl=()=> {
+    openControl = () => {
         this.setState({
             showControl:true
         })
@@ -177,10 +177,12 @@ export default class Comment extends Component {
 
     //取消回复
     cancleReply = () => {
-        this.refs.content.value =' ';
+        this.refs.content.value = '';
+        this.refs.content.setAttribute('placeholder','来发表一下你的看法吧')
         this.setState({
             cId: '',
-            toId:''
+            toId: '',
+            showControl:false
         })
     }
 
@@ -221,7 +223,9 @@ export default class Comment extends Component {
                             <h5>用户</h5>
                         </li>
                     </ul>    
-                    <a style={{'float':'right'}} onClick={this.openControl}>回复作者</a>
+                    <div style={{'textAlign':'right'}} >
+                         <a onClick={this.openControl}>回复作者</a>
+                    </div>
                 </div>    
                 
                 <div className={["comment_form_fixed", !this.state.showControl?"closed":'open'].join(' ')} >    

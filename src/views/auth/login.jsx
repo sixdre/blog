@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import {login} from '../../api/api';
 import { connect } from 'react-redux'
+import { time } from '../../utils/';
+
 
 function mapStateToProps (state) {
     return {
@@ -40,6 +42,8 @@ export default class LoginComponent extends Component {
                     avatar:res.data.userInfo.avatar,
                     userId:res.data.userInfo._id
                 });
+                // console.log(time(res.data.exp*1000, 'YYYY-MM-DD HH:mm:ss'))
+                // console.log(time(res.data.iat*1000,'YYYY-MM-DD HH:mm:ss'))
                 this.props.history.push('/')
             } else {
                 alert(res.data.message)

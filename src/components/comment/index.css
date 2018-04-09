@@ -164,6 +164,7 @@
     box-shadow: none;
     color: #fff;
     margin-left: 10px;
+    background: #1890ff;
 }
 
 .comment_form .form-toolbars .form-action .cancel {
@@ -179,7 +180,7 @@
 
 .comment-area {
     /*position: relative;*/
-    padding-top: 50px;
+    margin-top: 50px;
 }
 
 .comment-area .comment-tab {
