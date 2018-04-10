@@ -60,20 +60,24 @@ export default class Account extends Component {
                         userInfo,
                         loading:false
                     })
+                    message.success('头像更新成功');
                 } else {
                      message.error((res.data.message));
                 }
             })
         }
     }
+    triggerClick=()=> {
+        this.refs.file.click()
+    }
     render() {
         const userInfo = this.state.userInfo;
         return (
             <div>
                 <div>
-                    <div className="upload_avatar">
-                        <img src={userInfo.avatar} alt="" />
-                        <input type="file" accept="image/*" onChange={(e) => { this.handleChange(e) }} />
+                    <div className="upload_avatar" onClick={this.triggerClick}>
+                        <img src={userInfo.avatar} alt={userInfo.username} />
+                        <input type="file" ref="file" accept="image/*" onChange={(e) => { this.handleChange(e) }} />
                         {this.state.loading ? (
                             <div className="upload_loading">
                                 <Icon type='loading' />

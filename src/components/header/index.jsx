@@ -64,7 +64,7 @@ export default class headerTop extends Component {
 									<div className="user" onClick={(e) => { this.toggleUserMenu(e) }}>
 										<div className="dropdown">
 											<span className="user_avatar">
-												<img className="avatar" width="25" height="25" src={this.props.avatar} alt={this.props.username} />
+												<img className="avatar" src={this.props.avatar} alt={this.props.username} />
 											</span>	
 										</div>
 										{this.state.showMenu ? (

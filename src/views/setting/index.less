@@ -6,6 +6,7 @@
         height: 100px;
         border-radius: 50%;
         overflow: hidden;
+        cursor: pointer;
         input[type='file']{
             position: absolute;
             width: 100%;
@@ -13,6 +14,8 @@
             left: 0;
             top: 0;
             opacity: 0;
+            cursor: pointer;
+            display: none;
         }
         img{
             width: 100%;
@@ -24,7 +27,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color:rgba(0, 0, 0, 0.8);
+            background-color:rgba(0, 0, 0, 0.5);
+            &>i{
+                font-size: 30px;
+                color: #fff;
+                margin-top: 30px;
+                margin-left: 30px;
+            }
         }
     }
 }
