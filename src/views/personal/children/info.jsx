@@ -171,7 +171,7 @@ export default class PersonalComponent extends Component {
             <div>
                 <Tabs animated={false} defaultActiveKey="article" size="small" onChange={this.onTabChange}>
                     <TabPane tab="文章" key="article">
-                        <XLoding type="post" loading={this.state.loading}>
+                        <XLoding type="post" loading={this.state.loading&&this.state.articles.length}>
                             <div>
                                 <ArticleList showDel={isMe} delFunc={this.handleDel} data={this.state.articles} empty={ArticleEmpty} />
                                 {this.state.article_total>0?(<div className="pagination">
@@ -181,7 +181,7 @@ export default class PersonalComponent extends Component {
                         </XLoding>
                     </TabPane>
                     <TabPane tab={isMe?'我的关注':'他的关注'} key="following">
-                        <XLoding type="user" loading={this.state.loading}>
+                        <XLoding type="user" loading={this.state.loading&&this.state.follows.length}>
                             <div className="user_list">
                                 <ul>
                                     {
@@ -213,7 +213,7 @@ export default class PersonalComponent extends Component {
                         </XLoding>
                     </TabPane>
                     <TabPane tab={isMe?'我的粉丝':'他的粉丝'} key="fans">
-                        <XLoding type="user" loading={this.state.loading}>
+                        <XLoding type="user" loading={this.state.loading&&this.state.fans.length}>
                             <div className="user_list">
                                 <ul>
                                     {

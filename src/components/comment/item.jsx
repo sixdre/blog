@@ -64,14 +64,14 @@ export default class Commentdata extends Component {
                                                     </div>
                                                     <div className="comment-body">
                                                         <div className="comment-content">
-                                                            {item.content}
+                                                           <span className="reply_user">{`@${data.from.username}`}</span> {item.content}
                                                         </div>
                                                     </div>
                                                     <div className="comment-footer clearfix">
                                                         <em>
                                                             {current_userId === item.from._id ? (<a className="del" onClick={() => { this.handleRemove(item._id) }}>删除</a>):null}    
                                                             <Badge count={item.like_num}>
-                                                                <a onClick={(event) => this.handleLike(item,event)}>
+                                                                <a onClick={(event) => this.handleLike(item._id,event)}>
                                                                 {item.isLike?<Tooltip title="您已点赞"><Icon type="like" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Icon type="like-o" style={{fontSize: 20,color:'red'}}/>}
                                                             </a>  
                                                             </Badge>
