@@ -70,7 +70,7 @@ export default class headerTop extends Component {
 										{this.state.showMenu ? (
 											<ul className="dropdown_menu">
 												<li><Link to={'/users/'+userId+'/info'}>主页</Link></li>	
-												<li><Link to="/">设置</Link></li>
+												<li><Link to="/setting">设置</Link></li>
 												<li><a onClick={this.logout}>退出</a></li>
 											</ul>
 										):null}

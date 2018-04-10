@@ -40,7 +40,7 @@ export default class PersonalComponent extends Component {
             });
         }
     }
-    componentDidMount() {
+    componentWillMount() {
         this.getArticles()
     }
 
@@ -169,7 +169,7 @@ export default class PersonalComponent extends Component {
         )
         return (
             <div>
-                <Tabs defaultActiveKey="article" size="small" onChange={this.onTabChange}>
+                <Tabs animated={false} defaultActiveKey="article" size="small" onChange={this.onTabChange}>
                     <TabPane tab="文章" key="article">
                         <XLoding type="post" loading={this.state.loading}>
                             <div>

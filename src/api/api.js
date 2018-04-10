@@ -54,6 +54,30 @@ axios.interceptors.response.use(
     }
 )
 
+function uploadHttp (method='post',url,formData, callback){
+    let config = {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }
+    return axios({
+        method: method,
+        url: url,
+        data: formData,
+        config,
+        onUploadProgress: function(progressEvent) {
+            if (progressEvent.lengthComputable) {
+                if (callback && typeof callback === 'function') {
+                    callback(progressEvent)
+                }
+            }
+        }
+    });
+}
+
+
+
+
 //登录
 export const login = (username, password) => { return axios.post('/api/login', { username: username, password: password }) }
     //注册
@@ -107,7 +131,8 @@ export const getFansByUserId = (id, params) => { return axios.get('/api/users/' 
 //获取我的信息
 export const getInfoByUserId = (id) => { return axios.get('/api/users/' + id + '/info') }
 
-
+//更新我的头像
+export const updateAvatar = (data,callback) => { return uploadHttp('put','/api/me/avatar',data,callback) }
 
 
 

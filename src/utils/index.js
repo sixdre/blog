@@ -68,3 +68,10 @@ export const loadMore = (callback) => {
 
 	
 }
+
+export const getBase64 = (img, callback) => {
+	const reader = new FileReader();
+	reader.addEventListener('load', () => callback(reader.result));
+	reader.readAsDataURL(img);
+
+}

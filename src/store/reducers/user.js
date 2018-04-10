@@ -1,7 +1,8 @@
 import {
     LOGIN,
     LOGOUT,
-    SET_USERNAME
+    SET_USERNAME,
+    SET_AVATAR
 } from '../actions/userActions'
 
 import $storage from '../../services/storage'
@@ -39,6 +40,12 @@ const user = (state = initialState, action) => {
                 token: '',
                 avatar: '',
                 userId: ''
+            }
+        case SET_AVATAR:
+            $storage.user.setAvatar(action.avatar)    
+            return {
+                ...state,
+                avatar: action.avatar
             }
         case SET_USERNAME:
             return {
