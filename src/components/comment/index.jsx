@@ -85,7 +85,7 @@ export default class Comment extends Component {
         })
     }
     //评论回复
-    handleReply = (item, cId) => {
+    handleReply = (item,cId) => {
         fcontnet = this.refs.content.value = '回复@' + item.from.username + ' ';
         this.setState({
             showControl:true,
@@ -127,8 +127,10 @@ export default class Comment extends Component {
     }
 
     //点赞
-    handleLike = (item) => {
-        let id = item._id;
+    handleLike = (id) => {
+        if (!id) {
+            return;
+        }
         API.addCommentLike(id).then(res => {
             if (res.data.code === 1) {
                 if(res.data.isLike){
