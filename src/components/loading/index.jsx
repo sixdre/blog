@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './index.less';
+import {Spin,Icon} from 'antd';
 export default class LoadingComponent extends Component {
 
 	render() {
@@ -25,6 +26,12 @@ export default class LoadingComponent extends Component {
                                 <div className="text short-text"></div>
                             </div>
                         </div>
+            } else {
+                return <div className="spin_placeholder">
+                      <Icon type='loading' />
+                </div>
+                
+               
             }
         }
 		return(

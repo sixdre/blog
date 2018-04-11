@@ -18,31 +18,75 @@ export default class XEditor extends Component {
         var mditor = this.mditor = window.Mditor.fromTextarea(e);
         mditor.on('ready',()=>{
             mditor.height = '500px';
-            mditor.split = false;
+            mditor.split = true;
             var helpBtn = mditor.toolbar.getItem("help");	//帮助按钮点击
-            var imgBtn = mditor.toolbar.getItem('image');   //图片按钮点击
             helpBtn.handler = function () {
                 return ;
             };
-            imgBtn.handler = function () {
-                var accept = {
-                    image: 'image/png, image/gif, image/jpg, image/jpeg',
-                };
-                var $file = window.document.createElement('input')
-                    $file.setAttribute('type','file')
-                    $file.setAttribute('accept',accept.image)
-                    $file.click();
-                    $file.onchange = function(){
-                        var file = this.files[0];
-                        var name = file.name || 'screenshot.png';
-                        ctx.props.uploadImg(file,function(url){
-                            ctx.mditor.editor.insertBeforeText('![' + name + '](' + url + ")\n");
-                        });
-                    }
-            };
             console.log(ctx.props.content)
             mditor.value = ctx.props.content;
-            var isMac = function() { return /macintosh|mac os x/i.test(navigator.userAgent); }();
+            var isMac = function () { return /macintosh|mac os x/i.test(navigator.userAgent); }();
+
+            // 居中
+            mditor.toolbar.items.splice(6,0,
+                {
+                    name: 'align-center',
+                    icon: 'align-center',
+                    handler: function () {
+                        mditor.editor.wrapSelectText('<p style="text-align:center">', '</p>');
+                    },
+                    title: '居中',
+                    key: ''
+                }
+            );
+                   
+            mditor.toolbar.items.splice(14,0,
+                {
+                    name: 'file-image-o',
+                    icon: 'file-image-o',
+                    handler: function () {
+                        var accept = {
+                            image: 'image/png, image/gif, image/jpg, image/jpeg',
+                        };
+                        var $file = window.document.createElement('input')
+                            $file.setAttribute('type','file')
+                            $file.setAttribute('accept',accept.image)
+                            $file.click();
+                            $file.onchange = function(){
+                                var file = this.files[0];
+                                var name = file.name || 'screenshot.png';
+                                ctx.props.uploadImg(file,function(url){
+                                    ctx.mditor.editor.insertBeforeText('![' + name + '](' + url + ")\n");
+                                });
+                            }
+                    },
+                    title: '上传本地图片',
+                    key: '',
+                }
+            );
+            mditor.toolbar.items.splice(15,0,
+                {
+                    name: 'file-video',
+                    icon: 'file-video-o',
+                    handler: function () {
+                        mditor.editor.wrapSelectText('<video style="text-align:center" width="100%" height="100%" autoplay="autoplay" src="','" controls="true"></video>');
+                    },
+                    title: '视频',
+                    key: '',
+                }
+            );
+            mditor.toolbar.items.splice(16,0,
+                {
+                    name: 'music',
+                    icon: 'music',
+                    handler: function () {
+                        mditor.editor.wrapSelectText('<audio  autoplay="autoplay" src="','" controls="true"></audio>');
+                    },
+                    title: '音乐',
+                    key: '',
+                }
+            );
+                        
             mditor.toolbar.items.splice(0,0,{
                 name: 'mail-reply',
                 icon: 'mail-reply',
@@ -60,6 +104,7 @@ export default class XEditor extends Component {
                 title: '恢复',
                 key: isMac ? 'command+shift+z' : 'ctrl+y',
             });
+            
             mditor.toolbar.items.push({
                 name: 'publish',
                 icon: 'paper-plane',
