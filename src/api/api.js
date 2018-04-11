@@ -130,7 +130,8 @@ export const getFansByUserId = (id, params) => { return axios.get('/api/users/' 
 
 //获取我的信息
 export const getInfoByUserId = (id) => { return axios.get('/api/users/' + id + '/info') }
-
+//获取我的文章根据id
+export const getMeArticleById = (id) => { return axios.get('/api/me/articles/' + id ) }
 //更新我的头像
 export const updateAvatar = (data,callback) => { return uploadHttp('put','/api/me/avatar',data,callback) }
 

@@ -5,6 +5,7 @@ import XEditor from '../../components/editor'
 import { connect } from 'react-redux'
 import * as API from '../../api/api'
 import './index.less'
+import querystring from 'querystring'
 const FormItem = Form.Item;
 const Option = Select.Option;
 const confirm = Modal.confirm;
@@ -30,20 +31,42 @@ class WriteComponent extends Component {
         this.state = {
             content: '',
             articleId: '',
-            title:'',
-            has_draft:false
+            title: '',
+            category_name:'',
+            has_draft: false,
+            isUpdate:false
+            
         }
 
     }
-    componentDidMount() {
+    componentWillMount() {
+        let id = querystring.parse(this.props.location.search)['?id'];
         this.getCateAndTag();
-        this.getDraft()
+        if (id) {
+             this.getArticle()
+        } else {
+             this.getDraft()
+        }
     }
     getCateAndTag() {
         API.getCateAndTag().then(res => {
             if (res.data.code === 1) {
                 this.props.saveCategories(res.data.data.categories);
                 this.props.saveTags(res.data.data.tags);
+            }
+        })
+    }
+    getArticle() {
+        let id = querystring.parse(this.props.location.search)['?id'];
+        API.getMeArticleById(id).then(res=>{
+            if (res.data.code === 1) {
+                this.setState({
+                    articleId: res.data.data._id,
+                    title: res.data.data.title,
+                    content: res.data.data.content,
+                    category_name:res.data.data.category_name,
+                    isUpdate:true
+                })
             }
         })
     }
@@ -131,7 +154,6 @@ class WriteComponent extends Component {
         e.preventDefault();
         this.handlePublish()
     }
-    
     //监听标题和内容的变化，如有改动触发保存请求
     watchDraftChange=()=>{
         if(timer){
@@ -226,7 +248,7 @@ class WriteComponent extends Component {
                     </ul>
                 </div>    
                 <div className="write_right">
-                    <Form onSubmit={this.handleSubmit}>    
+                    <Form>    
                         <Row>
                             <Col span={24}> 
                                 <FormItem style={{marginBottom:'10px'}}>
@@ -250,6 +272,7 @@ class WriteComponent extends Component {
                             <Col span={6}> 
                                 <FormItem style={{marginBottom:'10px'}}>
                                     {getFieldDecorator('categoryName', {
+                                        initialValue: this.state.category_name,
                                         rules: [{ required: true, message: '请选择文章类型!' }],
                                     })(
                                     <Select style={{ width: 220 }} placeholder="选择文章的分类(必填)">
@@ -297,11 +320,21 @@ class WriteComponent extends Component {
                                     ):''}
                                 </Col>
                                 <Col span={12}>
-                                    <FormItem>
-                                        <Button type="primary" htmlType="submit" className="login-form-button">
-                                            发表
-                                        </Button>
-                                    </FormItem>   
+                                    {
+                                        this.state.isUpdate ? (
+                                            <FormItem>
+                                                <Button type="primary" htmlType="button" onClick={this.handleSubmit} className="login-form-button">
+                                                    保存
+                                                </Button>
+                                            </FormItem>   
+                                        ) : (
+                                             <FormItem>
+                                                <Button type="primary" htmlType="button" onClick={this.handleSubmit} className="login-form-button">
+                                                    发表
+                                                </Button>
+                                            </FormItem>       
+                                        )
+                                    }    
                                 </Col>
                             </Col>
                         </Row>

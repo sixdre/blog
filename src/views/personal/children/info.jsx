@@ -173,7 +173,7 @@ export default class PersonalComponent extends Component {
                     <TabPane tab="文章" key="article">
                         <XLoding type="post" loading={this.state.loading&&this.state.articles.length}>
                             <div>
-                                <ArticleList showDel={isMe} delFunc={this.handleDel} data={this.state.articles} empty={ArticleEmpty} />
+                                <ArticleList showEdit={isMe} showDel={isMe} delFunc={this.handleDel} data={this.state.articles} empty={ArticleEmpty} />
                                 {this.state.article_total>0?(<div className="pagination">
                                     <Pagination current={this.state.article_page} onChange={(val) => { this.onPageChange(val, 'article') } } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>
                                 </div>):null}

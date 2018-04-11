@@ -5,6 +5,7 @@ import * as API from '../../api/api';
 import CommentItem from './item'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import XLoding from '../loading'
 let fcontnet;
 const confirm = Modal.confirm;
 function mapStateToProps (state) {
