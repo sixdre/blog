@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Spin, Pagination, message, Icon ,Modal} from 'antd';
-import './index.css'
+import './index.less'
 import * as API from '../../api/api';
 import CommentItem from './item'
 import { connect } from 'react-redux'

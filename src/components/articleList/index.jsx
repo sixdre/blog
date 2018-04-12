@@ -58,7 +58,7 @@ export default class ArticleList extends Component {
         }
     }
     componentDidMount(){
-
+        console.log(this.props)
     }
     updatePv=(id)=> {
         this.props.updatePv(id)
@@ -101,7 +101,7 @@ export default class ArticleList extends Component {
                                     <span> 评论：{item.cmt_num}</span>
                                     {this.props.showLike ? <span className="handle_span" onClick={() => { this.handleFunc('like',item) }}>取消喜欢</span> : null}
                                     {this.props.showCollect ? <span className="handle_span" onClick={() => { this.handleFunc('collect',item) }}>取消收藏</span> : null}
-                                    {this.props.showEdit ? <Link className="handle_span" to={{pathname: '/write',search: `?id=${item._id}`}}>编辑</Link> : null}
+                                    {this.props.showEdit ? <span className="handle_span" onClick={() => { this.handleFunc('edit',item) }} >编辑</span> : null}
                                     {this.props.showDel ? <span className="handle_span" onClick={() => { this.handleFunc('del',item) }}>删除</span>:null}
                                 </div>
                             </div>

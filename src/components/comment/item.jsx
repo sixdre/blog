@@ -23,17 +23,7 @@ export default class Commentdata extends Component {
                 <div className="comment-main">
                     <div className="comment-header">
                         <span className="username">{data.from.username}</span>
-                        <div className="comment-time">
-                            <em>{fromNow(data.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
-                        </div>
-                    </div>
-                    <div className="comment-body">
-                        <div className="comment-content">
-                            {data.content}
-                        </div>
-                    </div>
-                    <div className="comment-footer clearfix">
-                        <em>
+                        <div className="comment-actions">
                             {current_userId === data.from._id ? (<a className="del" onClick={() => { this.handleRemove(data._id) }}>删除</a>):null}    
                             <Badge count={data.like_num}>
                                 <a onClick={(event) => this.handleLike(data._id,event)}>
@@ -43,8 +33,17 @@ export default class Commentdata extends Component {
                             <span className="pipe">|</span>
                             <a className="reply_a" onClick={(event) => this.handleReply(data,event)}>回复
                             </a>
-                        </em>
+                        </div>
+                        <div className="comment-time">
+                            <em>{fromNow(data.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
+                        </div>
                     </div>
+                    <div className="comment-body">
+                        <div className="comment-content">
+                            {data.content}
+                        </div>
+                    </div>
+                   
                     {
                         (data.reply && data.reply.length > 0) ? (
                             <ul className="reply_list">
@@ -58,17 +57,7 @@ export default class Commentdata extends Component {
                                                 <div className="comment-main">
                                                     <div className="comment-header">
                                                         <span className="username">{item.from.username}</span>
-                                                        <div className="comment-time">
-                                                            <em>{fromNow(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
-                                                        </div>
-                                                    </div>
-                                                    <div className="comment-body">
-                                                        <div className="comment-content">
-                                                           <span className="reply_user">{`@${data.from.username}`}</span> {item.content}
-                                                        </div>
-                                                    </div>
-                                                    <div className="comment-footer clearfix">
-                                                        <em>
+                                                         <div className="comment-actions">
                                                             {current_userId === item.from._id ? (<a className="del" onClick={() => { this.handleRemove(item._id) }}>删除</a>):null}    
                                                             <Badge count={item.like_num}>
                                                                 <a onClick={(event) => this.handleLike(item._id,event)}>
@@ -78,7 +67,15 @@ export default class Commentdata extends Component {
                                                             <span className="pipe">|</span>
                                                             <a className="reply_a" onClick={(event) => this.handleReply(item,event)}>回复
                                                             </a>
-                                                        </em>
+                                                        </div>
+                                                        <div className="comment-time">
+                                                            <em>{fromNow(item.create_time, 'YYYY-MM-DD HH:mm:ss')}</em>
+                                                        </div>
+                                                    </div>
+                                                    <div className="comment-body">
+                                                        <div className="comment-content">
+                                                           <span className="reply_user">{`@${data.from.username}`}</span> {item.content}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </li>

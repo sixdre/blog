@@ -14,7 +14,8 @@ var timer;
 function mapStateToProps (state) {
     return {
         categories: state.article.categories,
-        tags:state.article.tags
+        tags: state.article.tags,
+        userId:state.user.userId,
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -34,7 +35,8 @@ class WriteComponent extends Component {
             title: '',
             category_name:'',
             has_draft: false,
-            isUpdate:false
+            isUpdate: false,
+            allow_comment:true
             
         }
 
@@ -64,7 +66,8 @@ class WriteComponent extends Component {
                     articleId: res.data.data._id,
                     title: res.data.data.title,
                     content: res.data.data.content,
-                    category_name:res.data.data.category_name,
+                    category_name: res.data.data.category_name,
+                    allow_comment:res.data.data.allow_comment,
                     isUpdate:true
                 })
             }
@@ -116,9 +119,14 @@ class WriteComponent extends Component {
             })
         }
     }
-
+    onChangeAllowCmt = (checked) => {
+        this.setState({
+            allow_comment:checked
+        })
+    }
     //发布
-    handlePublish=()=>{
+    handlePublish = () => {
+        var userId = this.props.userId;
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 values.content = this.refs['editor'].getEditorValue();
@@ -130,8 +138,11 @@ class WriteComponent extends Component {
                     let res = await API.updateArticle(this.state.articleId,values);
                     if (res.data.code === 1) {
                         message.success('发布成功');
+                        this.props.history.push({
+                            pathname: `/users/${userId}/info`
+                        })
                         // this.props.form.resetFields()
-                        window.location.reload();
+                        // window.location.reload();
                     } else {
                         message.error('发布失败');
                     }
@@ -140,7 +151,10 @@ class WriteComponent extends Component {
                     if (res.data.code === 1) {
                         message.success('发布成功');
                         // this.props.form.resetFields()
-                        window.location.reload()
+                        // window.location.reload()
+                        this.props.history.push({
+                            pathname: `/users/${userId}/info`
+                        })
                     } else {
                         message.error('发布失败');
                     }
@@ -304,8 +318,8 @@ class WriteComponent extends Component {
                             </Col>
                             <Col span={6}>
                                 <FormItem {...formItemLayout} label="允许评论">
-                                {getFieldDecorator('allow_comment',{ initialValue: true })(
-                                        <Switch defaultChecked />
+                                {getFieldDecorator('allow_comment',{ initialValue: this.state.allow_comment })(
+                                        <Switch checked={this.state.allow_comment} onChange={this.onChangeAllowCmt}/>
                                     )}
                                 </FormItem>   
                             </Col>

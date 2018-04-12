@@ -1,13 +1,14 @@
 /**
- * Created by hao.cheng on 2017/4/28.
+ * Created by xuhao 
  */
-// 获取url的参数
 import moment from 'moment';
 moment.locale('zh-cn');
 
+/* 时间格式化 */
 export const time = (value,format='YYYY-MM-DD') => {
     return moment(value).format(format);
 };
+/* 显示距离现在的时间 */
 export const fromNow = (time, formatString,onlyDate) => {
 	var stamp = new Date().getTime() - new Date(time).getTime();
 	//超过30天，返回具体日期
@@ -65,13 +66,24 @@ export const loadMore = (callback) => {
 	function getScrollHeight() {
 		return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 	} 
-
-	
 }
 
+/* 讲图片转为Base64 */
 export const getBase64 = (img, callback) => {
 	const reader = new FileReader();
 	reader.addEventListener('load', () => callback(reader.result));
 	reader.readAsDataURL(img);
 
+}
+
+/*获取本地缓存所有数据 */
+export const getAllStore = () => {
+	var data = []
+	for (var i = localStorage.length - 1; i >= 0; i--){
+		data.push({
+			key: localStorage.key(i),
+			value:localStorage.getItem(localStorage.key(i))
+		})
+	}
+	return data;
 }

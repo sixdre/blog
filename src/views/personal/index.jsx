@@ -6,7 +6,7 @@ import * as API from '../../api/api'
 import './index.less';
 import infoPage from './children/info';
 import collectPage from './children/collect';
-
+import { time } from '../../utils'
 import my_collect_png from '../../images/my_collect.png'
 
 
@@ -57,7 +57,7 @@ export default class PersonalComponent extends Component {
     
     render() {
         const userId = this.state.userId;
-        let { username, avatar } = this.state.userInfo;
+        let { username, avatar,create_time } = this.state.userInfo;
         let {following_num,fans_num,article_num,like_num} = this.state;
         return (
             <XLayout>
@@ -105,6 +105,11 @@ export default class PersonalComponent extends Component {
                                                 </a>
                                             </div>
                                         </li>
+                                        <li>
+                                            加入于     {time(create_time)}
+                                        
+                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>

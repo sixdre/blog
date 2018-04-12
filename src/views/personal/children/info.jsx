@@ -136,7 +136,15 @@ export default class PersonalComponent extends Component {
         document.documentElement.scrollTop = 0;  //ie下
         document.body.scrollTop = 0;  //非ie
     }
+    handleEdit = (item) => {    
+        console.log(item)
+        var pathname = this.props.location.pathname
+        this.props.history.push({
+            pathname: '/write',
+            search:`?id=${item._id}&redirectUrl=${pathname}`
+        })
 
+    }
     handleDel = (item) => {
         let id = item._id;
         var ctx = this;
@@ -173,7 +181,7 @@ export default class PersonalComponent extends Component {
                     <TabPane tab="文章" key="article">
                         <XLoding type="post" loading={this.state.loading&&this.state.articles.length}>
                             <div>
-                                <ArticleList showEdit={isMe} showDel={isMe} delFunc={this.handleDel} data={this.state.articles} empty={ArticleEmpty} />
+                                <ArticleList showEdit={isMe} showDel={isMe} editFunc={this.handleEdit} delFunc={this.handleDel} data={this.state.articles} empty={ArticleEmpty} />
                                 {this.state.article_total>0?(<div className="pagination">
                                     <Pagination current={this.state.article_page} onChange={(val) => { this.onPageChange(val, 'article') } } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>
                                 </div>):null}
