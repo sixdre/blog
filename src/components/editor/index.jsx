@@ -122,7 +122,19 @@ export default class XEditor extends Component {
                 console.log('drop',event);
             });
             mditor.editor.on('paste',function(event){
-                console.log('paste',event.clipboardData.types);
+                // console.log('paste', event.clipboardData);
+                var data = event.clipboardData;
+                if (typeof data !== 'object') {
+                    return;
+                }
+                [...data.items].forEach(function(item, index){
+                     if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                        var blob = item.getAsFile();
+                        ctx.props.uploadImg(blob,function(url){
+                            ctx.mditor.editor.insertBeforeText('![](' + url + ")\n");
+                        });
+                    }
+                })
             });
             mditor.on('head-dblclick', function () {	//双击头部
                 mditor.fullscreen = !mditor.fullscreen;
