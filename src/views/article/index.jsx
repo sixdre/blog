@@ -102,7 +102,7 @@ export default class Article extends Component {
                                 <div className="article_head">
                                     <h1 className="title">{this.state.article.title}</h1>
                                     <div className="article_info">
-                                        <span>{time(this.state.article.create_time)}</span> 
+                                        <Tooltip title={'最后编辑于'+time(this.state.article.update_time,'YYYY-MM-DD HH:mm:ss')}><span>发布于{time(this.state.article.create_time)}</span> </Tooltip>
                                         <span> 作者 </span>
                                         <span>{this.state.article.author_name}</span>
                                         <span>{this.state.isFollow?(<Tag onClick={this.toggleFollow}>已关注</Tag>):(<Tooltip title="关注作者可以查看更多的文章"><Tag onClick={this.toggleFollow} color="red">关注</Tag></Tooltip>)}</span>

@@ -141,7 +141,7 @@ export default class PersonalComponent extends Component {
                     </TabPane>
                 </Tabs>
                 <XLoding type="post" loading={this.state.loading}>
-                    <ArticleList showLike={this.state.type==='like'&isMe}  showCollect={this.state.type==='collect'&isMe} collectFunc={this.toggleCollect} likeFunc={this.toggleLike} data={this.state.articles} empty="没有更多的数据"/>
+                    <ArticleList showLike={this.state.type==='like'&&isMe}  showCollect={this.state.type==='collect'&&isMe} collectFunc={this.toggleCollect} likeFunc={this.toggleLike} data={this.state.articles} empty="没有更多的数据"/>
                 </XLoding>
                 <div className="pagination">
                     <Pagination current={this.state.article_page} onChange={ this.onPageChange } pageSize={ARTICLE_LIMIT} total={this.state.article_total}></Pagination>

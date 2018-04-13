@@ -34,8 +34,12 @@ export const fromNow = (time, formatString,onlyDate) => {
 /**
  * 页面到达底部，加载更多
  */
-export const loadMore = (callback) => {
-	if (getScrollTop() + getClientHeight() + 50 > getScrollHeight()) { 
+export const loadMore = (distance = 50, callback) => {
+	if (typeof distance === 'function') {
+		callback = distance;
+		distance = 50;
+	}
+	if (getScrollTop() + getClientHeight() + parseInt(distance) > getScrollHeight()) { 
 		callback()
 	} 
 	//获取滚动条当前的位置 
