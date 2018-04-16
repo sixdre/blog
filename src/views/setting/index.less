@@ -1,39 +1,68 @@
 .setting{
     padding-top: 30px;
-    .upload_avatar{
-        position: relative;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        overflow: hidden;
-        cursor: pointer;
-        input[type='file']{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            opacity: 0;
+    .setting_aside{
+        li{
+            a{
+                display: block;
+                padding: 8px 13px;
+                color: #7a7a7a;
+            }
+        }
+    }
+    .save_btn{
+        margin-top: 30px;
+    }
+    .account_setting_table{
+        width: 100%;
+        tr{
+            border-bottom: 1px solid #f0f0f0;
+        }
+        td.setting_title{
+            padding: 20px 0;
+            font-size: 15px;
+            color: #969696;
+            width: 120px;
+            &.setting_avatar_title{
+                vertical-align: middle;
+            }
+        }
+        .upload_avatar{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
             cursor: pointer;
-            display: none;
-        }
-        img{
-            width: 100%;
-            height: 100%;
-        }
-        .upload_loading{
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color:rgba(0, 0, 0, 0.5);
-            &>i{
-                font-size: 30px;
-                color: #fff;
-                margin-top: 30px;
-                margin-left: 30px;
+            input[type='file']{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                opacity: 0;
+                cursor: pointer;
+                display: none;
+            }
+            img{
+                width: 100%;
+                height: 100%;
+            }
+            .upload_loading{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color:rgba(0, 0, 0, 0.5);
+                &>i{
+                    font-size: 30px;
+                    color: #fff;
+                    margin-top: 30px;
+                    margin-left: 30px;
+                }
             }
         }
     }
 }
+

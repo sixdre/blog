@@ -7,9 +7,9 @@ axios.defaults.timeout = 30000
 let baseURL;
 
 if (process.env.NODE_ENV === 'production') {
-    baseURL = 'http://47.94.206.86:7893'
+    baseURL = ''
 } else {
-    baseURL = 'http://localhost:7893';
+    baseURL = 'http://127.0.0.1:7893';
 }
 
 axios.defaults.baseURL = baseURL;
@@ -133,7 +133,9 @@ export const getInfoByUserId = (id) => { return axios.get('/api/users/' + id + '
 //获取我的文章根据id
 export const getMeArticleById = (id) => { return axios.get('/api/me/articles/' + id ) }
 //更新我的头像
-export const updateAvatar = (data,callback) => { return uploadHttp('put','/api/me/avatar',data,callback) }
+export const updateAvatar = (data, callback) => { return uploadHttp('put', '/api/me/avatar', data, callback) }
+//更新我的个人设置
+export const updateSetting = (data) => { return axios.put('/api/me/settings',data) }
 
 
 

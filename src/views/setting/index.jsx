@@ -26,7 +26,9 @@ export default class Setting extends Component {
                     <Row>
                         <Col span={6} className="setting_left">
                             <ul className="setting_aside">
-                                <li>基础设置</li>
+                                <li>
+                                    <Link to="/setting/account">基础信息</Link>
+                                </li>
                             </ul>
                         </Col>
                         <Col span={17} offset={1} className="setting_right">
