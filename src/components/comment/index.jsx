@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin, Pagination, message, Icon ,Modal} from 'antd';
+import { Spin, Pagination, message, Icon ,Modal,Checkbox } from 'antd';
 import './index.less'
 import * as API from '../../api/api';
 import CommentItem from './item'
@@ -28,6 +28,7 @@ export default class Comment extends Component {
             user_num:0,     //评论该文章的用户数量
             cId: '',
             toId: '',
+            isM:false,
             page:1,
             limit:8,
             total:0,
@@ -98,18 +99,19 @@ export default class Comment extends Component {
     //发表评论
     handleSubmit = (type) => {
         var content = this.refs.content.value;
+        let data = {
+            cId:  this.state.cId,
+            toId: this.state.toId
+        }
         if (type === 'reply') {
-            content = content.replace(fcontnet,'');
+            content = content.replace(fcontnet, '');
+            data.isM = this.state.isM;
         }
         if (!content || !content.trim().length) {
              return message.error('您忘记输入内容了');
         }
+        data.content = content;
         let id = this.props.articleId;
-        let data = {
-            cId:  this.state.cId,
-            toId: this.state.toId,
-            content
-        }
         API.submitComment(id, data).then(res => {
             if (res.data.code === 1) {
                 message.success('发表成功');
@@ -199,13 +201,22 @@ export default class Comment extends Component {
         })
     }
 
+    onToMianChange=(e)=> {
+        console.log(e.target.checked)
+        this.setState({
+            isM:e.target.checked
+        })
+    }
+
+
     render() {
         var ToggleBtn=()=>{
             if (this.state.cId.length) {
                 return (
                     <div>
+                        <Checkbox checked={this.state.isM} onChange={this.onToMianChange}>同时发表到主评论</Checkbox>        
                         <input type="button"  value="取消" onClick={this.cancleReply}/>
-                        <input type="button" onClick={this.handleSubmit.bind(this,'reply')} value="回复" />
+                        <input type="button" className="reply_btn" onClick={this.handleSubmit.bind(this,'reply')} value="回复" />
                     </div>
                 )
             } else {
@@ -256,7 +267,7 @@ export default class Comment extends Component {
                                 </div>
                                 <div className="form-toolbars clearfix">
                                     <div className="form-action">
-                                    <ToggleBtn />
+                                        <ToggleBtn />
                                     </div>
                                 </div>
                             </div>

@@ -39,8 +39,13 @@ axios.interceptors.response.use(
                 case 401:
                     // 401 清除token信息并跳转到登录页面
                     alert('请重新登录');
-                    Auth.logout()
-                    history.push('/login');
+                    Auth.logout();
+                    var pathname = window.location.pathname;
+                    // history.push('/login');
+                    history.push({
+                        pathname: '/login',
+                        search:`redirectUrl=${pathname}`
+                    })
                     break;
                 case 403:
                     alert('抱歉，您没有权限访问,请与系统管理员联系!')

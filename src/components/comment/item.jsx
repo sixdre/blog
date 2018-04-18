@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { fromNow} from '../../utils'
-import { Badge,Icon,Tooltip} from 'antd';
+import { time,fromNow} from '../../utils'
+import { Badge,Icon,Tooltip,Popover,Tag} from 'antd';
 export default class Commentdata extends Component {
     handleReply = (data, event) => {
         var cId = this.props.data._id;
@@ -15,6 +15,24 @@ export default class Commentdata extends Component {
     render() {
         let data = this.props.data;
         let current_userId = this.props.current_userId;
+
+        const userCard = (data) => {
+            return (
+                <div className="user_card clearfix">
+                    <div className="user_avatar">
+                        <img src={data.avatar} alt="" />
+                    </div>
+                    <div className="names">
+                        <h1 className="username">{data.username}</h1>
+                        <p className="join_time">加入于{time(data.create_time)}</p>
+                    </div>
+                    <ul className="user_controls">
+                        <li></li>
+                    </ul>
+                </div>
+            )    
+        };
+
         return (
             <li className="clearfix comment-item">
                 <div className="avatar">
@@ -40,10 +58,10 @@ export default class Commentdata extends Component {
                     </div>
                     <div className="comment-body">
                         <div className="comment-content">
+                            {data.to?(<Popover content={userCard(data.to)}><span className="reply_user">{`@${data.to.username}`}</span></Popover>):null}
                             {data.content}
                         </div>
                     </div>
-                   
                     {
                         (data.reply && data.reply.length > 0) ? (
                             <ul className="reply_list">
@@ -74,7 +92,8 @@ export default class Commentdata extends Component {
                                                     </div>
                                                     <div className="comment-body">
                                                         <div className="comment-content">
-                                                           <span className="reply_user">{`@${data.from.username}`}</span> {item.content}
+                                                           {data.from?(<Popover content={userCard(data.from)}><span className="reply_user">{`@${data.from.username}`}</span></Popover>):null}    
+                                                           {item.content}
                                                         </div>
                                                     </div>
                                                 </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import querystring from 'querystring'
 import {login} from '../../api/api';
 import { connect } from 'react-redux'
 import { time } from '../../utils/';
@@ -33,6 +33,7 @@ export default class LoginComponent extends Component {
     }
     login() {
         var { username, password } = this.state;
+        var redirectUrl = querystring.parse(this.props.location.search)['?redirectUrl'];
         login(username, password).then(res => {
             if (res.data.code === 1) {
                 alert('登录成功')
@@ -42,9 +43,11 @@ export default class LoginComponent extends Component {
                     avatar:res.data.userInfo.avatar,
                     userId:res.data.userInfo._id
                 });
-                // console.log(time(res.data.exp*1000, 'YYYY-MM-DD HH:mm:ss'))
-                // console.log(time(res.data.iat*1000,'YYYY-MM-DD HH:mm:ss'))
-                this.props.history.push('/')
+                if (redirectUrl) {
+                    this.props.history.push(redirectUrl)
+                } else {
+                    this.props.history.push('/')
+                }
             } else {
                 alert(res.data.message)
             }
