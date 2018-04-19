@@ -126,6 +126,7 @@ class WriteComponent extends Component {
     }
     //发布
     handlePublish = () => {
+        clearTimeout(timer)
         var userId = this.props.userId;
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
@@ -167,6 +168,9 @@ class WriteComponent extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.handlePublish()
+    }
+    componentWillUnmount() {
+        clearTimeout(timer)
     }
     //监听标题和内容的变化，如有改动触发保存请求
     watchDraftChange=()=>{
@@ -219,6 +223,11 @@ class WriteComponent extends Component {
         if (file == null) {
             return;
         }
+        const isLt2M = file.size / 1024 / 1024 < 5;
+        if (!isLt2M) {
+            message.error('请上传小于5M的图片');
+            return;
+        }
         var name = file.name || 'screenshot.png';
         name = name.replace(/\.(?:jpg|gif|png)$/i, ''); // clear ext
         name = name.replace(/\W+/g, '_'); // clear unvalid chars
@@ -254,11 +263,22 @@ class WriteComponent extends Component {
         return (
             <section className="write_control">
                 <div className="left_aside">
-                    <Link to="/">
-                        回首页
-                    </Link>	
+                    <div className="go_home">
+                        <Link to="/" >
+                            回首页
+                        </Link>	
+                    </div>    
                     <ul>
-                        <li>写文章</li>
+                        <li>
+                            <Link to="/write" >
+                                写文章
+                            </Link>	
+                        </li>
+                        <li>
+                            <Link to="/write" >
+                                回收站
+                            </Link>	
+                        </li>
                     </ul>
                 </div>    
                 <div className="write_right">

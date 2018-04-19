@@ -137,7 +137,6 @@ export default class PersonalComponent extends Component {
         document.body.scrollTop = 0;  //非ie
     }
     handleEdit = (item) => {    
-        console.log(item)
         var pathname = this.props.location.pathname
         this.props.history.push({
             pathname: '/write',

@@ -115,7 +115,7 @@ export default class PersonalComponent extends Component {
                             </div>
                             <Switch>
                                 <Route path='/users/:id/info' component={infoPage} />    
-                                <Route path='/users/:id/collect' component={collectPage} />  
+                                <Route path='/users/:id/:type' component={collectPage} />  
                                 <Redirect exact from="/users/:id/" to="/users/:id/info"/>  
                             </Switch>    
                         </Col>

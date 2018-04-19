@@ -16,14 +16,16 @@ export default class PersonalComponent extends Component {
             articles: [],
             article_page: 1,
             article_total: 0,
-            type:'collect'
+            type:this.props.match.params.type
         }
     }
-     componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
+        const type = nextProps.match.params.type;
         const userId = nextProps.match.params.id;
-        if (userId !==this.state.userId){
+        if (userId !==this.state.userId||type !==this.state.type){
             this.setState({
-                userId
+                userId,
+                type
             },()=>{
                 this.getArticles();
             });
@@ -52,18 +54,17 @@ export default class PersonalComponent extends Component {
                     articles,
                     article_total:res.data.total
                 })
+                
             }
         });
     }
 
     onTabChange = (type) => {
+        let userId = this.state.userId;
         document.documentElement.scrollTop = 0;  //ie下
         document.body.scrollTop = 0;  //非ie
-        this.setState({    
-            type: type,
-            page:1
-        },()=>{
-            this.getArticles()
+        this.props.history.push({
+            pathname: `/users/${userId}/${type}`
         })
     }
 
@@ -132,7 +133,7 @@ export default class PersonalComponent extends Component {
         let isMe = this.state.isMe;
         return (
             <div>
-                <Tabs defaultActiveKey={this.state.type} size="small" onChange={this.onTabChange}>
+                <Tabs activeKey={this.state.type} defaultActiveKey={this.state.type} size="small" onChange={this.onTabChange}>
                     <TabPane tab="收藏的文章" key="collect">
                     </TabPane>
                     <TabPane tab="喜欢的文章" key="like">
