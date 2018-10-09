@@ -18,9 +18,16 @@ const initialState = {
 const Article = (state = initialState, action) => {
     switch (action.type) {
         case STORE_ARTICLES:
+            let articles = []
+            console.log(action.data)
+            if(action.data.page==1){
+                articles  = [...action.data.articles];
+            }else{
+                articles = [...state.articles, ...action.data.articles];
+            }
             return {
                 ...state,
-                articles: [...state.articles, ...action.data.articles],
+                articles,
                 page: action.data.page
             }
         case SAVE_CATEGORIES:

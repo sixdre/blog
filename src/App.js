@@ -14,7 +14,7 @@ import Write from './views/write/write';
 import Login from './views/auth/login';
 import Regist from './views/auth/regist';
 import NoFound from './views/auth/404';
-
+import Chat from './views/chat/index';
 
 class App extends Component {
 
@@ -27,6 +27,7 @@ class App extends Component {
 				<Route path='/write' component={Write} />
 				<Route path='/users/:id' component={Personal} />
 				<Route path='/setting' component={Setting} />
+                <Route path='/chat' component={Chat} />
                 <Route path='/regist' component={Regist} />
                 <Route path='/login' component={Login} />
                 <Route path='/404' component={NoFound} />

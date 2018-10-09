@@ -1,0 +1,395 @@
+.clearfix:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+pre{
+    margin: 0;
+    padding: 0;
+}
+.pointer{
+    cursor: pointer;
+}
+.rongcloud-sprite {
+    background: url('http://cdn.ronghub.com/customerservice-icon.png');
+    display: inline-block;
+    z-index: 1;
+}
+.rongcloud-Message-file {
+    position: relative;
+    width: 270px;
+    overflow: hidden;
+    border: 1px solid #b9c1ca;
+    border-radius: 3px;
+}
+.rongcloud-file-icon {
+    float: left;
+    width: 52px;
+    height: 52px;
+    margin: 8px;
+    display: inline-block;
+    border-radius: 5px;
+    background-size: 45px;
+    background-position: 3px -541px;
+    background-color: #3ea9ff;
+}
+.rongcloud-file-download {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-size: 45px;
+    background-position: 0 -611px;
+}
+.rongcloud-file-name {
+    width: 155px;
+    margin: 8px auto ;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: top;
+    font-size: 14px;
+    position: relative;
+    text-align: left;
+}
+.rongcloud-expressionWrap{
+    border: 1px solid #D9DADC;
+    width: 290px;
+    padding: 5px 8px;
+    position: absolute;
+    left: -2px;
+    top: -198px;
+    height: 180px;
+    background: #fff;
+    z-index: 1100;
+    overflow: auto;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.rongcloud-wrapper{
+    display: flex;
+    width: 1000px;
+    height: 670px;
+    margin: 0 auto;
+    .rongcloud-left{
+        position: relative;
+        min-width: 200px;
+        width: 200px;
+        height: 100%;
+        background-color: #fff;
+        border: 1px solid #eee;
+        .rongcloud-conversation-list{
+            .rongcloud-conversation{
+                position: relative;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                padding: 10px 15px;
+                border-bottom: 1px solid #eee;
+                height: 70px;
+                &:hover,&.active{
+                    background-color: #f7fcfa;
+                }
+                .avatar{
+                    min-width:50px;
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 10px;
+                    position: relative;
+                    vertical-align: middle;
+                    display: inline-block;
+                    img{
+                        width: 100%;
+                        height:100%;
+                        border-radius: 50%;
+                        &.offline{
+                            -webkit-filter: grayscale(1);
+                            filter: gray;
+                            filter: grayscale(1);
+                        }
+                    }
+                    .dot_badge{
+                        position: absolute;
+                        top: 0;
+                        height: 8px;
+                        width: 8px;
+                        padding: 0;
+                        right: 0;
+                        border-radius: 50%;
+                        background-color: #2e93f0;
+                    }
+                }
+                .rongcloud-ext {
+                    position: absolute;
+                    right: 15px;
+                    color: #6b6f7c;
+                    font-size: 13px;
+                    text-align: right;
+                    min-width: 55px;
+                    .rongcloud-attr {
+                        height: 22px;
+                        font-size: 12px;
+                        margin-top: 10px;
+                        .rongcloud-badge {
+                            display: inline-block;
+                            min-width: 10px;
+                            padding: 3px 7px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            line-height: 1;
+                            color: #fff;
+                            text-align: center;
+                            white-space: nowrap;
+                            vertical-align: baseline;
+                            background-color: #0099ff;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+                .rongcloud-user{
+                    .name{
+                        font-size: 14px;
+                        margin-bottom: 3px;
+                    }
+                    .rongcloud-online{
+                        font-size: 12px;
+                        &.online{
+                            color: #f1f1f1;
+                        }
+                        &.offline{
+                            color: #999;
+                        }
+                    }
+                    .rongcloud-lasted-msg{
+                        color: #98a6ad;
+                        font-size: 13px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        width: 100px;
+                    }
+                }
+            }
+        }
+        
+    }
+    .rongcloud-right{
+        flex: auto;
+        border: 1px solid #eee;
+        border-left: 0 !important;
+        .rongcloud-rong-pannel{
+            height: auto;
+            position: relative;
+            // padding: 15px 0px 0 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .rongcloud-rong-header{
+            padding:10px 0;
+            border-bottom:1px solid #eee;
+            // background:#fff;
+            z-index:2;
+            .rongcloud-infoBar{
+                position: relative;
+                padding-left: 80px;
+                cursor: default;
+                color: #444;
+                height: 50px;
+                line-height: 50px;
+                &>img{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 100%;
+                    margin-left: 20px;
+                }
+            }
+        }
+        .rcs-message-list{
+            padding:0 10px 0 10px;
+            height: 460px;
+            overflow-y:auto;
+            &::-webkit-scrollbar{
+                width: 5px;
+                height: 8px;
+            }
+        }
+        .rongcloud-Messages-history{
+            text-align: center;
+            &>span{
+                cursor:pointer;
+                font-size: 12px;
+                font-weight: normal;
+                color: #8e969f;
+                background-color: #f9fbfd;
+                display: inline-block;
+                padding:3px 20px;
+                border-radius:3px;
+            }
+        }
+        .rong-message-list{
+            .rongcloud-Message{
+                position: relative;
+                font-size: 0;
+                margin-bottom: 10px;
+                padding-left: 60px;
+                min-height: 68px;
+                .rongcloud-Message-user{
+                    display: inline-block;
+                    vertical-align: top;
+                    font-size: 14px;
+                    position: absolute;
+                    left: 3px;
+                   
+                    img{
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 100%;
+                    }
+                    cite{
+                        position: absolute;
+                        left: 60px;
+                        top: -2px;
+                        width: 500px;
+                        line-height: 24px;
+                        font-size: 12px;
+                        white-space: nowrap;
+                        color: #999;
+                        text-align: left;
+                        font-style: normal;
+                    }
+                }
+                .rongcloud-Message-body {
+                    padding-top: 25px;
+                   
+                }
+                .rongcloud-Message-text {
+                    display: inline-block;
+                    vertical-align: top;
+                    font-size: 14px;
+                    position: relative;
+                    line-height: 22px;
+                    padding: 8px 15px;
+                    background-color: #e2e2e2;
+                    border-radius: 3px;
+                    color: #333;
+                    word-break: break-all;
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        left: -10px;
+                        top: 13px;
+                        width: 0;
+                        height: 0;
+                        border: 10px dashed transparent;
+                        overflow: hidden;
+                        border-top-style: solid;
+                        border-top-color: #e2e2e2;
+                    }
+                }
+                &.rongcloud-Message-send{
+                    text-align: right;
+                    padding-left: 0;
+                    padding-right: 60px;
+                    .rongcloud-Message-body {
+                        float: right;
+                    }
+                    .rongcloud-Message-user{
+                        left: auto;
+                        right: 3px;
+                        cite{
+                            left: auto;
+                            right: 60px;
+                            text-align: right;
+                            i{
+                                padding-left: 0;
+                                padding-right: 15px;
+                            }
+                            span{
+                                float: right;
+                            }
+                        }
+                    } 
+                    .rongcloud-Message-text{
+                        margin-left: 0;
+                        text-align: left;
+                        background-color: #28b779;
+                        color: #fff;
+                        &::after{
+                            left: auto;
+                            right: -10px;
+                            border-top-color: #28b779;
+                        }
+                    }
+                   
+                }
+            }
+        }
+
+        .rongcloud-rong-footer{
+            border-top: 1px solid #F1F1F1;
+            .rongcloud-footer-tools{
+                line-height: 22px;
+                height: 22px;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+                .rongcloud-MessageForm-tool{
+                    position: relative;
+                    margin-right: 15px;
+                    float: left;
+                }
+            }
+            .rongcloud-footer-textarea{
+                margin-left: 10px;
+                textarea {
+                    display: block;
+                    width: 100%;
+                    padding: 5px 0 0 0;
+                    height: 58px;
+                    line-height: 20px;
+                    border: none;
+                    overflow: auto;
+                    resize: none;
+                    background: none;
+                }
+            }
+            .rongcloud-MessageForm-bottom{
+                position: relative;
+                height: 46px;
+                .rongcloud-MessageForm-send{
+                    position: absolute;
+                    right: 15px;
+                    top: 3px;
+                    height: 32px;
+                    line-height: 32px;
+                    font-size: 0;
+                    cursor: pointer;
+                    .rongcloud-MessageForm-send-btn{
+                        display: inline-block;
+                        vertical-align: top;
+                        font-size: 14px;
+                        line-height: 32px;
+                        margin-left: 5px;
+                        padding: 0 20px;
+                        background-color: #28b779;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+
+
+

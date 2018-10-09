@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { message,Tag,Badge,Icon,Tooltip} from 'antd';
+import Highlight from 'react-highlight'
 import QueueAnim from 'rc-queue-anim'
 import * as API from '../../api/api'
-import './index.less';
+
 import Comment from '../../components/comment';
 import XLayout from '../../components/layout';
 import { time } from '../../utils'
+
+import './index.less';
+import 'highlight.js/styles/atom-one-dark.css';
 
 export default class Article extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            article: {
-
-            },
+            article: {},
             isFollow:false,
             isLike:false,
             isCollect:false
         }
-
     }
     componentDidMount () {
         this.getData()
@@ -102,14 +103,19 @@ export default class Article extends Component {
                                 <div className="article_head">
                                     <h1 className="title">{this.state.article.title}</h1>
                                     <div className="article_info">
-                                        <Tooltip title={'最后编辑于'+time(this.state.article.update_time,'YYYY-MM-DD HH:mm:ss')}><span>发布于{time(this.state.article.create_time)}</span> </Tooltip>
-                                        <span> 作者 </span>
+                                        <Tooltip title={'最后编辑于'+time(this.state.article.update_time,'YYYY-MM-DD HH:mm:ss')}><span>发布于 {time(this.state.article.create_time)}</span> </Tooltip>
+                                        <span> 作者：</span>
                                         <span>{this.state.article.author_name}</span>
-                                        <span>{this.state.isFollow?(<Tag onClick={this.toggleFollow}>已关注</Tag>):(<Tooltip title="关注作者可以查看更多的文章"><Tag onClick={this.toggleFollow} color="red">关注</Tag></Tooltip>)}</span>
+                                        <span> {this.state.isFollow?(<Tag onClick={this.toggleFollow}>已关注</Tag>):(<Tooltip title="关注作者可以查看更多的文章"><Tag onClick={this.toggleFollow} color="red">关注</Tag></Tooltip>)}</span>
                                     </div>
                                 </div>
                                 <div className="article_body">
-                                    <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} />
+                                    <div className="markdown-body">
+                                        <Highlight innerHTML={true}>
+                                            {this.state.article.content}
+                                        </Highlight>
+                                    </div>
+                                    {/* <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} /> */}
                                 </div>
                                 <div className="like_collect">
                                     <Badge count={this.state.article.like_num}>

@@ -295,9 +295,13 @@ export default class Comment extends Component {
                         </ul>    
                     </div>
                 </Spin>
-                <div className="pagination">
-                    <Pagination current={this.state.page} size="small" onChange={this.onPageChange} pageSize={this.state.limit} total={this.state.total}></Pagination>
-                </div>
+                {
+                    this.state.dataList.length>0?(
+                        <div className="pagination">
+                            <Pagination current={this.state.page} size="small" onChange={this.onPageChange} pageSize={this.state.limit} total={this.state.total}></Pagination>
+                        </div>
+                    ):''
+                }
              </div>
            
         );

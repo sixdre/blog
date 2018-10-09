@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { Spin } from 'antd';
+import { Spin,Tag } from 'antd';
 import './index.less';
 import { fromNow } from '../../utils'
 import { connect } from 'react-redux'
@@ -64,6 +64,10 @@ export default class ArticleList extends Component {
         this.props.updatePv(id)
     }
     render() {
+        function transNum(num){
+            return num/1000>1?(num/1000).toFixed(1)+'k':num;
+        }
+
         let loading = this.props.loading?this.props.loading:false;
         let PostList = ()=>{
             if(!loading){
@@ -79,8 +83,9 @@ export default class ArticleList extends Component {
                             <div className="post_header">
                                 <Link to={'/article/' + item._id} onClick={() => { this.updatePv(item._id) }}>
                                     <h1 className="topic_title">
-                                        {item.title}
+                                        {item.top ? <i className="post_badges">置顶</i>:''} 
                                         {item.good ? <i className="post_badges">精华</i>:''} 
+                                        {item.title}
                                     </h1>
                                 </Link>
                             </div>
@@ -96,9 +101,9 @@ export default class ArticleList extends Component {
                                 <div className="topic_info">
                                     <Link to={'/users/'+item.author._id+'/info'}><img className="avatar" width="25" height="25" src={item.author.avatar} title={item.author.username} alt={item.author.username}/></Link>    
                                     <span> 发布于：{fromNow(item.create_time)}</span>
-                                    <span> 分类：{item.category_name} </span>
-                                    <span> 浏览：{item.pv_num}</span>
-                                    <span> 评论：{item.cmt_num}</span>
+                                    <span> 分类：<Tag>{item.category_name} </Tag></span>
+                                    <span> 浏览：{transNum(item.pv_num)}</span>
+                                    <span> 评论：{transNum(item.cmt_num)}</span>
                                     {this.props.showLike ? <span className="handle_span" onClick={() => { this.handleFunc('like',item) }}>取消喜欢</span> : null}
                                     {this.props.showCollect ? <span className="handle_span" onClick={() => { this.handleFunc('collect',item) }}>取消收藏</span> : null}
                                     {this.props.showEdit ? <span className="handle_span" onClick={() => { this.handleFunc('edit',item) }} >编辑</span> : null}

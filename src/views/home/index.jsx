@@ -27,10 +27,12 @@ export default class Home extends Component {
         super(props);
         this.state = {
             nomore: false,
-            loading: false
+            loading: false,
+            categories:[],
+            categoryId:''
         };
     }
-    getArticles(page = 1) {
+    getArticles(page = 1,categoryId) {
         this.setState({
             loading:true
         })
@@ -38,17 +40,18 @@ export default class Home extends Component {
         if (timer) {
             clearTimeout(timer)
         }
-        API.getArticleList({ limit: 10, page }).then(res => {
+        API.getArticleList({ limit: 10, page,categoryId }).then(res => {
             if (res.data.code === 1) {
-                if (res.data.data.length > 0) {
+                // if (res.data.data.length > 0) {
                     let articles = res.data.data;
                     if (page === 1) {
+                        let nomore = !res.data.data.length;
                         this.props.storeArticles({
                             articles,
                             page
                         })
                         this.setState({
-                            nomore: false,
+                            nomore,
                             loading:false
                         })
                     } else {
@@ -64,18 +67,40 @@ export default class Home extends Component {
                         },200)
                     }
                   
-                } else {
-                    timer = setTimeout(() => {
-                        this.setState({
-                            nomore: true,
-                            loading:false
-                        })
-                    },200)
-                }
+                // } 
+                // else {
+                //     timer = setTimeout(() => {
+                //         this.setState({
+                //             nomore: true,
+                //             loading:false
+                //         })
+                //     },200)
+                // }
                 
             }
            
         });
+    }
+
+    getCategories(){
+        API.getCateAndTag().then(res => {
+            if (res.data.code === 1) {
+                let categories = res.data.data.categories;
+                this.setState({
+                    categories
+                })
+            }
+        })
+    }
+
+    handleChangeCategory(id){
+        this.setState({
+            nomore: false,
+            loading: false,
+            categoryId:id
+        },()=>{
+            this.getArticles(1,id)
+        })
     }
 
     loadMore=()=> {
@@ -100,6 +125,7 @@ export default class Home extends Component {
         document.body.scrollTop = 0;  //非ie
     }
     componentDidMount() {
+        this.getCategories()
         if (!this.props.articles.length){
              this.getArticles();
         }
@@ -108,15 +134,29 @@ export default class Home extends Component {
 
     render() {
         const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+        const {categories,categoryId} = this.state;
+        function checkCateActive(cateId){
+            return String(categoryId)==String(cateId)?'tab_item active':'tab_item'
+        }
         return (
             <XLayout>
                 <div className="container">
                     <div className="home">
                         <Row>
                             <Col span={16}>
+                                <div className="cate_tab">
+                                    <span onClick={()=>{this.handleChangeCategory('')}} className={checkCateActive('')}>全部</span>
+                                    {
+                                        categories.map((item, index) => {
+                                            return (
+                                                <span onClick={()=>{this.handleChangeCategory(item._id)}} className={checkCateActive(item._id)} key={item._id}>{item.name}</span>
+                                            )
+                                        })
+                                    }
+                                </div>
                                 <ArticleList data={this.props.articles} empty=' '/>
                                 <div style={{textAlign: 'center',height:'30px',marginTop:'30px' }}><Spin indicator={antIcon} tip="卖力的加载中..." spinning={this.state.loading} size="large"/></div>
-                                <p className="nomore" >{this.state.nomore?'小站没有很多文章了^_^':''}</p>
+                                <p className="nomore" >{this.state.nomore?'小站没有更多文章了^_^':''}</p>
                             </Col>
                             <Col span={7} offset={1}>aside</Col>
                         </Row>    
