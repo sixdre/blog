@@ -59,7 +59,7 @@ export default class Commentdata extends Component {
                     <div className="comment-body">
                         <div className="comment-content">
                             {data.to?(<Popover content={userCard(data.to)}><span className="reply_user">{`@${data.to.username}`}</span></Popover>):null}
-                            {data.content}
+                            <pre>{data.content}</pre>
                         </div>
                     </div>
                     {
@@ -93,7 +93,7 @@ export default class Commentdata extends Component {
                                                     <div className="comment-body">
                                                         <div className="comment-content">
                                                            {data.from?(<Popover content={userCard(data.from)}><span className="reply_user">{`@${data.from.username}`}</span></Popover>):null}    
-                                                           {item.content}
+                                                           <pre>{item.content}</pre>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -83,6 +83,8 @@ export default class Comment extends Component {
     }
     closeControl = () => {
         this.setState({
+            cId: '',
+            toId: '',
             showControl:false
         })
     }

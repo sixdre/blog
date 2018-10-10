@@ -29,10 +29,10 @@ export default class Home extends Component {
             nomore: false,
             loading: false,
             categories:[],
-            categoryId:''
+            activeTab:''
         };
     }
-    getArticles(page = 1,categoryId) {
+    getArticles(page = 1,categoryId,type) {
         this.setState({
             loading:true
         })
@@ -40,7 +40,7 @@ export default class Home extends Component {
         if (timer) {
             clearTimeout(timer)
         }
-        API.getArticleList({ limit: 10, page,categoryId }).then(res => {
+        API.getArticleList({ limit: 10, page,categoryId,type }).then(res => {
             if (res.data.code === 1) {
                 // if (res.data.data.length > 0) {
                     let articles = res.data.data;
@@ -93,13 +93,27 @@ export default class Home extends Component {
         })
     }
 
-    handleChangeCategory(id){
+    handleChangeTab(type){
         this.setState({
             nomore: false,
             loading: false,
-            categoryId:id
+            activeTab:type
         },()=>{
-            this.getArticles(1,id)
+            if(type=='good'){
+                this.getArticles(1,'','good')
+                return ;
+            }
+            this.getArticles(1,type)
+        })
+    }
+
+    handleGoodArticle(){
+        this.setState({
+            nomore: false,
+            loading: false,
+            categoryId:''
+        },()=>{
+            this.getArticles(1,'','good')
         })
     }
 
@@ -134,9 +148,9 @@ export default class Home extends Component {
 
     render() {
         const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
-        const {categories,categoryId} = this.state;
-        function checkCateActive(cateId){
-            return String(categoryId)==String(cateId)?'tab_item active':'tab_item'
+        const {categories,activeTab} = this.state;
+        function checkTabActive(type){
+            return activeTab == type?'tab_item active':'tab_item'
         }
         return (
             <XLayout>
@@ -145,11 +159,12 @@ export default class Home extends Component {
                         <Row>
                             <Col span={16}>
                                 <div className="cate_tab">
-                                    <span onClick={()=>{this.handleChangeCategory('')}} className={checkCateActive('')}>全部</span>
+                                    <span onClick={()=>{this.handleChangeTab('')}} className={checkTabActive('')}>全部</span>
+                                    <span onClick={()=>{this.handleChangeTab('good')}} className={checkTabActive('good')}>精华</span>
                                     {
                                         categories.map((item, index) => {
                                             return (
-                                                <span onClick={()=>{this.handleChangeCategory(item._id)}} className={checkCateActive(item._id)} key={item._id}>{item.name}</span>
+                                                <span onClick={()=>{this.handleChangeTab(item._id)}} className={checkTabActive(item._id)} key={item._id}>{item.name}</span>
                                             )
                                         })
                                     }

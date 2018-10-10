@@ -19,7 +19,6 @@ const Article = (state = initialState, action) => {
     switch (action.type) {
         case STORE_ARTICLES:
             let articles = []
-            console.log(action.data)
             if(action.data.page==1){
                 articles  = [...action.data.articles];
             }else{
