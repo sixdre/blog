@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import history from './history';
+import { connect } from 'react-redux'
 import 'antd/dist/antd.less';
 import './styles/reset.css';
 import './styles/base.less';
@@ -16,17 +17,17 @@ import Regist from './views/auth/regist';
 import NoFound from './views/auth/404';
 import Chat from './views/chat/index';
 
-class App extends Component {
 
+class App extends Component {
   render() {
     return (
         <Router history={history}>
             <Switch>
                 <Route exact path='/' component={Home} />    
                 <Route path='/article/:id' component={Article} />
-				<Route path='/write' component={Write} />
-				<Route path='/users/:id' component={Personal} />
-				<Route path='/setting' component={Setting} />
+                <Route path='/write' component={Write} />
+                <Route path='/users/:id' component={Personal} />
+                <Route path='/setting' component={Setting} />
                 <Route path='/chat' component={Chat} />
                 <Route path='/regist' component={Regist} />
                 <Route path='/login' component={Login} />

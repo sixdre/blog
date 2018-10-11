@@ -1,0 +1,271 @@
+.form-group {
+    margin-bottom: 15px;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    // display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10px;
+    margin-top: 200px !important;
+}
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    .close-button {
+        background: #fff none repeat scroll 0 0;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-font-size: 21px;
+        -moz-font-size: 21px;
+        -ms-font-size: 21px;
+        font-size: 21px;
+        height: 22px;
+        opacity: 1;
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        width: 22px;
+        z-index: 9;
+        box-shadow: 2px 2px 4px #000;
+        line-height: 22px;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+    }
+    .modal-body{
+        position: relative;
+        padding:0 15px;
+        .form-wrapper{
+            // margin-top: 0px;
+            margin: 0 -15px;
+            .form-column-wrap-image{
+                background-image: url(../../images/login_modal.jpg);
+                padding: 20px;
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                &::after{
+                    background: #992168;
+                    content: "";
+                    height: 100%;
+                    left: 0;
+                    opacity: 0.86;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                }
+            }
+            .form-inner-wrapper {
+                z-index: 99;
+                position: relative;
+                color: #fff;
+                h2 {
+                    -webkit-font-size: 45px;
+                    -moz-font-size: 45px;
+                    -ms-font-size: 45px;
+                    font-size: 45px;
+                    text-transform: capitalize;
+                    color: #fff;
+                }
+                p {
+                    margin-top: 25px;
+                }
+                .temp-anchor-wrap {
+                    text-align: center;
+                    margin-top: 27px;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        .temp-form-column-wrap {
+            padding-top: 20px;
+            padding-left: 15px;
+            padding-right: 15px;
+            h2 {
+                margin-bottom: 30px;
+                color: #992168;
+                font-size: 30px;
+            }
+            .temp-login-button-wrap {
+                margin-top: 20px;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .temp-form-button {
+                display: inline-block;
+                padding: 6px 12px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                background-image: none;
+                color: #fff;
+                background-color: #992168;
+                border: 0 !important;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                -ms-border-radius: 0;
+                border-radius: 0;
+                position: relative;
+                transform: perspective(1px) translateZ(0px);
+                transition-duration: 0.3s;
+                transition-property: color;
+                box-shadow: 1px 3px 6px #bababa;
+            }
+        }
+        .temp-span-wrap {
+            display: inline-block;
+            margin: 9px 0;
+            position: relative;
+            vertical-align: top;
+            width: 100%;
+            z-index: 1;
+            .temp_input_field {
+                border: medium none;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                -ms-border-radius: 0;
+                border-radius: 0;
+                color: #000;
+                display: block;
+                float: right;
+                -webkit-font-size: 16px;
+                -moz-font-size: 16px;
+                -ms-font-size: 16px;
+                font-size: 16px;
+                padding-left: 0;
+                position: relative;
+                width: 100%;
+                padding: 0.4em 0.25em;
+                width: 100%;
+                background: transparent;
+                
+            }
+            .temp_input_label {
+                position: absolute;
+                width: 100%;
+                text-align: left;
+                pointer-events: none;
+                -moz-user-select: none;
+                color: #6a7989;
+                display: inline-block;
+                float: right;
+                -webkit-font-size: 70.25%;
+                -moz-font-size: 70.25%;
+                -ms-font-size: 70.25%;
+                font-size: 70.25%;
+                font-weight: bold;
+                &::after {
+                    bottom: 0;
+                    background: #992168;
+                    content: "";
+                    height: 2px;
+                    left: 0;
+                    position: absolute;
+                    transition: transform 0.3s ease 0s;
+                    width: 100%;
+                    z-index: -1;
+                }
+                .temp_input_label-content {
+                    color: #cd559c;
+                    display: block;
+                    -webkit-font-size: 12px;
+                    -moz-font-size: 12px;
+                    -ms-font-size: 12px;
+                    font-size: 12px;
+                    font-weight: 500;
+                    padding-bottom: 11px;
+                    padding-top: 11px;
+                    position: relative;
+                    width: 100%;
+                    -webkit-transition: -webkit-transform 0.3s;
+                    transition: transform 0.3s;
+                }
+            }
+
+            &.input--filled{
+                .temp_input_label{
+                    &::before{
+                        -webkit-transform: translate3d(0, -0.5em, 0);
+                        -moz-transform: translate3d(0, -0.5em, 0);
+                        -ms-transform: translate3d(0, -0.5em, 0);
+                        transform: translate3d(0, -0.5em, 0);
+                    }
+                    .temp_input_label-content {
+                        -webkit-transform: translate3d(0, -90%, 0);
+                        -moz-transform: translate3d(0, -90%, 0);
+                        -ms-transform: translate3d(0, -90%, 0);
+                        transform: translate3d(0, -90%, 0);
+                    }
+                }
+            } 
+        }
+        
+    }
+}
+
+
+
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+    &.in {
+        opacity: 1;
+    }
+}
+
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.modal.fade .modal-dialog {
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    -webkit-transform: translate(0, -25%);
+    -ms-transform: translate(0, -25%);
+    -o-transform: translate(0, -25%);
+    transform: translate(0, -25%);
+}
+
+@media (min-width: 768px){
+    .modal-dialog {
+        width: 600px;
+        margin: 30px auto;
+    }
+}

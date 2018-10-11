@@ -2,7 +2,7 @@ import {
     LOGIN,
     LOGOUT,
     SET_USERNAME,
-    SET_AVATAR
+    SET_AVATAR,
 } from '../actions/userActions'
 
 import $storage from '../../services/storage'
@@ -13,7 +13,7 @@ const initialState = {
     username: $storage.user.getUserName() || '',
     userId: $storage.user.getUserId() || '',
     token: $storage.user.getToken() || '',
-    avatar: $storage.user.getAvatar() || ''
+    avatar: $storage.user.getAvatar() || '',
 }
 
 const user = (state = initialState, action) => {
