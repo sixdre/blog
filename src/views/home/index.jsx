@@ -161,7 +161,7 @@ export default class Home extends Component {
                                 <div className="tabCard">
                                     <ul className="tabList">
                                         <li className="tabItem">
-                                            <a onClick={()=>{this.handleChangeTab('')}} className={checkTabActive('')}>全部</a>
+                                            <a onClick={()=>{this.handleChangeTab('')}} className={checkTabActive('')}>推荐</a>
                                         </li>
                                         <li className="tabItem">
                                             <a onClick={()=>{this.handleChangeTab('good')}} className={checkTabActive('good')}>精华</a>

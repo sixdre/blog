@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { message,Tag,Badge,Icon,Tooltip} from 'antd';
+import { message,Tag,Badge,Icon,Tooltip,Row,Col} from 'antd';
 import Highlight from 'react-highlight'
 import QueueAnim from 'rc-queue-anim'
 import * as API from '../../api/api'
@@ -97,43 +97,49 @@ export default class Article extends Component {
         return (
             <XLayout>
                 <div className="container">
-                    <div className="article_wrapper">
-                        <QueueAnim >    
-                            <article className="article" key="a">
-                                <div className="article_head">
-                                    <h1 className="title">{this.state.article.title}</h1>
-                                    <div className="article_info">
-                                        <Tooltip title={'最后编辑于'+time(this.state.article.update_time,'YYYY-MM-DD HH:mm:ss')}><span>发布于 {time(this.state.article.create_time)}</span> </Tooltip>
-                                        <span> 作者：</span>
-                                        <span>{this.state.article.author_name}</span>
-                                        <span> {this.state.isFollow?(<Tag onClick={this.toggleFollow}>已关注</Tag>):(<Tooltip title="关注作者可以查看更多的文章"><Tag onClick={this.toggleFollow} color="red">关注</Tag></Tooltip>)}</span>
+                    <div className="view">
+                        <Row>
+                            <Col span={16}>
+                                <div className="article_wrapper">
+                                    <QueueAnim >    
+                                        <article className="article" key="a">
+                                            <div className="article_head">
+                                                <h1 className="title">{this.state.article.title}</h1>
+                                                <div className="article_info">
+                                                    <Tooltip title={'最后编辑于'+time(this.state.article.update_time,'YYYY-MM-DD HH:mm:ss')}><span>发布于 {time(this.state.article.create_time)}</span> </Tooltip>
+                                                    <span> 作者：</span>
+                                                    <span>{this.state.article.author_name}</span>
+                                                    <span> {this.state.isFollow?(<Tag onClick={this.toggleFollow}>已关注</Tag>):(<Tooltip title="关注作者可以查看更多的文章"><Tag onClick={this.toggleFollow} color="red">关注</Tag></Tooltip>)}</span>
+                                                </div>
+                                            </div>
+                                            <div className="article_body">
+                                                <div className="markdown-body">
+                                                    <Highlight innerHTML={true}>
+                                                        {this.state.article.content}
+                                                    </Highlight>
+                                                </div>
+                                                {/* <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} /> */}
+                                            </div>
+                                            <div className="like_collect">
+                                                <Badge count={this.state.article.like_num}>
+                                                    <a onClick={this.toggleLike}>{this.state.isLike? <Tooltip title="已赞"><Icon type="heart" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Tooltip title="喜欢就点赞把"><Icon type="heart-o" style={{fontSize: 20,color:'red'}}/></Tooltip>}</a>  
+                                                </Badge>
+                                                <Badge count={this.state.article.collect_num}>
+                                                    <a onClick={this.toggleCollect}>{this.state.isCollect?<Tooltip title="已收藏"><Icon type="star" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Tooltip title="点击收藏"><Icon type="star-o" style={{fontSize: 20,color:'red'}}/></Tooltip>}</a>  
+                                                </Badge>
+                                            </div>
+                                        </article>
+                                    </QueueAnim>
+                                    <div  >
+                                        {
+                                            this.state.article.allow_comment === true ?
+                                                (<Comment pv={pv} articleId={this.props.match.params.id} />) : <div className="not_allow_cmt">该文章暂时无法评论</div>
+                                        }
                                     </div>
-                                </div>
-                                <div className="article_body">
-                                    <div className="markdown-body">
-                                        <Highlight innerHTML={true}>
-                                            {this.state.article.content}
-                                        </Highlight>
-                                    </div>
-                                    {/* <div className="markdown-body" dangerouslySetInnerHTML={{ __html: this.state.article.content }} /> */}
-                                </div>
-                                <div className="like_collect">
-                                    <Badge count={this.state.article.like_num}>
-                                        <a onClick={this.toggleLike}>{this.state.isLike? <Tooltip title="已赞"><Icon type="heart" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Tooltip title="喜欢就点赞把"><Icon type="heart-o" style={{fontSize: 20,color:'red'}}/></Tooltip>}</a>  
-                                    </Badge>
-                                    <Badge count={this.state.article.collect_num}>
-                                        <a onClick={this.toggleCollect}>{this.state.isCollect?<Tooltip title="已收藏"><Icon type="star" style={{fontSize: 20,color:'red'}}/></Tooltip>:<Tooltip title="点击收藏"><Icon type="star-o" style={{fontSize: 20,color:'red'}}/></Tooltip>}</a>  
-                                    </Badge>
-                                </div>
-                            </article>
-                        </QueueAnim>
-                        <div  >
-                            {
-                                this.state.article.allow_comment === true ?
-                                    (<Comment pv={pv} articleId={this.props.match.params.id} />) : <div className="not_allow_cmt">该文章暂时无法评论</div>
-                            }
-                        </div>
-                    </div>    
+                                </div>    
+                            </Col>
+                        </Row>
+                    </div>
                 </div>
             </XLayout>
         );

@@ -33,6 +33,7 @@ class WriteComponent extends Component {
             content: '',
             articleId: '',
             title: '',
+            abstract:'',
             category_name:'',
             has_draft: false,
             isUpdate: false,
@@ -66,6 +67,7 @@ class WriteComponent extends Component {
                     articleId: res.data.data._id,
                     title: res.data.data.title,
                     content: res.data.data.content,
+                    abstract:res.data.data.abstract,
                     category_name: res.data.data.category_name,
                     allow_comment:res.data.data.allow_comment,
                     isUpdate:true
@@ -83,6 +85,7 @@ class WriteComponent extends Component {
                         articleId: data._id,
                         title: data.title,
                         content:data.content,
+                        abstract:data.abstract,
                         has_draft:res.data.has_draft
                     })
                     notification['warning']({
@@ -296,7 +299,9 @@ class WriteComponent extends Component {
                             </Col>
                             <Col span={24}> 
                                 <FormItem style={{marginBottom:'10px'}}>
-                                    {getFieldDecorator('abstract', )(
+                                    {getFieldDecorator('abstract', {
+                                        initialValue: this.state.abstract,
+                                    })(
                                         <Input placeholder="文章简介"/>
                                     )}
                                 </FormItem>
