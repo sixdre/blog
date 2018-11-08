@@ -208,7 +208,7 @@
 
 
 .comment-item {
-    padding: 15px 0 5px;
+    padding: 12px 0 0 0;
     border-top: 1px solid #f0f0f0;
     :last-child {
         border-bottom: 0;
@@ -247,27 +247,17 @@
             color: #828fa0;
             margin-top: 5px;
         }
-        .comment-actions{
-            float: right;
-            font-style: normal;
-            font-weight: normal;
-            a {
-                padding-right: 10px;
-                &.del {
-                    display: none;
-                    color: #969696;
-                }
-            }
-            .ant-badge {
-                padding-right: 10px;
-            }
-            .pipe {
-                margin: 0 10px 0 0;
-                color: #CCC;
-            }
-            .reply_a {
-                cursor: pointer;
-                /* background: url(../images/cts.png) no-repeat 0 -20px; */
+        
+       
+    }
+    .comment-actions{
+        font-style: normal;
+        font-weight: normal;
+        a {
+            padding-right: 10px;
+            &.del {
+                display: none;
+                color: #969696;
             }
         }
         &:hover{
@@ -275,15 +265,27 @@
                 display: inline;
             }
         }
+        .ant-badge {
+            padding-right: 10px;
+        }
+        .pipe {
+            margin: 0 10px 0 0;
+            color: #CCC;
+        }
+        .reply_a {
+            cursor: pointer;
+            /* background: url(../images/cts.png) no-repeat 0 -20px; */
+        }
     }
     .comment-body {
-        margin-top: 8px;
-        margin-bottom: 12px;
+        // margin-top: 8px;
+        padding-bottom: 12px;
         .comment-content {
             font-size: 14px;
             color: #323433;
             word-wrap: break-word;
             line-height: 1.8;
+            padding: 10px 0;
             .reply_user {
                 margin-right: 10px;
                 padding: 2px 4px;

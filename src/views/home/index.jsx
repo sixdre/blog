@@ -150,25 +150,34 @@ export default class Home extends Component {
         const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
         const {categories,activeTab} = this.state;
         function checkTabActive(type){
-            return activeTab == type?'tab_item active':'tab_item'
+            return activeTab == type?'tabLink active':'tabLink'
         }
         return (
             <XLayout>
                 <div className="container">
-                    <div className="home">
+                    <div className="view home">
                         <Row>
                             <Col span={16}>
-                                <div className="cate_tab">
-                                    <span onClick={()=>{this.handleChangeTab('')}} className={checkTabActive('')}>全部</span>
-                                    <span onClick={()=>{this.handleChangeTab('good')}} className={checkTabActive('good')}>精华</span>
-                                    {
-                                        categories.map((item, index) => {
-                                            return (
-                                                <span onClick={()=>{this.handleChangeTab(item._id)}} className={checkTabActive(item._id)} key={item._id}>{item.name}</span>
-                                            )
-                                        })
-                                    }
+                                <div className="tabCard">
+                                    <ul className="tabList">
+                                        <li className="tabItem">
+                                            <a onClick={()=>{this.handleChangeTab('')}} className={checkTabActive('')}>全部</a>
+                                        </li>
+                                        <li className="tabItem">
+                                            <a onClick={()=>{this.handleChangeTab('good')}} className={checkTabActive('good')}>精华</a>
+                                        </li>
+                                        {
+                                            categories.map((item, index) => {
+                                                return (
+                                                    <li className="tabItem" key={item._id}>
+                                                        <a onClick={()=>{this.handleChangeTab(item._id)}} className={checkTabActive(item._id)} >{item.name}</a>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
                                 </div>
+                              
                                 <ArticleList data={this.props.articles} empty=' '/>
                                 <div style={{textAlign: 'center',height:'30px',marginTop:'30px' }}><Spin indicator={antIcon} tip="卖力的加载中..." spinning={this.state.loading} size="large"/></div>
                                 <p className="nomore" >{this.state.nomore?'小站没有更多文章了^_^':''}</p>

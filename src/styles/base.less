@@ -1,4 +1,9 @@
 body{
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
+    font-size: 15px;
+    color: #1a1a1a;
+    background: #f6f6f6;
+    -webkit-tap-highlight-color: rgba(26,26,26,0);
     overflow-y: scroll;
 }
 #root,#app{
@@ -13,6 +18,9 @@ body{
 .container{
     width: 960px;
     margin: 0 auto;
+    &>.view{
+        margin:10px auto;
+    }
 }
 .pagination{
     margin-top: 30px;

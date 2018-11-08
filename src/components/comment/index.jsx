@@ -90,7 +90,8 @@ export default class Comment extends Component {
     }
     //评论回复
     handleReply = (item,cId) => {
-        fcontnet = this.refs.content.value = '回复@' + item.from.username + ' ';
+        let placeholder = '回复@' + item.from.username + ' ';
+        this.refs.content.setAttribute('placeholder',placeholder)
         this.setState({
             showControl:true,
             cId: cId,
@@ -106,8 +107,9 @@ export default class Comment extends Component {
             toId: this.state.toId
         }
         if (type === 'reply') {
-            content = content.replace(fcontnet, '');
             data.isM = this.state.isM;
+        }else{
+            this.refs.content.setAttribute('placeholder','来发表一下你的看法吧')
         }
         if (!content || !content.trim().length) {
              return message.error('您忘记输入内容了');

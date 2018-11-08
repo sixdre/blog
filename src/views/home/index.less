@@ -13,3 +13,37 @@
         }
     }
 }
+.tabCard{
+    width: 100%;
+    border-radius: 2px;
+    background: #fff;
+    border-bottom: 1px solid #f0f2f7;
+    // overflow-x: scroll;
+    // overflow-y: hidden;
+    .tabItem {
+        display: inline-block;
+        padding: 0 20px;
+    }
+    .tabLink {
+        position: relative;
+        display: inline-block;
+        padding: 18px 0;
+        font-size: 16px;
+        line-height: 22px;
+        color: #1a1a1a;
+        text-align: center;
+        &.active {
+            font-weight: 600;
+            font-synthesis: style;
+            &:after {
+                position: absolute;
+                right: 0;
+                bottom: -1px;
+                left: 0;
+                height: 3px;
+                background: #0084ff;
+                content: "";
+            }
+        }
+    }
+}
