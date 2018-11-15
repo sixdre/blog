@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import history from './history';
-import { connect } from 'react-redux'
 import 'antd/dist/antd.less';
 import './styles/reset.css';
 import './styles/base.less';

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { Dropdown } from 'antd';
+import { Dropdown,Icon } from 'antd';
 import Nav from '../nav/';
 import './index.less';
 // import logoSrc from "../../images/logo.png"
@@ -60,29 +60,28 @@ export default class headerTop extends Component {
 					<div className="header_right">
 						{
 							this.props.username ? (
-								<div>
-									<div className="user" onClick={(e) => { this.toggleUserMenu(e) }}>
-										<div className="dropdown">
-											<span className="user_avatar">
-												<img className="avatar" src={this.props.avatar} alt={this.props.username} />
-											</span>	
-										</div>
-										{this.state.showMenu ? (
-											<ul className="dropdown_menu">
-												<li><Link to={'/users/'+userId+'/info'}>主页</Link></li>	
-												<li><Link to="/setting">设置</Link></li>
-												<li><a onClick={this.logout}>退出</a></li>
-											</ul>
-										):null}
+								<div className="user" onClick={(e) => { this.toggleUserMenu(e) }}>
+									<div className="dropdown">
+										<span className="avatar">
+											<img src={this.props.avatar} alt={this.props.username} />
+										</span>	
 									</div>
-									<Link to="/write">
+									{this.state.showMenu ? (
+										<ul className="dropdown_menu">
+											<li><Link to={'/users/'+userId+'/info'}><Icon type="user" /> 主页</Link></li>	
+											<li><Link to="/setting"><Icon type="setting" /> 设置</Link></li>
+											<li><a onClick={this.logout}><Icon type="logout" /> 退出</a></li>
+										</ul>
+									):null}
+
+									<Link className="btn write_btn" to="/write">
 										写文章
 									</Link>	
-								</div>	
+								</div>
 							) : (
-								<div>
-									<Link to="/regist">注册</Link>		
-									<Link to="/login">登录</Link>	
+								<div className="userNoLogin">
+									<Link className="btn log_in" to="/login">登录</Link>	
+									<Link className="btn sign_up" to="/regist">注册</Link>		
 								</div>	
 							)
 						}	
