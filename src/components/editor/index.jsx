@@ -15,6 +15,7 @@ export default class XEditor extends Component {
     ready() {
         var ctx = this;		
         let e = this.refs['markDown_editor'];
+        
         var mditor = this.mditor = window.Mditor.fromTextarea(e);
         mditor.on('ready',()=>{
             mditor.height = '500px';

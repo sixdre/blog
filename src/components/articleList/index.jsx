@@ -6,20 +6,7 @@ import { fromNow } from '../../utils'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-function mapStateToProps (state) {
-    return {
-        
-    }
-}
-function mapDispatchToProps(dispatch) {
-  return {
-      updatePv: (id) => dispatch({ type: 'UPDATE_PV',id }),
-  }
-}
-
-@connect(mapStateToProps,mapDispatchToProps)
 export default class ArticleList extends Component {
-
     static propTypes = {
         data: PropTypes.array,
         showLike:PropTypes.bool,
@@ -56,12 +43,6 @@ export default class ArticleList extends Component {
                 this.props.delFunc(item)
             }
         }
-    }
-    componentDidMount(){
-        console.log(this.props)
-    }
-    updatePv=(id)=> {
-        this.props.updatePv(id)
     }
     render() {
         function transNum(num){
